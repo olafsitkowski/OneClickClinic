@@ -6,14 +6,16 @@
     <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="email" appearance="outline" color="primary">
         <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email">
+        <input type="email" matInput formControlName="email" />
       </mat-form-field>
       <mat-form-field class="password" appearance="outline">
         <mat-label>Haslo</mat-label>
-        <input type="password" matInput formControlName="password">
+        <input type="password" matInput formControlName="password" />
       </mat-form-field>
       <div class="button">
-        <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Login</button>
+        <button mat-raised-button type="submit" [disabled]="loginForm.invalid">
+          Login
+        </button>
       </div>
     </form>
   </div>

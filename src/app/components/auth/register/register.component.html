@@ -1,1 +1,57 @@
-<p>register works!</p>
+<div class="login-page">
+  <div class="box">
+    <div class="title">
+      <span>Register</span>
+    </div>
+    <form [formGroup]="registerForm" class="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="email" appearance="outline" color="primary">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field class="password" appearance="outline">
+        <mat-label>Haslo</mat-label>
+        <input type="password" matInput formControlName="password" autocomplete="on"/>
+      </mat-form-field>
+      <mat-form-field class="name" appearance="outline">
+        <mat-label>name</mat-label>
+        <input type="text" matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="street" appearance="outline">
+        <mat-label>surname</mat-label>
+        <input type="text" matInput formControlName="surname" />
+      </mat-form-field>
+      <mat-form-field class="pesel" appearance="outline">
+        <mat-label>pesel</mat-label>
+        <input type="text" matInput formControlName="pesel" />
+      </mat-form-field>
+      <mat-form-field class="street" appearance="outline">
+        <mat-label>street</mat-label>
+        <input type="text" matInput formControlName="street" />
+      </mat-form-field>
+      <mat-form-field class="house_number" appearance="outline">
+        <mat-label>house number</mat-label>
+        <input type="text" matInput formControlName="houseNumber" />
+      </mat-form-field>
+      <mat-form-field class="city" appearance="outline">
+        <mat-label>city</mat-label>
+        <input type="text" matInput formControlName="city" />
+      </mat-form-field>
+      <mat-form-field class="postalCode" appearance="outline">
+        <mat-label>postal code</mat-label>
+        <input type="text" matInput formControlName="postalCode" />
+      </mat-form-field>
+      <mat-form-field class="state" appearance="outline">
+        <mat-label>state</mat-label>
+        <input type="text" matInput formControlName="state" />
+      </mat-form-field>
+      <div class="button">
+        <button mat-raised-button type="submit" [disabled]="registerForm.invalid">
+          Confirm
+        </button>
+      </div>
+    </form>
+    <button mat-raised-button (click)="test()">
+      test
+    </button>
+  </div>
+</div>

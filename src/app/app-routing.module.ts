@@ -1,11 +1,11 @@
 import { AppointmentsComponent } from './dashboard/pages/appointments/appointments.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PatientsComponent } from './dashboard/pages/patients/patients.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +15,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    children: [{ path: 'appointments', component: AppointmentsComponent }, { path: 'patients', component: PatientsComponent }],
+    children: [
+      { path: 'appointments', component: AppointmentsComponent },
+      { path: 'patients', component: PatientsComponent },
+    ],
   },
 ];
 

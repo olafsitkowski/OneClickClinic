@@ -1,15 +1,21 @@
 <div class="side-nav">
-  <div class="user-info">
-
+  <div class="user-block">
+    <div class="user-photo">
+      <img src="./../../../assets/img/avatars/frog.jpg" alt="">
+    </div>
+    <div class="user-info">
+      <span>Admin</span>
+      <p>Bottom info</p>
+    </div>
   </div>
   <div class="navigation">
-    <button mat-raised-button color="primary" (click)="changeRoute('appointments')">Appointments</button>
-    <button mat-raised-button color="primary" (click)="changeRoute('patients')">Patients</button>
-    <button mat-raised-button color="primary">test test</button>
-    <button mat-raised-button color="primary">test</button>
+    <button mat-raised-button color="primary" (click)="changeRoute('appointments')"><span>Appointments</span><mat-icon>event</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="changeRoute('patients')"><span>Patients</span><mat-icon>person</mat-icon></button>
+    <button mat-raised-button color="primary"><span>Employees</span><mat-icon>badge</mat-icon></button>
   </div>
   <div class="footer">
-    <button mat-raised-button color="primary" routerLink="/home">Log out</button>
+    <button mat-raised-button color="accent"><span>Settings</span><mat-icon>settings</mat-icon></button>
+    <button mat-raised-button color="warn" routerLink="/home"><span>Log out</span><mat-icon>logout</mat-icon></button>
   </div>
 </div>
 
