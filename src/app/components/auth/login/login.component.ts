@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
+import { User } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +12,16 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['test@test.pl', [Validators.required, Validators.email]],
-      password: ['1234567', [Validators.required, Validators.minLength(6)]],
+      password: ['12345678', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -24,11 +30,15 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.password;
-
-    console.warn('email', email, 'password', password);
-
-    this.router.navigate(['dashboard']);
+    this.loginService
+      .userIdentification(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      )
+      .subscribe((isValid: User | undefined) => {
+        if (isValid) {
+          this.router.navigate(['dashboard']);
+        }
+      });
   }
 }

@@ -1,10 +1,7 @@
-import { AppointmentsComponent } from './dashboard/pages/appointments/appointments.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/auth/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PatientsComponent } from './dashboard/pages/patients/patients.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 
 const routes: Routes = [
@@ -14,11 +11,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    children: [
-      { path: 'appointments', component: AppointmentsComponent },
-      { path: 'patients', component: PatientsComponent },
-    ],
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then(
+        (module) => module.DashboardModule
+      ),
   },
 ];
 

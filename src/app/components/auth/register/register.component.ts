@@ -1,6 +1,13 @@
+import {
+  mockRegisterInfoFormFields,
+  mockAddressformFields,
+  mockStateList,
+} from './mock-data';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RegisterForm } from '../../../../interfaces/RegisterForm';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,31 +16,54 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   public registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  public stateList: string[] = mockStateList;
+  public loginFormFields: RegisterForm[] = mockRegisterInfoFormFields;
+  public mockAddressformFields: RegisterForm[] = mockAddressformFields;
+
+  constructor(private router: Router, private userService: UserService) {}
 
   public ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      name: ['', [Validators.required]],
-      surname: ['', [Validators.required]],
-      pesel: ['', [Validators.required, Validators.minLength(11)]],
-      street: ['', [Validators.required]],
-      houseNumber: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      postalCode: ['', [Validators.required]],
-      state: ['', [Validators.required]],
+    this.registerForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      password2: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      pesel: new FormControl('', [
+        Validators.required,
+        Validators.minLength(11),
+      ]),
+      address: new FormGroup({
+        street: new FormControl('', [Validators.required]),
+        house_number: new FormControl(''),
+        city: new FormControl('', [Validators.required]),
+        postal_code: new FormControl('', [Validators.required]),
+        state: new FormControl('', [Validators.required]),
+      }),
+      phoneNumber: new FormControl('', [
+        Validators.required,
+        Validators.minLength(9),
+        Validators.maxLength(9),
+      ]),
     });
   }
 
-  public test(): void {
-    console.warn(this.registerForm);
-  }
-
   public onSubmit(): void {
-    console.warn('aaaadwada');
-    // if (this.registerForm.invalid) {
-    //   return;
-    // }
+    const arePasswordsMatched =
+      this.registerForm.get('password')?.value ===
+      this.registerForm.get('password2')?.value;
+
+    if (this.registerForm.invalid || !arePasswordsMatched) {
+      return;
+    }
+    this.userService.postUser(this.registerForm.value).subscribe(() => {
+      this.router.navigate(['login']);
+    });
   }
 }

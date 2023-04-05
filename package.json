@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write \"src/**/*.ts\"",
-    "precommit": "yarn lint && npm run prettier"
+    "precommit": "yarn lint && npm run prettier",
+    "mock-db": "json-server --watch db.json"
   },
   "private": true,
   "dependencies": {
