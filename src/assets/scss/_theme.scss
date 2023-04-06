@@ -1,0 +1,80 @@
+// Light theme colors
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-standard: #fff;
+$background-alternative: #f8f9fa;
+$text-color: #333;
+$accent-color: #ffc107;
+$info-color: #17a2b8;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$error-color: #dc3545;
+
+// Dark theme colors
+$primary-color-dark: #17a2b8;
+$secondary-color-dark: #343a40;
+$background-standard-dark: #222;
+$background-alternative-dark: #343a40;
+$text-color-dark: #fff;
+$accent-color-dark: #ffc107;
+$info-color-dark: #17a2b8;
+$success-color-dark: #28a745;
+$warning-color-dark: #ffc107;
+$error-color-dark: #dc3545;
+
+// Mixin for setting theme colors
+@mixin set-theme-colors(
+  $primary,
+  $secondary,
+  $backgroundStandard,
+  $backgroundAlternative,
+  $text,
+  $accent,
+  $info,
+  $success,
+  $warning,
+  $error
+) {
+  --primary-color: #{$primary};
+  --secondary-color: #{$secondary};
+  --background-standard: #{$backgroundStandard};
+  --background-alternative: #{$backgroundAlternative};
+  --text-color: #{$text};
+  --accent-color: #{$accent};
+  --info-color: #{$info};
+  --success-color: #{$success};
+  --warning-color: #{$warning};
+  --error-color: #{$error};
+}
+
+// Set light theme as default
+:root {
+  @include set-theme-colors(
+    $primary-color,
+    $secondary-color,
+    $background-standard,
+    $background-alternative,
+    $text-color,
+    $accent-color,
+    $info-color,
+    $success-color,
+    $warning-color,
+    $error-color
+  );
+}
+
+// Set dark theme on adding "dark" class to the HTML element
+.dark {
+  @include set-theme-colors(
+    $primary-color-dark,
+    $secondary-color-dark,
+    $background-standard-dark,
+    $background-alternative-dark,
+    $text-color-dark,
+    $accent-color-dark,
+    $info-color-dark,
+    $success-color-dark,
+    $warning-color-dark,
+    $error-color-dark
+  );
+}

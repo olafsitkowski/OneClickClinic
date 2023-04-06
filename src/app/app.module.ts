@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MatSelectModule,
     HttpClientModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
