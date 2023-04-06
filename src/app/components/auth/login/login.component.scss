@@ -4,11 +4,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--background-standard);
+  background-color: var(--background-alternative);
 }
 
 .box {
-  background-color: var(--background-alternative);
+  background-color: var(--background-standard);
   height: 300px;
   width: 350px;
   border: 1px solid black;
@@ -28,6 +28,14 @@
   .button {
     display: flex;
     justify-content: center;
+
+    button {
+      background-color: var(--primary-color);
+    }
+  }
+
+  input {
+    color: var(--text-color);
   }
 }
 

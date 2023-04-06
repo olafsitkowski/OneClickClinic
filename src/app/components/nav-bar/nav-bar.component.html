@@ -1,25 +1,38 @@
 <div class="navbar">
-  <div class="navbar-brand">
+  <div class="brand">
     <p>OneClickClinic</p>
   </div>
-  <ul class="navbar-nav">
-    <li class="nav-item">
+  <ul class="nav" *ngIf="!disableNavigation">
+    <li>
       <a href="#about" class="nav-link">O nas</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a href="#offer" class="nav-link">Oferta</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a href="#price-list" class="nav-link">Cennik</a>
     </li>
-    <li class="nav-item">
+    <li>
       <a href="#contact" class="nav-link">Kontakt</a>
     </li>
   </ul>
-  <div class="login">
-    <button mat-fab color="accent" routerLink="/login">
+  <div class="buttons">
+    <button
+      mat-fab
+      color="accent"
+      routerLink="/login"
+      *ngIf="!disableNavigation; else elseBlock"
+    >
       <mat-icon>login</mat-icon>
     </button>
+    <ng-template #elseBlock>
+      <button mat-fab color="accent" routerLink="/home">
+        <mat-icon>home</mat-icon>
+      </button></ng-template
+    >
+    <mat-slide-toggle
+      #darkModeSwitch
+      (change)="toggleTheme()"
+    ></mat-slide-toggle>
   </div>
-  <mat-slide-toggle #darkModeSwitch (change)="toggleTheme()">Toggle theme</mat-slide-toggle>
 </div>

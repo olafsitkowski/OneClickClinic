@@ -4,12 +4,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--background-alternative);
 }
 
 .box {
   height: fit-content;
   width: 550px;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--background-standard);
   border: 1px solid black;
   border-radius: 25px;
   display: flex;
@@ -31,6 +32,10 @@
     margin-bottom: auto;
     flex-direction: column;
   }
+
+  input {
+    color: var(--text-color);
+  }
 }
 
 .title {
@@ -40,7 +45,6 @@
     font-size: xx-large;
   }
 }
-
 
 .button {
   display: flex;

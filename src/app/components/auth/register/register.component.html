@@ -1,3 +1,4 @@
+<app-nav-bar [disableNavigation]="true"></app-nav-bar>
 <div class="register-page">
   <div class="box">
     <div class="title">
@@ -8,7 +9,7 @@
         <div class="login-info">
           <div *ngFor="let field of loginFormFields">
             <mat-form-field [class]="field.class" appearance="outline">
-              <mat-label>{{ field.label }}</mat-label>
+              <mat-label><span>{{ field.label }}</span></mat-label>
               <input
                 type="{{ field.type }}"
                 matInput
@@ -22,7 +23,7 @@
         <div class="address-info" formGroupName="address">
           <div *ngFor="let field of mockAddressformFields">
             <mat-form-field [class]="field.class" appearance="outline">
-              <mat-label>{{ field.label }}</mat-label>
+              <mat-label><span>{{ field.label }}</span></mat-label>
               <input
                 type="{{ field.type }}"
                 matInput
@@ -32,7 +33,7 @@
             </mat-form-field>
           </div>
           <mat-form-field class="state" appearance="outline">
-            <mat-label>State</mat-label>
+            <mat-label><span>State</span></mat-label>
             <mat-select formControlName="state">
               <mat-option *ngFor="let state of stateList" [value]="state">{{
                 state
