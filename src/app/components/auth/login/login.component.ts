@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs';
+import { AbstractUnsubscribe } from 'src/app/abstracts/AbstractUnsubscribe';
 import { LoginService } from 'src/app/services/login.service';
-import { User } from 'src/interfaces/User';
+import { User } from './../../../../interfaces/User';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends AbstractUnsubscribe implements OnInit {
   public loginForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private loginService: LoginService
-  ) {}
+  ) {
+    super();
+  }
 
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -35,6 +39,7 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.email,
         this.loginForm.value.password
       )
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isValid: User | undefined) => {
         if (isValid) {
           this.router.navigate(['dashboard']);

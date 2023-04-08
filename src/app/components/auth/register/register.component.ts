@@ -1,3 +1,4 @@
+import { takeUntil } from 'rxjs/operators';
 import {
   mockRegisterInfoFormFields,
   mockAddressformFields,
@@ -8,19 +9,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RegisterForm } from '../../../../interfaces/RegisterForm';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { AbstractUnsubscribe } from 'src/app/abstracts/AbstractUnsubscribe';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends AbstractUnsubscribe implements OnInit {
   public registerForm!: FormGroup;
 
   public stateList: string[] = mockStateList;
   public loginFormFields: RegisterForm[] = mockRegisterInfoFormFields;
   public mockAddressformFields: RegisterForm[] = mockAddressformFields;
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) {
+    super();
+  }
 
   public ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -62,8 +66,11 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid || !arePasswordsMatched) {
       return;
     }
-    this.userService.postUser(this.registerForm.value).subscribe(() => {
-      this.router.navigate(['login']);
-    });
+    this.userService
+      .postUser(this.registerForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.router.navigate(['login']);
+      });
   }
 }
