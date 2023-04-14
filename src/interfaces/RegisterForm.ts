@@ -1,8 +1,9 @@
 export interface RegisterForm {
-  name?: string;
-  label?: string;
-  type?: string;
+  name: string;
+  label: string;
+  type: string;
   controlName: string;
-  class?: string;
+  class: string;
   autocomplete?: string;
+  options?: string[];
 }

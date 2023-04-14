@@ -3,8 +3,8 @@
     {
       "id": 1,
       "role": "customer",
-      "email": "kowalski@wp.pl",
-      "password": "haslo123",
+      "email": "admin@admin.pl",
+      "password": "admin",
       "name": "Jan",
       "surname": "Kowalski",
       "pesel": "55021034567",
@@ -187,23 +187,6 @@
       },
       "phoneNumber": "123456789",
       "id": 12
-    },
-    {
-      "email": "test@test.pl",
-      "password": "12345678",
-      "password2": "12345678",
-      "name": "Admin",
-      "surname": "admin",
-      "pesel": "00000000000",
-      "address": {
-        "street": "ulica",
-        "house_number": "1",
-        "city": "Zadupie",
-        "postal_code": "12345",
-        "state": "Dolnośląskie"
-      },
-      "phoneNumber": "555333222",
-      "id": 13
     }
   ]
 }

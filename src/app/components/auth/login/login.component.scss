@@ -1,3 +1,9 @@
+@import './../../../../assets/scss/variables';
+
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}
+
 .login-page {
   width: 100%;
   height: 100vh;
@@ -9,9 +15,9 @@
 
 .box {
   background-color: var(--background-standard);
+  box-shadow: $box-shadow;
   height: 300px;
   width: 350px;
-  border: 1px solid black;
   border-radius: 25px;
   display: flex;
   align-items: center;
@@ -26,16 +32,30 @@
   width: 100%;
 
   .button {
+    margin-top: $large-spacing;
     display: flex;
     justify-content: center;
 
     button {
       background-color: var(--primary-color);
     }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    span {
+      color: white;
+    }
   }
 
   input {
     color: var(--text-color);
+  }
+
+  mat-form-field {
+    padding-bottom: $xlarge-spacing;
   }
 }
 
@@ -49,4 +69,16 @@
 
 .bottom-text {
   margin-top: 20px;
+}
+
+.credentials-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .mat-mdc-form-field-error {
+    position: absolute;
+    z-index: 3;
+  }
 }

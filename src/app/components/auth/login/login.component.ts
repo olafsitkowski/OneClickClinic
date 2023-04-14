@@ -13,6 +13,7 @@ import { User } from './../../../../interfaces/User';
 })
 export class LoginComponent extends AbstractUnsubscribe implements OnInit {
   public loginForm!: FormGroup;
+  public isUserExists: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -24,16 +25,16 @@ export class LoginComponent extends AbstractUnsubscribe implements OnInit {
 
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['test@test.pl', [Validators.required, Validators.email]],
-      password: ['12345678', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  public onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
+  public onFormInput(): void {
+    this.isUserExists = true;
+  }
 
+  public onSubmit(): void {
     this.loginService
       .userIdentification(
         this.loginForm.value.email,
@@ -43,6 +44,8 @@ export class LoginComponent extends AbstractUnsubscribe implements OnInit {
       .subscribe((isValid: User | undefined) => {
         if (isValid) {
           this.router.navigate(['dashboard']);
+        } else {
+          this.isUserExists = false;
         }
       });
   }

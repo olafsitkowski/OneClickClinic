@@ -9,13 +9,54 @@
         <div class="login-info">
           <div *ngFor="let field of loginFormFields">
             <mat-form-field [class]="field.class" appearance="outline">
-              <mat-label><span>{{ field.label }}</span></mat-label>
+              <mat-label
+                ><span>{{ field.label }}</span></mat-label
+              >
               <input
                 type="{{ field.type }}"
                 matInput
                 [formControlName]="field.controlName"
                 [autocomplete]="field.autocomplete"
+                (input)="onFormInput(field.controlName)"
+                #formInput
               />
+              <mat-error
+                *ngIf="
+                  registerForm.controls[field.controlName].invalid &&
+                  registerForm.controls[field.controlName].touched
+                "
+              >
+                <span
+                  *ngIf="
+                    registerForm.controls[field.controlName]?.hasError(
+                      'required'
+                    )
+                  "
+                  >This field is required.</span
+                >
+                <span
+                  *ngIf="
+                    registerForm.controls[field.controlName]?.hasError('email')
+                  "
+                  >Invalid email format.</span
+                >
+                <span
+                  *ngIf="
+                    registerForm.controls[field.controlName]?.hasError(
+                      'passwordsDoNotMatch'
+                    ) && formInput.value.length >= 8
+                  "
+                  >Password do not match.</span
+                >
+                <span
+                  *ngIf="
+                    registerForm.controls[field.controlName]?.hasError(
+                      'pattern'
+                    )
+                  "
+                  >Password is too weak.</span
+                >
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -23,23 +64,45 @@
         <div class="address-info" formGroupName="address">
           <div *ngFor="let field of mockAddressformFields">
             <mat-form-field [class]="field.class" appearance="outline">
-              <mat-label><span>{{ field.label }}</span></mat-label>
-              <input
-                type="{{ field.type }}"
-                matInput
-                [formControlName]="field.controlName"
-                [autocomplete]="field.autocomplete"
-              />
+              <mat-label
+                ><span>{{ field.label }}</span></mat-label
+              >
+              <ng-container *ngIf="field.name !== 'state'; else stateField">
+                <input
+                  type="{{ field.type }}"
+                  matInput
+                  [formControlName]="field.controlName"
+                  [autocomplete]="field.autocomplete"
+                  #formInput
+                />
+              </ng-container>
+              <ng-template #stateField>
+                <mat-select [formControlName]="field.controlName">
+                  <mat-option
+                    *ngFor="let option of field.options"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-select>
+              </ng-template>
+              <mat-error
+                *ngIf="
+                  registerForm.get('address.' + field.controlName)?.invalid &&
+                  registerForm.get('address.' + field.controlName)?.touched
+                "
+              >
+                <span
+                  *ngIf="
+                    this.registerForm
+                      .get('address.' + field.controlName)
+                      ?.hasError('required')
+                  "
+                  >This field is required.</span
+                >
+              </mat-error>
             </mat-form-field>
           </div>
-          <mat-form-field class="state" appearance="outline">
-            <mat-label><span>State</span></mat-label>
-            <mat-select formControlName="state">
-              <mat-option *ngFor="let state of stateList" [value]="state">{{
-                state
-              }}</mat-option>
-            </mat-select>
-          </mat-form-field>
         </div>
       </div>
 

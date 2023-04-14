@@ -5,7 +5,13 @@ import {
   mockStateList,
 } from './mock-data';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { RegisterForm } from '../../../../interfaces/RegisterForm';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -31,11 +37,15 @@ export class RegisterComponent extends AbstractUnsubscribe implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
+        Validators.pattern(
+          '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&]).{8,}'
+        ),
       ]),
-      password2: new FormControl('', [
+      confirmPassword: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
+        this.confirmPasswordValidator.bind(this),
       ]),
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
@@ -59,18 +69,28 @@ export class RegisterComponent extends AbstractUnsubscribe implements OnInit {
   }
 
   public onSubmit(): void {
-    const arePasswordsMatched =
-      this.registerForm.get('password')?.value ===
-      this.registerForm.get('password2')?.value;
-
-    if (this.registerForm.invalid || !arePasswordsMatched) {
-      return;
-    }
     this.userService
       .postUser(this.registerForm.value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
         this.router.navigate(['login']);
       });
+  }
+
+  public confirmPasswordValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const password = control.parent?.get('password')?.value;
+    const confirmPassword = control.value;
+
+    if (password !== confirmPassword) {
+      return { passwordsDoNotMatch: true };
+    }
+
+    return null;
+  }
+
+  public onFormInput(controlName: string): void {
+    this.registerForm.get(controlName)?.markAsUntouched();
   }
 }

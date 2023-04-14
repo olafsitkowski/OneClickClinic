@@ -1,0 +1,47 @@
+/* Fonts */
+$font-family: 'Roboto', sans-serif;
+$font-size: 16px;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$line-height: 1.5;
+
+$heading-1-font-size: 2.5rem;
+$heading-2-font-size: 2rem;
+$heading-3-font-size: 1.75rem;
+$heading-4-font-size: 1.5rem;
+$heading-5-font-size: 1.25rem;
+$heading-6-font-size: 1rem;
+
+/* Margins and paddings */
+$spacing-unit: 8px;
+$small-spacing: calc($spacing-unit / 2);
+$medium-spacing: $spacing-unit;
+$large-spacing: calc($spacing-unit * 2);
+$xlarge-spacing: calc($spacing-unit * 3);
+
+/* Breakpoints */
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+/* Z-index */
+$zindex-modal: 1000;
+$zindex-dropdown: 900;
+$zindex-overlay: 800;
+$zindex-header: 700;
+$zindex-content: 600;
+$zindex-footer: 500;
+
+/* Others */
+$border-radius: 4px;
+$box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+$transition-duration: 0.3s;
+$transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+$border-width: 1px;
+$outline-width: 2px;
+$button-padding: 0.5rem 1rem;
+$input-padding: 0.5rem;
+$form-label-margin-bottom: 0.5rem;

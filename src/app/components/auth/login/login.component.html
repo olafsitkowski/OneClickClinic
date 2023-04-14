@@ -2,17 +2,46 @@
 <div class="login-page">
   <div class="box">
     <div class="title">
-      <span>Logowanie</span>
+      <span>Login</span>
     </div>
     <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="email" appearance="outline" color="primary">
         <mat-label><span>Email</span></mat-label>
-        <input type="email" matInput formControlName="email" />
+        <input type="email" matInput formControlName="email" (input)="onFormInput()"/>
+        <mat-error
+          *ngIf="
+            loginForm.controls['email'].invalid &&
+            loginForm.controls['email'].touched
+          "
+        >
+          <span *ngIf="loginForm.controls['email'].hasError('required')"
+            >Email is required.</span
+          >
+          <span *ngIf="loginForm.controls['email'].hasError('email')"
+            >Invalid email format.</span
+          >
+        </mat-error>
       </mat-form-field>
+
       <mat-form-field class="password" appearance="outline">
-        <mat-label><span>Haslo</span></mat-label>
-        <input type="password" matInput formControlName="password" />
+        <mat-label><span>Password</span></mat-label>
+        <input type="password" matInput formControlName="password" (input)="onFormInput()"/>
+        <mat-error
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+        >
+          <span *ngIf="loginForm.controls['password'].hasError('required')"
+            >Password is required.</span
+          >
+        </mat-error>
       </mat-form-field>
+      <div class="credentials-error">
+        <mat-error *ngIf="!isUserExists"
+          ><span>Wrong email or password</span></mat-error
+        >
+      </div>
       <div class="button">
         <button mat-raised-button type="submit" [disabled]="loginForm.invalid">
           <span>Login</span>
