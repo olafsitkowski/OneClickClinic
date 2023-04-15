@@ -1,30 +1,46 @@
-import { Component } from '@angular/core';
-
-export interface PatientData {
-  name: string;
-  surname: string;
-  position: number;
-}
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-patients',
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
-export class PatientsComponent {
-  public ELEMENT_DATA: PatientData[] = [
-    { position: 1, name: 'John', surname: 'Doe' },
-    { position: 2, name: 'Donald', surname: 'Joe' },
-    { position: 3, name: 'Lithium', surname: 'Tree' },
-    { position: 4, name: 'Beryllium', surname: 'Blue' },
-    { position: 5, name: 'Boron', surname: 'Green' },
-    { position: 6, name: 'Carbon', surname: 'Dot' },
-    { position: 7, name: 'Nitrogen', surname: 'Bot' },
-    { position: 8, name: 'Oxygen', surname: 'Pencil' },
-    { position: 9, name: 'Fluorine', surname: 'Cat' },
-    { position: 10, name: 'Neon', surname: 'Dog' },
-  ];
+export class PatientsComponent implements OnInit {
+  constructor(private userService: UserService) {}
+  public usersList: User[] = [];
+  public columns = ['name', 'surname', 'email', 'role'];
+  public columnsExpand = [...this.columns, 'expand'];
+  public expandedUser: User | null | undefined;
+  public dataSource = new MatTableDataSource<User>();
 
-  public displayedColumns: string[] = ['position', 'name', 'surname'];
-  public dataSource = this.ELEMENT_DATA;
+  public ngOnInit(): void {
+    this.userService.getUsers().subscribe((res: User[]) => {
+      this.dataSource.data = res;
+    });
+  }
+
+  public tableFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

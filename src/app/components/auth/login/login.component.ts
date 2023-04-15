@@ -25,8 +25,8 @@ export class LoginComponent extends AbstractUnsubscribe implements OnInit {
 
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['admin@admin.pl', [Validators.required, Validators.email]],
+      password: ['adminadmin', [Validators.required, Validators.minLength(6)]],
     });
   }
 

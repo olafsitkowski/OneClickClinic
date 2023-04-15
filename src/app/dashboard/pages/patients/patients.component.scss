@@ -1,3 +1,34 @@
-.patients-container {
-  min-width: 800px;
+table {
+  width: 50%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.user-row:not(.expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.user-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+.user-row td {
+  border-bottom-width: 0;
+}
+
+.user-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.patients-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  width: 50%;
 }

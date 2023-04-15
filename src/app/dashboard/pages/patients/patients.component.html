@@ -1,21 +1,80 @@
-<section class="patients-container mat-elevation-z8" tabindex="0">
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-    </ng-container>
+<div class="patients-container">
+  <div class="table">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        (keyup)="tableFilter($event)"
+        #input
+      />
+    </mat-form-field>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="{{ column }}" *ngFor="let column of columns">
+        <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+        <td mat-cell *matCellDef="let user">{{ user[column] }}</td>
+      </ng-container>
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">
+          &nbsp;
+        </th>
+        <td mat-cell *matCellDef="let user">
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="
+              expandedUser = expandedUser === user ? null : user;
+              $event.stopPropagation()
+            "
+          >
+            <mat-icon *ngIf="expandedUser !== user"
+              >keyboard_arrow_down</mat-icon
+            >
+            <mat-icon *ngIf="expandedUser === user"
+              >keyboard_arrow_up</mat-icon
+            >
+          </button>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="surname">
-      <th mat-header-cell *matHeaderCellDef>Surname</th>
-      <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
-    </ng-container>
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let user"
+          [attr.colspan]="columnsExpand.length"
+        >
+          <div
+            class="user-detail"
+            [@detailExpand]="
+              user == expandedUser ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="row-expanded">
+              {{ user | json }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</section>
+      <tr mat-header-row *matHeaderRowDef="columnsExpand"></tr>
+      <tr
+        mat-row
+        *matRowDef="let user; columns: columnsExpand"
+        class="user-row"
+        [class.example-expanded-row]="expandedUser === user"
+        (click)="expandedUser = expandedUser === user ? null : user"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="detail-row"
+      ></tr>
+    </table>
+  </div>
+</div>

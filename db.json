@@ -2,9 +2,9 @@
   "user": [
     {
       "id": 1,
-      "role": "customer",
+      "role": "admin",
       "email": "admin@admin.pl",
-      "password": "admin",
+      "password": "adminadmin",
       "name": "Jan",
       "surname": "Kowalski",
       "pesel": "55021034567",
@@ -36,8 +36,8 @@
     },
     {
       "id": 3,
-      "role": "admin",
-      "email": "admin@firmaplus.pl",
+      "role": "customer",
+      "email": "user@firmaplus.pl",
       "password": "adminadmin",
       "password2": "adminadmin",
       "name": "Anna",
@@ -70,6 +70,7 @@
       "phoneNumber": "555-234-567"
     },
     {
+      "role": "customer",
       "email": "john.doe@example.com",
       "password": "mysecret123",
       "password2": "mysecret123",
@@ -85,108 +86,6 @@
       },
       "phoneNumber": "123456789",
       "id": 6
-    },
-    {
-      "email": "john.doe@example.com",
-      "password": "mysecret123",
-      "password2": "mysecret123",
-      "name": "John",
-      "surname": "Doe",
-      "pesel": "12345678901",
-      "address": {
-        "street": "Main Street",
-        "houseNumber": "10",
-        "city": "New York",
-        "postalCode": "12345",
-        "state": "Lubelskie"
-      },
-      "phoneNumber": "123456789",
-      "id": 7
-    },
-    {
-      "email": "john.doe@example.com",
-      "password": "mysecret123",
-      "password2": "mysecret123",
-      "name": "John",
-      "surname": "Doe",
-      "pesel": "12345678901",
-      "address": {
-        "street": "Main Street",
-        "house_number": "10",
-        "city": "New York",
-        "postal_code": "12345",
-        "state": "Lubelskie"
-      },
-      "phoneNumber": "123456789",
-      "id": 8
-    },
-    {
-      "email": "john.doe@example.com",
-      "password": "mysecret123",
-      "password2": "mysecret123",
-      "name": "John",
-      "surname": "Doe",
-      "pesel": "12345678901",
-      "address": {
-        "street": "Main Street",
-        "house_number": "10",
-        "city": "New York",
-        "postal_code": "12345",
-        "state": "Lubelskie"
-      },
-      "phoneNumber": "123456789",
-      "id": 9
-    },
-    {
-      "email": "john.doe@example.com",
-      "password": "mysecret123",
-      "password2": "mysecret123",
-      "name": "John",
-      "surname": "Doe",
-      "pesel": "12345678901",
-      "address": {
-        "street": "Main Street",
-        "house_number": "10",
-        "city": "New York",
-        "postal_code": "12345",
-        "state": "Lubelskie"
-      },
-      "phoneNumber": "123456789",
-      "id": 10
-    },
-    {
-      "email": "john.doe@example.com",
-      "password": "mysecret123",
-      "password2": "mysecret123",
-      "name": "John",
-      "surname": "Doe",
-      "pesel": "12345678901",
-      "address": {
-        "street": "Main Street",
-        "house_number": "10",
-        "city": "New York",
-        "postal_code": "12345",
-        "state": "Lubelskie"
-      },
-      "phoneNumber": "123456789",
-      "id": 11
-    },
-    {
-      "email": "john.doe@example.com",
-      "password": "aaaaaaaa",
-      "password2": "aaaaaaaa",
-      "name": "John",
-      "surname": "Doe",
-      "pesel": "12345678901",
-      "address": {
-        "street": "Main Street",
-        "house_number": "10",
-        "city": "New York",
-        "postal_code": "12345",
-        "state": "Dolnośląskie"
-      },
-      "phoneNumber": "123456789",
-      "id": 12
     }
   ]
 }
