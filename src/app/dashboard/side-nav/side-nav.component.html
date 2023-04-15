@@ -10,22 +10,22 @@
   </div>
   <div class="navigation">
     <button
-      mat-raised-button
-      color="primary"
+      mat-button
       (click)="changeRoute('appointments')"
+      [ngClass]="{'active': currentRoute === '/dashboard/appointments'}"
     >
-      <span>Appointments</span><mat-icon>event</mat-icon>
+    <mat-icon>event</mat-icon><span>Appointments</span>
     </button>
-    <button mat-raised-button color="primary" (click)="changeRoute('patients')">
-      <span>Patients</span><mat-icon>person</mat-icon>
+    <button mat-button (click)="changeRoute('patients')" [ngClass]="{'active': currentRoute === '/dashboard/patients'}">
+      <mat-icon>person</mat-icon><span>Patients</span>
     </button>
-    <button mat-raised-button color="primary">
-      <span>Employees</span><mat-icon>badge</mat-icon>
+    <button mat-button [ngClass]="{'active': currentRoute === '/dashboard/employees'}">
+      <mat-icon>badge</mat-icon><span>Employees</span>
     </button>
   </div>
   <div class="footer">
     <button mat-raised-button color="accent">
-      <span>Settings</span><mat-icon>settings</mat-icon>
+      <mat-icon>settings</mat-icon><span>Settings</span>
     </button>
     <button mat-raised-button color="warn" routerLink="/home">
       <span>Log out</span><mat-icon>logout</mat-icon>
