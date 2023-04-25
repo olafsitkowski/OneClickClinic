@@ -8,9 +8,8 @@ describe('AddEventModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddEventModalComponent ]
-    })
-    .compileComponents();
+      declarations: [AddEventModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddEventModalComponent);
     component = fixture.componentInstance;
