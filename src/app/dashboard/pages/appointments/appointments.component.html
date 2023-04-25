@@ -1,1 +1,75 @@
-<p>appointments works!</p>
+<div class="appointments-container">
+  <div class="header">
+    <div class="toogle-buttons">
+      <mat-button-toggle-group>
+        <mat-button-toggle
+          mat-raised-button
+          color="primary"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month"
+        >
+          Month
+        </mat-button-toggle>
+        <mat-button-toggle
+          mat-raised-button
+          color="primary"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week"
+        >
+          Week
+        </mat-button-toggle>
+        <mat-button-toggle
+          mat-raised-button
+          color="primary"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day"
+        >
+          Day
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="event-modal">
+      <button mat-raised-button (click)="addEvent()">Add new event</button>
+    </div>
+  </div>
+  <br />
+  <div [ngSwitch]="view" class="calendar">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [dayStartHour]="7"
+      [dayEndHour]="20"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [dayStartHour]="7"
+      [dayEndHour]="20"
+      [hourDuration]="30"
+      [hourSegments]="2"
+      [locale]="locale"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+</div>

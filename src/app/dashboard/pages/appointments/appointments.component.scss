@@ -1,0 +1,15 @@
+@import './../../../../assets/scss/variables';
+
+.appointments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  height: 90%;
+}
+
+.calendar {
+  max-height: 80%;
+  width: 80%;
+  overflow: auto;
+}

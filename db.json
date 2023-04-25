@@ -19,7 +19,7 @@
     },
     {
       "id": 2,
-      "role": "customer",
+      "role": "patient",
       "email": "nowak@onet.pl",
       "password": "qazwsxedc",
       "name": "Adam",
@@ -36,7 +36,7 @@
     },
     {
       "id": 3,
-      "role": "customer",
+      "role": "patient",
       "email": "user@firmaplus.pl",
       "password": "adminadmin",
       "password2": "adminadmin",
@@ -54,7 +54,7 @@
     },
     {
       "id": 4,
-      "role": "customer",
+      "role": "patient",
       "email": "janusz.majer@gmail.com",
       "password": "password123",
       "name": "Janusz",
@@ -70,7 +70,7 @@
       "phoneNumber": "555-234-567"
     },
     {
-      "role": "customer",
+      "role": "patient",
       "email": "john.doe@example.com",
       "password": "mysecret123",
       "password2": "mysecret123",
@@ -86,6 +86,166 @@
       },
       "phoneNumber": "123456789",
       "id": 6
+    },
+    {
+      "role": "employee",
+      "email": "adawda@dwadaw.pl",
+      "password": "Password123!",
+      "confirmPassword": "Password123!",
+      "name": "Jan",
+      "surname": "Urban",
+      "pesel": "22012424024",
+      "address": {
+        "street": "Bial",
+        "house_number": "12",
+        "city": "Lublin",
+        "postal_code": "20-000",
+        "state": "Lubelskie"
+      },
+      "phoneNumber": "555333222",
+      "id": 7
+    },
+    {
+      "email": "adwad@awda.pl",
+      "password": "Password123!",
+      "confirmPassword": "Password123!",
+      "name": "dadawda",
+      "surname": "awdadad",
+      "pesel": "aaaaaaaaaaaa",
+      "address": {
+        "street": "wdadwad",
+        "house_number": "d",
+        "city": "adwa",
+        "postal_code": "aaa",
+        "state": "Kujawsko-pomorskie"
+      },
+      "phoneNumber": "dadawdwad",
+      "id": 8
+    }
+  ],
+  "calendarEvent": [
+    {
+      "title": "wada",
+      "start": "2023-04-25T13:00:00.000Z",
+      "end": "2023-04-25T14:00:00.000Z",
+      "eventUser": {
+        "id": 1,
+        "role": "admin",
+        "email": "admin@admin.pl",
+        "password": "adminadmin",
+        "name": "Jan",
+        "surname": "Kowalski",
+        "pesel": "55021034567",
+        "adress": {
+          "street": "ul. Piotrkowska",
+          "house_number": "12A",
+          "city": "Łódź",
+          "postalCode": "90-001",
+          "state": "łódzkie"
+        },
+        "phoneNumber": "555-555-555"
+      },
+      "id": 1
+    },
+    {
+      "title": "aaaaaaaaaa",
+      "start": "2023-04-25T15:00:00.000Z",
+      "end": "2023-04-25T16:00:00.000Z",
+      "eventUser": {
+        "id": 1,
+        "role": "admin",
+        "email": "admin@admin.pl",
+        "password": "adminadmin",
+        "name": "Jan",
+        "surname": "Kowalski",
+        "pesel": "55021034567",
+        "adress": {
+          "street": "ul. Piotrkowska",
+          "house_number": "12A",
+          "city": "Łódź",
+          "postalCode": "90-001",
+          "state": "łódzkie"
+        },
+        "phoneNumber": "555-555-555"
+      },
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "title": "Test",
+      "start": "2023-04-26T12:00:00.000Z",
+      "end": "2023-04-26T13:00:00.000Z",
+      "patient": {
+        "id": 2,
+        "role": "patient",
+        "email": "nowak@onet.pl",
+        "password": "qazwsxedc",
+        "name": "Adam",
+        "surname": "Nowak",
+        "pesel": "75010123456",
+        "adress": {
+          "street": "ul. Warszawska",
+          "house_number": "78",
+          "city": "Kraków",
+          "postalCode": "31-155",
+          "state": "małopolskie"
+        },
+        "phoneNumber": "555-123-456"
+      },
+      "employee": {
+        "role": "employee",
+        "email": "adawda@dwadaw.pl",
+        "password": "Password123!",
+        "confirmPassword": "Password123!",
+        "name": "Jan",
+        "surname": "Urban",
+        "pesel": "22012424024",
+        "address": {
+          "street": "Bial",
+          "house_number": "12",
+          "city": "Lublin",
+          "postal_code": "20-000",
+          "state": "Lubelskie"
+        },
+        "phoneNumber": "555333222",
+        "id": 7
+      },
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    },
+    {
+      "id": 11
+    },
+    {
+      "id": 12
+    },
+    {
+      "id": 13
+    },
+    {
+      "id": 14
+    },
+    {
+      "id": 15
     }
   ]
 }

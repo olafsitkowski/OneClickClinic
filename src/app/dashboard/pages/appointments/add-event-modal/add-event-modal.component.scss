@@ -1,0 +1,12 @@
+.dialog-content{
+  display: flex;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-mdc-dialog-actions {
+  justify-content: space-between;
+}

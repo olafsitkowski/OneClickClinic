@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>Add an new event.</h1>
+<div mat-dialog-content class="dialog-content">
+  <form [formGroup]="eventForm">
+    <mat-form-field appearance="outline"
+      ><mat-label>Event name</mat-label
+      ><input matInput formControlName="title" type="text" class="form-control"
+    /></mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Patient</mat-label>
+      <input
+        type="text"
+        matInput
+        [matAutocomplete]="auto"
+        formControlName="patient"
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let patient of filteredOptions | async"
+          [value]="patient"
+        >
+          {{ patient.pesel }} - {{ patient.name }} {{ patient.surname }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Employee</mat-label>
+      <mat-select formControlName="employee">
+        <mat-option *ngFor="let employee of employeeList" [value]="employee">
+          {{ employee.name }} {{ employee.surname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Start date</mat-label>
+      <input
+        matInput
+        formControlName="start"
+        class="form-control"
+        type="text"
+        mwlFlatpickr
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        placeholder="Not set"
+    /></mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>End date</mat-label>
+      <input
+        matInput
+        formControlName="end"
+        class="form-control"
+        type="text"
+        mwlFlatpickr
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        placeholder="Not set"
+    /></mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-raised-button
+    type="submit"
+    (click)="onSubmit()"
+    [disabled]="eventForm.invalid"
+  >
+    <span>Add</span>
+  </button>
+</div>
