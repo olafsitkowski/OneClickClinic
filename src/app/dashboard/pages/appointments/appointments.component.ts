@@ -56,6 +56,7 @@ export class AppointmentsComponent implements OnInit {
   public ngOnInit(): void {
     this.getCalendarEvents();
     this.getEmployees();
+    this.setView(CalendarView.Month);
   }
 
   public dayClicked({

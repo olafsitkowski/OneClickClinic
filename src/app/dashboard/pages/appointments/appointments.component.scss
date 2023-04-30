@@ -14,9 +14,23 @@
   overflow: auto;
 }
 
-.header{
+.header {
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.nagivation-buttons .mat-button-toggle {
+  background-color: white;
+}
+
+.calendar-header {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+
+  mat-select {
+    padding-top: 20px;
+  }
 }

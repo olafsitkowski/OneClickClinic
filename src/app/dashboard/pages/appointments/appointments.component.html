@@ -7,6 +7,7 @@
           color="primary"
           (click)="setView(CalendarView.Month)"
           [class.active]="view === CalendarView.Month"
+          [checked]="true"
         >
           Month
         </mat-button-toggle>
@@ -28,8 +29,39 @@
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
+    <div class="nagivation-buttons">
+      <mat-button-toggle-group>
+        <mat-button-toggle
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Previous
+        </mat-button-toggle>
+        <mat-button-toggle
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          Today
+        </mat-button-toggle>
+        <mat-button-toggle
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          Next
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
     <div class="event-modal">
       <button mat-raised-button (click)="addEvent()">Add new event</button>
+    </div>
+  </div>
+  <div class="calendar-header">
+    <div>
+      <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h2>
     </div>
     <div>
       <mat-select
