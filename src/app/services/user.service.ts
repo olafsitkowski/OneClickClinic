@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { User } from './../../interfaces/User';
 
 @Injectable({
@@ -21,5 +21,11 @@ export class UserService {
 
   public postUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.API_URL}/user/`, user);
+  }
+
+  public getEmployees(): Observable<User[]> {
+    return this.getUsers().pipe(
+      map((users: User[]) => users.filter((user) => user.role === 'employee'))
+    );
   }
 }

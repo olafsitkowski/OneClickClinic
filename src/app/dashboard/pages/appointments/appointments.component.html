@@ -28,9 +28,20 @@
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-
     <div class="event-modal">
       <button mat-raised-button (click)="addEvent()">Add new event</button>
+    </div>
+    <div>
+      <mat-select
+        placeholder="Doctor name"
+        [(ngModel)]="selectedEmployee"
+        (selectionChange)="getCalenderByUser(selectedEmployee?.id)"
+      >
+        <mat-option *ngIf="selectedEmployee">All employes</mat-option>
+        <mat-option *ngFor="let employee of employeeList" [value]="employee">
+          {{ employee.name }} {{ employee.surname }}
+        </mat-option>
+      </mat-select>
     </div>
   </div>
   <br />

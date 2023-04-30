@@ -11,6 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { CustomDateFormatter } from '../../../../providers/custom-date-formatter.provider';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
+import { User } from 'src/interfaces/User';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-appointments',
@@ -31,10 +34,12 @@ export class AppointmentsComponent implements OnInit {
   public viewDate: Date = new Date();
   public refresh = new Subject<void>();
   public CalendarView = CalendarView;
-  public events: CalendarEvent[] = [];
+  public events: CustomCalendarEvent[] = [];
+  public storedEvents: CustomCalendarEvent[] = [];
   public locale: string = 'pl';
   public activeDayIsOpen!: boolean;
-
+  public employeeList: User[] = [];
+  public selectedEmployee: User | undefined;
   public modalData:
     | {
         action: string;
@@ -44,11 +49,13 @@ export class AppointmentsComponent implements OnInit {
 
   constructor(
     private modal: MatDialog,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private userService: UserService
   ) {}
 
   public ngOnInit(): void {
     this.getCalendarEvents();
+    this.getEmployees();
   }
 
   public dayClicked({
@@ -99,8 +106,9 @@ export class AppointmentsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: CalendarEvent) => {
-      this.calendarService.postCalendarEvent(result).subscribe();
-      this.getCalendarEvents();
+      this.calendarService.postCalendarEvent(result).subscribe(() => {
+        this.getCalendarEvents();
+      });
     });
   }
 
@@ -116,17 +124,40 @@ export class AppointmentsComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
+  public getCalenderByUser(userId: number | undefined): void {
+    if (userId) {
+      const filteredEvents = this.storedEvents
+        .filter((item) => item.employeeId === userId)
+        .map((item) => {
+          return { ...item, userId: userId };
+        });
+      this.events = filteredEvents;
+    } else {
+      this.events = this.storedEvents;
+    }
+
+    this.refresh.next();
+  }
+
   private getCalendarEvents(): void {
-    this.events = [];
+    this.storedEvents = [];
+
     this.calendarService.getCalendarEvents().subscribe((calendarEvents) => {
       for (const calendarEvent of calendarEvents) {
         calendarEvent.start = new Date(calendarEvent.start);
         if (calendarEvent.end) {
           calendarEvent.end = new Date(calendarEvent.end);
         }
-        this.events.push(calendarEvent);
+        this.storedEvents.push(calendarEvent);
       }
+      this.events = this.storedEvents;
       this.refresh.next();
+    });
+  }
+
+  private getEmployees(): void {
+    this.userService.getEmployees().subscribe((value) => {
+      this.employeeList = value;
     });
   }
 }

@@ -1,12 +1,14 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
+import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalendarService {
+  public storedEvents: Subject<CustomCalendarEvent[]> = new Subject();
   private readonly API_URL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}

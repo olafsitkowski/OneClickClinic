@@ -65,6 +65,7 @@ export class RegisterComponent extends AbstractUnsubscribe implements OnInit {
         Validators.minLength(9),
         Validators.maxLength(9),
       ]),
+      role: new FormControl('patient'),
     });
   }
 

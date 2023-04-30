@@ -70,7 +70,7 @@
       "phoneNumber": "555-234-567"
     },
     {
-      "role": "patient",
+      "role": "employee",
       "email": "john.doe@example.com",
       "password": "mysecret123",
       "password2": "mysecret123",
@@ -106,146 +106,136 @@
       "id": 7
     },
     {
+      "role": "employee",
       "email": "adwad@awda.pl",
       "password": "Password123!",
       "confirmPassword": "Password123!",
-      "name": "dadawda",
-      "surname": "awdadad",
-      "pesel": "aaaaaaaaaaaa",
+      "name": "Roman",
+      "surname": "Piesek",
+      "pesel": "22122424024",
       "address": {
-        "street": "wdadwad",
-        "house_number": "d",
-        "city": "adwa",
-        "postal_code": "aaa",
+        "street": "Niepodleglosci",
+        "house_number": "3",
+        "city": "Luiblin",
+        "postal_code": "20000",
         "state": "Kujawsko-pomorskie"
       },
-      "phoneNumber": "dadawdwad",
+      "phoneNumber": "555333000",
       "id": 8
     }
   ],
   "calendarEvent": [
     {
-      "title": "wada",
-      "start": "2023-04-25T13:00:00.000Z",
-      "end": "2023-04-25T14:00:00.000Z",
-      "eventUser": {
-        "id": 1,
-        "role": "admin",
-        "email": "admin@admin.pl",
-        "password": "adminadmin",
-        "name": "Jan",
-        "surname": "Kowalski",
-        "pesel": "55021034567",
-        "adress": {
-          "street": "ul. Piotrkowska",
-          "house_number": "12A",
-          "city": "Łódź",
-          "postalCode": "90-001",
-          "state": "łódzkie"
-        },
-        "phoneNumber": "555-555-555"
-      },
+      "title": "Wizyta",
+      "start": "2023-04-29T08:00:00.000Z",
+      "end": "2023-04-29T08:30:00.000Z",
+      "patientId": 2,
+      "employeeId": 8,
       "id": 1
     },
     {
-      "title": "aaaaaaaaaa",
-      "start": "2023-04-25T15:00:00.000Z",
-      "end": "2023-04-25T16:00:00.000Z",
-      "eventUser": {
-        "id": 1,
-        "role": "admin",
-        "email": "admin@admin.pl",
-        "password": "adminadmin",
-        "name": "Jan",
-        "surname": "Kowalski",
-        "pesel": "55021034567",
-        "adress": {
-          "street": "ul. Piotrkowska",
-          "house_number": "12A",
-          "city": "Łódź",
-          "postalCode": "90-001",
-          "state": "łódzkie"
-        },
-        "phoneNumber": "555-555-555"
-      },
+      "title": "test 2",
+      "start": "2023-04-28T12:00:00.000Z",
+      "end": "2023-04-28T13:00:00.000Z",
+      "patientId": 3,
+      "employeeId": 8,
       "id": 2
     },
     {
+      "title": "Test",
+      "start": "2023-04-29T12:00:00.000Z",
+      "end": "2023-04-29T13:00:00.000Z",
+      "patientId": 3,
+      "employeeId": 7,
       "id": 3
     },
     {
+      "title": "132",
+      "start": "2023-04-29T12:00:00.000Z",
+      "end": "2023-04-29T13:00:00.000Z",
+      "patientId": 2,
+      "employeeId": 6,
       "id": 4
     },
     {
-      "title": "Test",
-      "start": "2023-04-26T12:00:00.000Z",
-      "end": "2023-04-26T13:00:00.000Z",
-      "patient": {
-        "id": 2,
-        "role": "patient",
-        "email": "nowak@onet.pl",
-        "password": "qazwsxedc",
-        "name": "Adam",
-        "surname": "Nowak",
-        "pesel": "75010123456",
-        "adress": {
-          "street": "ul. Warszawska",
-          "house_number": "78",
-          "city": "Kraków",
-          "postalCode": "31-155",
-          "state": "małopolskie"
-        },
-        "phoneNumber": "555-123-456"
-      },
-      "employee": {
-        "role": "employee",
-        "email": "adawda@dwadaw.pl",
-        "password": "Password123!",
-        "confirmPassword": "Password123!",
-        "name": "Jan",
-        "surname": "Urban",
-        "pesel": "22012424024",
-        "address": {
-          "street": "Bial",
-          "house_number": "12",
-          "city": "Lublin",
-          "postal_code": "20-000",
-          "state": "Lubelskie"
-        },
-        "phoneNumber": "555333222",
-        "id": 7
-      },
+      "title": "Wizyta",
+      "start": "2023-04-29T12:00:00.000Z",
+      "end": "2023-04-29T13:00:00.000Z",
+      "patientId": 2,
+      "employeeId": 6,
       "id": 5
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-27T12:00:00.000Z",
+      "end": "2023-04-27T13:00:00.000Z",
+      "patientId": 2,
+      "employeeId": 7,
       "id": 6
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-19T12:00:00.000Z",
+      "end": "2023-04-19T13:00:00.000Z",
+      "patientId": 3,
+      "employeeId": 8,
       "id": 7
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-13T12:00:00.000Z",
+      "end": "2023-04-13T12:35:00.000Z",
+      "patientId": 4,
+      "employeeId": 6,
       "id": 8
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-20T12:00:00.000Z",
+      "end": "2023-04-20T12:20:00.000Z",
+      "patientId": 2,
+      "employeeId": 6,
       "id": 9
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-21T12:00:00.000Z",
+      "end": "2023-04-21T12:35:00.000Z",
+      "patientId": 2,
+      "employeeId": 6,
       "id": 10
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-01T12:00:00.000Z",
+      "end": "2023-04-01T14:15:00.000Z",
+      "patientId": 2,
+      "employeeId": 7,
       "id": 11
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-15T12:00:00.000Z",
+      "end": "2023-04-15T15:00:00.000Z",
+      "patientId": 2,
+      "employeeId": 6,
       "id": 12
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-09T12:00:00.000Z",
+      "end": "2023-04-09T13:00:00.000Z",
+      "patientId": 3,
+      "employeeId": 6,
       "id": 13
     },
     {
+      "title": "Wizyta",
+      "start": "2023-04-10T12:00:00.000Z",
+      "end": "2023-04-10T13:00:00.000Z",
+      "patientId": 2,
+      "employeeId": 7,
       "id": 14
-    },
-    {
-      "id": 15
     }
   ]
 }
