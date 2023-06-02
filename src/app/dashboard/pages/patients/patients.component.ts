@@ -35,7 +35,11 @@ export class PatientsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.userService.getUsers().subscribe((res: User[]) => {
-      this.dataSource.data = res;
+      const patientsList: User[] = [];
+      res.forEach((user) =>
+        user.role === 'patient' ? patientsList.push(user) : null
+      );
+      this.dataSource.data = patientsList;
     });
   }
 

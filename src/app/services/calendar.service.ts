@@ -13,8 +13,10 @@ export class CalendarService {
 
   constructor(private http: HttpClient) {}
 
-  public getCalendarEvents(): Observable<CalendarEvent[]> {
-    return this.http.get<CalendarEvent[]>(`${this.API_URL}/calendarEvent/`);
+  public getCalendarEvents(): Observable<CustomCalendarEvent[]> {
+    return this.http.get<CustomCalendarEvent[]>(
+      `${this.API_URL}/calendarEvent/`
+    );
   }
 
   public postCalendarEvent(value: CalendarEvent): Observable<CalendarEvent> {

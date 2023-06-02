@@ -39,10 +39,7 @@
         >
           Previous
         </mat-button-toggle>
-        <mat-button-toggle
-          mwlCalendarToday
-          [(viewDate)]="viewDate"
-        >
+        <mat-button-toggle mwlCalendarToday [(viewDate)]="viewDate">
           Today
         </mat-button-toggle>
         <mat-button-toggle
@@ -56,12 +53,12 @@
       </mat-button-toggle-group>
     </div>
     <div class="event-modal">
-      <button mat-raised-button (click)="addEvent()">Add new event</button>
+      <button mat-raised-button color="primary" (click)="addEvent()"><span>Add new event</span> </button>
     </div>
   </div>
   <div class="calendar-header">
     <div>
-      <h2>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h2>
+      <h2>{{ viewDate | calendarDate : view + 'ViewTitle' : 'en' }}</h2>
     </div>
     <div>
       <mat-select
