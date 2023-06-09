@@ -9,6 +9,7 @@ $info-color: #17a2b8;
 $success-color: #28a745;
 $warning-color: #ffc107;
 $error-color: #dc3545;
+$hover-color: #e6e6e6;
 
 // Dark theme colors
 $primary-color-dark: #17a2b8;
@@ -21,6 +22,7 @@ $info-color-dark: #17a2b8;
 $success-color-dark: #28a745;
 $warning-color-dark: #ffc107;
 $error-color-dark: #dc3545;
+$hover-color-dark: #4c4c4c;
 
 // Mixin for setting theme colors
 @mixin set-theme-colors(

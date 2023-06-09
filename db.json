@@ -32,7 +32,8 @@
         "postalCode": "31-155",
         "state": "małopolskie"
       },
-      "phoneNumber": "555-123-456"
+      "phoneNumber": "555-123-456",
+      "appointments": null
     },
     {
       "id": 3,
@@ -254,6 +255,17 @@
     },
     {
       "id": 20
+    },
+    {
+      "id": 21
+    },
+    {
+      "title": "wizyta",
+      "start": "2023-06-05T12:00:00.000Z",
+      "end": "2023-06-05T15:00:00.000Z",
+      "patientId": 2,
+      "employeeId": 6,
+      "id": 22
     }
   ]
 }

@@ -1,12 +1,8 @@
-<div class="patients-container">
+<div class="patients-container" *ngIf="!isLoading">
   <div class="table">
     <mat-form-field appearance="outline">
       <mat-label>Search</mat-label>
-      <input
-        matInput
-        (keyup)="tableFilter($event)"
-        #input
-      />
+      <input matInput (keyup)="tableFilter($event)" #input />
     </mat-form-field>
 
     <table
@@ -35,9 +31,7 @@
             <mat-icon *ngIf="expandedUser !== user"
               >keyboard_arrow_down</mat-icon
             >
-            <mat-icon *ngIf="expandedUser === user"
-              >keyboard_arrow_up</mat-icon
-            >
+            <mat-icon *ngIf="expandedUser === user">keyboard_arrow_up</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -50,12 +44,55 @@
         >
           <div
             class="user-detail"
-            [@detailExpand]="
-              user == expandedUser ? 'expanded' : 'collapsed'
-            "
+            [@detailExpand]="user == expandedUser ? 'expanded' : 'collapsed'"
           >
             <div class="row-expanded">
-              {{ user | json }}
+              <div class="personal-info">
+                <h3>Personal info:</h3>
+                <ul>
+                  <li><b>Pesel:</b> {{ user.pesel }}</li>
+                  <li>
+                    <b>Adress:</b> <br />
+                    <div class="adress-info">
+                      <span>
+                        <b>Street:</b>
+                        {{ user.adress.street }}
+                      </span>
+                      <br />
+                      <span>
+                        <b>House number:</b> {{ user.adress.house_number }}
+                      </span>
+                      <br />
+                      <span>
+                        <b>City:</b>
+                        {{ user.adress.city }}
+                      </span>
+                      <br />
+                      <span>
+                        <b>Postal code:</b>
+                        {{ user.adress.postalCode }}
+                      </span>
+                      <br />
+                      <span
+                        ><b>State:</b>
+                        {{ user.adress.state }}
+                      </span>
+                      <br />
+                    </div>
+                  </li>
+                  <li><b>Phone number:</b> {{ user.phoneNumber }}</li>
+                </ul>
+                <hr />
+              </div>
+              <div class="user-appointments">
+                <h3>Active appointments:</h3>
+                <div *ngFor="let appointment of user.appointments" class="appointment-row">
+                  <span><b>Title: </b>{{ appointment.title }}</span>
+                  <span
+                    ><b>Date: </b>{{ appointment.start | date : 'dd/MM/YY' }}</span
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </td>

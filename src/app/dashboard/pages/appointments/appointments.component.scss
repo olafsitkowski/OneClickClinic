@@ -22,7 +22,7 @@
 }
 
 .nagivation-buttons .mat-button-toggle {
-  background-color: white;
+  background-color: var(--background-standard);
 }
 
 .calendar-header {
@@ -38,6 +38,6 @@
 
 .event-modal {
   span {
-    color: white;
+    color: var(--background-standard);
   }
 }

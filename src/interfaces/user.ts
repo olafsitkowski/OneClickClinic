@@ -1,4 +1,5 @@
 import { Address } from './Address';
+import { CustomCalendarEvent } from './CustomCalendarEvent';
 
 export interface User {
   id: number;
@@ -11,4 +12,5 @@ export interface User {
   pesel?: string;
   adress: Address;
   phone_number: string;
+  appointments?: CustomCalendarEvent[];
 }

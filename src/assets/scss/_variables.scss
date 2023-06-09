@@ -14,11 +14,10 @@ $heading-5-font-size: 1.25rem;
 $heading-6-font-size: 1rem;
 
 /* Margins and paddings */
-$spacing-unit: 8px;
-$small-spacing: calc($spacing-unit / 2);
-$medium-spacing: $spacing-unit;
-$large-spacing: calc($spacing-unit * 2);
-$xlarge-spacing: calc($spacing-unit * 3);
+$small-spacing: 4px;
+$medium-spacing: 8px;
+$large-spacing: 16px;
+$xlarge-spacing: 48px;
 
 /* Breakpoints */
 $breakpoint-xs: 0;

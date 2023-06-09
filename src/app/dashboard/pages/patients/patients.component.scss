@@ -1,5 +1,8 @@
+@import './../../../../assets/scss/variables';
+
 table {
   width: 50%;
+  background: var(--background-alternative);
 }
 
 tr.detail-row {
@@ -7,15 +10,19 @@ tr.detail-row {
 }
 
 tr.user-row:not(.expanded-row):hover {
-  background: whitesmoke;
+  background: var(--hover-color);
 }
 
 tr.user-row:not(.expanded-row):active {
-  background: #efefef;
+  background: var(--background-standard);
 }
 
 .user-row td {
   border-bottom-width: 0;
+}
+
+.row-expanded {
+  width: 100%;
 }
 
 .user-detail {
@@ -23,12 +30,34 @@ tr.user-row:not(.expanded-row):active {
   display: flex;
 }
 
-.patients-container{
+.table {
+  width: 50%;
+  background-color: var(--background-standard);
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.patients-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 120px;
 }
 
-.table {
-  width: 50%;
+.adress-info {
+  padding-left: 12px;
+  b {
+    font-weight: $font-weight-medium;
+  }
+}
+
+.user-appointments {
+  max-height: 200px;
+  margin-bottom: 25px;
+  overflow: auto;
+  .appointment-row {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: $medium-spacing;
+  }
 }
