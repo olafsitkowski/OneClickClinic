@@ -1,3 +1,4 @@
+import { DialogService } from './../../../services/dialog.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   CalendarDateFormatter,
@@ -50,7 +51,8 @@ export class AppointmentsComponent implements OnInit {
   constructor(
     private modal: MatDialog,
     private calendarService: CalendarService,
-    private userService: UserService
+    private userService: UserService,
+    private dialogService: DialogService
   ) {}
 
   public ngOnInit(): void {
@@ -113,8 +115,20 @@ export class AppointmentsComponent implements OnInit {
     });
   }
 
-  public deleteEvent(eventToDelete: CalendarEvent): void {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+  public deleteEvent(eventId: number): void {
+    const confrimationDialog = this.dialogService.openConfirmationDialog({
+      title: 'Deleting an event',
+      content: 'Are you sure you want to delete this event?',
+      type: 'alert',
+    });
+
+    confrimationDialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.calendarService.deleteCalendarEvent(eventId).subscribe((res) => {
+          res ? this.getCalendarEvents() : null;
+        });
+      }
+    });
   }
 
   public setView(view: CalendarView): void {
@@ -152,6 +166,7 @@ export class AppointmentsComponent implements OnInit {
         this.storedEvents.push(calendarEvent);
       }
       this.events = this.storedEvents;
+      this.addEventButtons();
       this.refresh.next();
     });
   }
@@ -159,6 +174,20 @@ export class AppointmentsComponent implements OnInit {
   private getEmployees(): void {
     this.userService.getEmployees().subscribe((value) => {
       this.employeeList = value;
+    });
+  }
+
+  private addEventButtons(): void {
+    const actions = [
+      {
+        label: '<i>Delete</i>',
+        onClick: ({ event }: { event: any }): void => {
+          this.deleteEvent(event.id);
+        },
+      },
+    ];
+    this.events.forEach((element: CustomCalendarEvent) => {
+      element.actions = actions;
     });
   }
 }

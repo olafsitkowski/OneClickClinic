@@ -1,0 +1,17 @@
+<div class="dialog">
+  <div class="header">
+    <h1 mat-dialog-title class="title">
+      <mat-icon *ngIf="data.type === 'alert'">priority_high</mat-icon>
+      <span>{{ data.title | titlecase }}</span>
+    </h1>
+  </div>
+  <div mat-dialog-content class="content">
+    {{ data.content }}
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button mat-dialog-close (click)="closeDialog()">Cancel</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="confirmDialog()">
+      Confirm
+    </button>
+  </div>
+</div>

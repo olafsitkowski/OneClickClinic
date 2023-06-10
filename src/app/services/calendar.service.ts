@@ -25,4 +25,8 @@ export class CalendarService {
       value
     );
   }
+
+  public deleteCalendarEvent(id: number): Observable<unknown> {
+    return this.http.delete(`${this.API_URL}/calendarEvent/${id}`);
+  }
 }

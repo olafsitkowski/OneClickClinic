@@ -17,6 +17,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     LoginComponent,
     NavBarComponent,
     RegisterComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatSelectModule,
     HttpClientModule,
     MatSlideToggleModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -12,4 +12,5 @@ export interface CustomCalendarEvent {
     afterEnd?: boolean;
   };
   draggable?: boolean;
+  actions?: any;
 }
