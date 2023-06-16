@@ -9,19 +9,16 @@
     </div>
   </div>
   <div class="navigation">
-    <button
-      mat-button
-      (click)="changeRoute('appointments')"
-      [ngClass]="{'active': currentRoute === '/dashboard/appointments'}"
-    >
-    <mat-icon>event</mat-icon><span>Appointments</span>
-    </button>
-    <button mat-button (click)="changeRoute('patients')" [ngClass]="{'active': currentRoute === '/dashboard/patients'}">
-      <mat-icon>person</mat-icon><span>Patients</span>
-    </button>
-    <button mat-button [ngClass]="{'active': currentRoute === '/dashboard/employees'}">
-      <mat-icon>badge</mat-icon><span>Employees</span>
-    </button>
+    <div *ngFor="let section of sectionsList" class="section-button">
+      <button
+        mat-button
+        (click)="changeRoute(section.route)"
+        [ngClass]="{ active: currentRoute === '/dashboard/' + section.route }"
+      >
+        <mat-icon>{{ section.icon }}</mat-icon
+        ><span>{{ section.label }}</span>
+      </button>
+    </div>
   </div>
   <div class="footer">
     <button mat-raised-button color="accent">

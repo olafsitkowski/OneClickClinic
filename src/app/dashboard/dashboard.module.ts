@@ -23,6 +23,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AddEventModalComponent } from './pages/appointments/add-event-modal/add-event-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { AnalyticsComponent } from './pages/analytics/analytics.component';
 
 registerLocaleData(localePl);
 
@@ -33,6 +34,7 @@ registerLocaleData(localePl);
     AppointmentsComponent,
     PatientsComponent,
     AddEventModalComponent,
+    AnalyticsComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ registerLocaleData(localePl);
         children: [
           { path: 'appointments', component: AppointmentsComponent },
           { path: 'patients', component: PatientsComponent },
-          { path: '', redirectTo: 'appointments', pathMatch: 'full' },
+          { path: 'analytics', component: AnalyticsComponent },
+          { path: '', redirectTo: 'analytics', pathMatch: 'full' },
         ],
       },
     ]),
