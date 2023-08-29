@@ -71,7 +71,7 @@ export class NewUserDialogComponent implements OnInit {
     if (this.userFiles.length !== this.maxFilesCount) {
       this.userFiles.push(file);
     } else {
-      console.warn('Max files')
+      console.warn('Max files');
     }
   }
 
