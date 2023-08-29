@@ -181,6 +181,7 @@ export class AppointmentsComponent implements OnInit {
     const actions = [
       {
         label: '<i>Delete</i>',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onClick: ({ event }: { event: any }): void => {
           this.deleteEvent(event.id);
         },

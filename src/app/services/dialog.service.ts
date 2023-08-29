@@ -8,6 +8,7 @@ import { ConfirmationDialogComponent } from '../dialogs/confirmation-dialog/conf
 export class DialogService {
   constructor(private dialog: MatDialog) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public openConfirmationDialog(data: any): MatDialogRef<any> {
     return this.dialog.open(ConfirmationDialogComponent, {
       width: '250px',

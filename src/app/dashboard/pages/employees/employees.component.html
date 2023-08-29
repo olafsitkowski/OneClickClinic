@@ -7,8 +7,8 @@
       </mat-form-field>
     </div>
     <div class="add-patient-button">
-      <h4>Add new patient</h4>
-      <button mat-fab color="primary" (click)="addNewPatient()">
+      <h4>Add new Employee</h4>
+      <button mat-fab color="primary" (click)="addNewEmployee()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -57,48 +57,7 @@
             [@detailExpand]="user == expandedUser ? 'expanded' : 'collapsed'"
           >
             <div class="row-expanded">
-              <div class="personal-info">
-                <h3>Address:</h3>
-                <mat-card>
-                  <mat-card-content>
-                    <span>
-                      <b>Street:</b>
-                      {{ user.address.street }}
-                    </span>
-                    <br />
-                    <span>
-                      <b>House number:</b> {{ user.address.house_number }}
-                    </span>
-                    <br />
-                    <span>
-                      <b>City:</b>
-                      {{ user.address.city }}
-                    </span>
-                    <br />
-                    <span>
-                      <b>Postal code:</b>
-                      {{ user.address.postalCode }}
-                    </span>
-                    <br />
-                    <span
-                      ><b>State:</b>
-                      {{ user.address.state }}
-                    </span>
-                  </mat-card-content>
-                </mat-card>
-                <!-- <ul>
-                  <li><b>Pesel:</b> {{ user.pesel }}</li>
-                  <li>
-                    <b>Adress:</b> <br />
-                    <div class="adress-info">
-                      <br />
-                    </div>
-                  </li>
-                  <li><b>Phone number:</b> {{ user.phoneNumber }}</li>
-                </ul> -->
-                <mat-divider></mat-divider>
-              </div>
-              <div class="user-appointments">
+              <div class="user-appointments" *ngIf="user.appointments">
                 <h3>Active appointments:</h3>
                 <table
                   mat-table
@@ -107,6 +66,7 @@
                 >
                   <mat-text-column name="title"></mat-text-column>
                   <mat-text-column name="start"></mat-text-column>
+                  <mat-text-column name="end"></mat-text-column>
 
                   <tr
                     mat-header-row
@@ -117,6 +77,9 @@
                     *matRowDef="let row; columns: appointmentsColumns"
                   ></tr>
                 </table>
+              </div>
+              <div *ngIf="!user.appointments">
+                No active appointments
               </div>
             </div>
           </div>

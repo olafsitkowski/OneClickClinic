@@ -1,1 +1,67 @@
-<p>analytics works!</p>
+<div class="analytics-container">
+  <div class="widget">Data <br> 123</div>
+  <div class="widget">widget</div>
+  <div class="widget">widget</div>
+  <div class="widget">widget</div>
+  <div class="slots">
+    <div class="header">
+      <h2>Slots</h2>
+    </div>
+    <ngx-charts-bar-vertical
+      [scheme]="colorScheme"
+      [results]="slots"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+    >
+    </ngx-charts-bar-vertical>
+  </div>
+  <div class="appointments">
+    <div class="header">
+      <h2>New apointments</h2>
+    </div>
+    <ngx-charts-area-chart
+      [results]="apointmentsResults"
+      [scheme]="colorScheme"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Timeline'"
+      [yAxisLabel]="'Count'"
+      [xAxis]="true"
+      [yAxis]="true"
+      [trimYAxisTicks]="false"
+    >
+    </ngx-charts-area-chart>
+  </div>
+  <div class="patients-conut">
+    <div class="header">
+      <h2>Patients count</h2>
+    </div>
+    <ngx-charts-area-chart
+      [results]="patients"
+      [scheme]="colorScheme"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Timeline'"
+      [yAxisLabel]="'Count'"
+      [xAxis]="true"
+      [yAxis]="true"
+      [trimYAxisTicks]="false"
+    >
+    </ngx-charts-area-chart>
+  </div>
+  <div class="patients-age">
+    <div class="header">
+      <h2>Patients age</h2>
+    </div>
+    <ngx-charts-pie-chart
+      [results]="single"
+      [doughnut]="true"
+      [labels]="true"
+      [scheme]="colorScheme"
+      [legendPosition]="legendPosition"
+    >
+    </ngx-charts-pie-chart>
+  </div>
+</div>

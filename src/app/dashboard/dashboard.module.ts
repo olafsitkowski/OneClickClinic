@@ -21,9 +21,12 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AddEventModalComponent } from './pages/appointments/add-event-modal/add-event-modal.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { EmployeesComponent } from './pages/employees/employees.component';
 
 registerLocaleData(localePl);
 
@@ -35,6 +38,7 @@ registerLocaleData(localePl);
     PatientsComponent,
     AddEventModalComponent,
     AnalyticsComponent,
+    EmployeesComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +50,7 @@ registerLocaleData(localePl);
           { path: 'appointments', component: AppointmentsComponent },
           { path: 'patients', component: PatientsComponent },
           { path: 'analytics', component: AnalyticsComponent },
+          { path: 'employees', component: EmployeesComponent },
           { path: '', redirectTo: 'analytics', pathMatch: 'full' },
         ],
       },
@@ -66,8 +71,10 @@ registerLocaleData(localePl);
     FormsModule,
     MatDialogModule,
     MatButtonToggleModule,
-    NgbModule,
     MatAutocompleteModule,
+    NgxChartsModule,
+    MatDividerModule,
+    MatCardModule,
   ],
 })
 export class DashboardModule {}

@@ -28,22 +28,6 @@ export const mockRegisterInfoFormFields: RegisterForm[] = [
     class: 'email',
   },
   {
-    name: 'password',
-    label: 'Password',
-    type: 'password',
-    controlName: 'password',
-    class: 'password',
-    autocomplete: 'on',
-  },
-  {
-    name: 'password-match',
-    label: 'Confirm password',
-    type: 'password',
-    controlName: 'confirmPassword',
-    class: 'password-match',
-    autocomplete: 'on',
-  },
-  {
     name: 'phoneNumber',
     label: 'Phone number',
     type: 'text',

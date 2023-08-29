@@ -1,0 +1,48 @@
+form {
+  width: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+ng-container {
+  overflow: hidden;
+}
+
+.form-group {
+  max-width: 100%;
+}
+
+.modal-body {
+  width: 700px;
+}
+
+.small-input {
+  width: 75px;
+}
+
+.medium-input {
+  width: 150px;
+}
+
+.large-input {
+  width: 300px;
+}
+
+.text-area {
+  width: 620px;
+  max-height: 200px;
+}
+
+.delete-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    display: flex;
+  }
+}
+

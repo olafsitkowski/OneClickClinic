@@ -19,6 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NewUserDialogComponent } from './dialogs/new-user-dialog/new-user-dialog.component';
+import { NewEmployeeDialogComponent } from './dialogs/new-employee-dialog/new-employee-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { FileUploadComponent } from './shared/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     NavBarComponent,
     RegisterComponent,
     ConfirmationDialogComponent,
+    NewUserDialogComponent,
+    NewEmployeeDialogComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     MatSlideToggleModule,
     MatDialogModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

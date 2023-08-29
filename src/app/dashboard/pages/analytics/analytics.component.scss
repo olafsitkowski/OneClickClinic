@@ -1,0 +1,95 @@
+::ng-deep ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+  .tooltip-caret.position-top {
+    border-top-color: white;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  color: black;
+  padding: 10px 15px;
+  background-color: white;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  margin-left: 16px;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.header {
+  position: absolute;
+  padding-right: 20px;
+  background: white;
+  border-radius: 10px;
+}
+
+.analytics-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px 50px;
+  grid-template-areas:
+    'appointments appointments appointments patients-age'
+    'slots slots new-patients new-patients';
+
+  height: 96vh;
+  max-height: 96vh;
+  justify-items: center;
+  align-items: stretch;
+  padding: 0 30px 0 30px;
+  margin-top: 30px;
+
+  div {
+    max-height: 300px;
+  }
+}
+
+.patients-conut {
+  width: 100%;
+  height: 100%;
+  grid-area: new-patients;
+}
+
+.patients-age {
+  width: 100%;
+  height: 100%;
+  grid-area: patients-age;
+}
+
+.appointments {
+  width: 100%;
+  height: 100%;
+  grid-area: appointments;
+}
+
+.slots {
+  width: 100%;
+  max-height: 100%;
+  grid-area: slots;
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    div {
+      width: 250px;
+      height: 40px;
+    }
+  }
+}
+
+.patients-age,
+.patients-conut,
+.slots,
+.appointments {
+  border: 1px solid rgb(233, 233, 233);
+  border-radius: 10px;
+  padding-bottom: 80px;
+}
+
+.widget {
+  width: 300px;
+  height: 250px;
+  border: 1px solid rgba(128, 128, 128, 0.212);
+}

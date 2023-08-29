@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MatDialog } from '@angular/material/dialog';
 import {
   animate,
   state,
@@ -8,18 +7,19 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { forkJoin } from 'rxjs';
+import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user-dialog.component';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { UserService } from 'src/app/services/user.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { User } from 'src/interfaces/User';
-import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user-dialog.component';
 
 @Component({
-  selector: 'app-patients',
-  templateUrl: './patients.component.html',
-  styleUrls: ['./patients.component.scss'],
+  selector: 'app-employees',
+  templateUrl: './employees.component.html',
+  styleUrls: ['./employees.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -31,35 +31,28 @@ import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user
     ]),
   ],
 })
-export class PatientsComponent implements OnInit {
-  constructor(
-    private userService: UserService,
-    private calendarService: CalendarService,
-    private modal: MatDialog
-  ) {}
-
-  public patientsList: User[] = [];
+export class EmployeesComponent implements OnInit {
   public calendarEvents: CustomCalendarEvent[] = [];
+  public employeeList: User[] = [];
   public columns = [
     'name',
     'surname',
     'email',
     'phoneNumber',
-    'pesel',
+    'specialization',
     'actions',
   ];
-  public appointmentsColumns = ['title', 'start'];
-  public addressLabels = [
-    'Street',
-    'House number',
-    'City',
-    'Postal code',
-    'State',
-  ];
+  public appointmentsColumns = ['title', 'start', 'end'];
   public columnsExpand = [...this.columns, 'expand'];
   public expandedUser: User | null | undefined;
   public dataSource = new MatTableDataSource<User>();
-  public isLoading: boolean = true;
+  public isLoading: boolean = false;
+
+  constructor(
+    private userService: UserService,
+    private modal: MatDialog,
+    private calendarService: CalendarService
+  ) {}
 
   public ngOnInit(): void {
     this.loadData();
@@ -76,11 +69,11 @@ export class PatientsComponent implements OnInit {
       this.calendarService.getCalendarEvents(),
     ]).subscribe({
       next: ([users, events]) => {
-        const patientsList: User[] = users.filter(
-          (user) => user.role === 'patient'
+        const employeeList: User[] = users.filter(
+          (user) => user.role === 'employee'
         );
-        this.dataSource.data = patientsList;
-        this.patientsList = patientsList;
+        this.dataSource.data = employeeList;
+        this.employeeList = employeeList;
         this.calendarEvents = events;
         this.mergeAppointments();
       },
@@ -102,17 +95,14 @@ export class PatientsComponent implements OnInit {
 
   private mergeAppointments(): void {
     this.calendarEvents.forEach((event) => {
-      const user = this.patientsList.find(
-        (user) => user.id === event.patientId
+      const user = this.employeeList.find(
+        (user) => user.id === event.employeeId
       );
       if (user) {
-        !user.appointments ? (user.appointments = []) : null; // TO DO: refactor, add getCurretAppointments
+        !user.appointments ? (user.appointments = []) : null;
         user.appointments?.push(event);
       }
     });
     this.isLoading = false;
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private setPersonalInfo(): void {} //add labels to personal info and make it generic in html
 }
