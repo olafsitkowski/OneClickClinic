@@ -1,0 +1,73 @@
+<div class="user-info-card" mat-dialog-content>
+  <div class="card-content">
+    <tabset [justified]="true">
+      <tab heading="Personal info">
+        <div class="personal-info">
+          <h3>Personal info</h3>
+          <div>
+            <h6>Full Name</h6>
+            <span>{{ user?.name }} {{ user?.surname }}</span>
+          </div>
+          <div>
+            <h6>Email</h6>
+            <span>{{ user?.email }}</span>
+          </div>
+          <div>
+            <h6>Address</h6>
+            <span>{{ user?.address }}</span>
+          </div>
+          <div>
+            <h6>State</h6>
+            <span>add state</span>
+          </div>
+          <div>
+            <h6>Phone</h6>
+            <span>{{ user?.phoneNumber }}</span>
+          </div>
+          <div>
+            <h6>Pesel</h6>
+            <span>{{ user?.pesel }}</span>
+          </div>
+        </div>
+        <div class="medical-info">
+          <h3>Medical information</h3>
+          <div>
+            <h6>Blood grup</h6>
+            <span>{{ user?.bloodGroup }}</span>
+          </div>
+          <div>
+            <h6>Gender</h6>
+            <span>{{ user?.gender }}</span>
+          </div>
+          <div>
+            <h6>BMI</h6>
+            <span>add info</span>
+          </div>
+          <div>
+            <h6>Chronic diseases</h6>
+            <span>add info</span>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Active appointments">
+        <div class="user-appointments">
+          <table mat-table class="appointments-table">
+            <mat-text-column
+              *ngFor="let cloumn of appointmentsColumns"
+              name="{{ cloumn }}"
+            ></mat-text-column>
+
+            <tr mat-header-row *matHeaderRowDef="appointmentsColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: appointmentsColumns"></tr>
+          </table>
+        </div>
+      </tab>
+      <tab heading="Documentation">
+        <div></div>
+      </tab>
+    </tabset>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
+</div>

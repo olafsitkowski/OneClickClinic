@@ -1,0 +1,37 @@
+.user-info-card {
+  width: 700px;
+  height: 800px;
+  padding: 0;
+}
+
+h3 {
+  color: black;
+  margin-top: 24px;
+}
+
+.personal-info, .medical-info {
+  h3 {
+    margin-left: 16px;
+  }
+
+  div {
+    display: flex;
+    align-items: baseline;
+    margin-left: 10%;
+    margin-top: 32px;
+
+    h6 {
+      margin: 0;
+      margin-right: 8px;
+    }
+
+    span {
+      font-size: 1rem;
+    }
+  }
+}
+// tab {
+//   div {
+//     padding: 40px;
+//   }
+// }

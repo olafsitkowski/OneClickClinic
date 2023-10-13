@@ -1,4 +1,3 @@
-import { Address } from './Address';
 import { CustomCalendarEvent } from './CustomCalendarEvent';
 
 export interface User {
@@ -6,11 +5,18 @@ export interface User {
   role: string;
   email: string;
   password: string;
-  password2?: string;
   name: string;
   surname: string;
+  bloodGroup: string;
+  phoneNumber: string;
+  gender: string;
+  address: string;
+  treatment?: string;
   pesel?: string;
-  adress: Address;
-  phone_number: string;
   appointments?: CustomCalendarEvent[];
+}
+
+export enum UserType {
+  PATIENT = 'patient',
+  EMPLOYEE = 'employee',
 }

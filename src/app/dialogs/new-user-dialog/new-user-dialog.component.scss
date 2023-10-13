@@ -46,3 +46,13 @@ ng-container {
   }
 }
 
+.gender-select {
+  display: flex;
+  flex-direction: column;
+  height: 62px;
+  padding-right: 142px;
+
+  label {
+    padding-bottom: 6px;
+  }
+}

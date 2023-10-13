@@ -1,4 +1,3 @@
-import { CommonService } from './../../services/common.service';
 import { RegisterForm } from 'src/interfaces/RegisterForm';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -8,6 +7,7 @@ import {
 } from './../../components/auth/register/mock-data';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-user-dialog',
@@ -21,12 +21,21 @@ export class NewUserDialogComponent implements OnInit {
   public mockAddressformFields: RegisterForm[] = mockAddressformFields;
   public userFiles: File[] = [];
   public maxFilesCount: number = 1;
+  public bloodGroups: string[] = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    '0+',
+    '0-',
+  ];
 
   constructor(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NewUserDialogComponent>,
-    private commonService: CommonService
+    private toastr: ToastrService
   ) {}
 
   public ngOnInit(): void {
@@ -34,24 +43,20 @@ export class NewUserDialogComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
+      bloodGroup: new FormControl('', [Validators.required]),
+      treatment: new FormControl(''),
       pesel: new FormControl('', [
         Validators.required,
         Validators.minLength(11),
       ]),
-      address: new FormGroup({
-        street: new FormControl('', [Validators.required]),
-        house_number: new FormControl(''),
-        city: new FormControl('', [Validators.required]),
-        postal_code: new FormControl('', [Validators.required]),
-        state: new FormControl('', [Validators.required]),
-      }),
+      address: new FormControl(''),
       phoneNumber: new FormControl('', [
         Validators.required,
         Validators.minLength(9),
         Validators.maxLength(9),
       ]),
+      gender: new FormControl('', Validators.required),
       role: new FormControl('patient'),
-      // gender: new FormControl(''), TODO: ADD GENDER
     });
   }
 
@@ -71,7 +76,7 @@ export class NewUserDialogComponent implements OnInit {
     if (this.userFiles.length !== this.maxFilesCount) {
       this.userFiles.push(file);
     } else {
-      console.warn('Max files');
+      this.toastr.warning('Max files reached!'); // TODO: Add tranlation.
     }
   }
 

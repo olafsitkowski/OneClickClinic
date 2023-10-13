@@ -18,59 +18,6 @@
       "phoneNumber": "555-555-555"
     },
     {
-      "id": 2,
-      "role": "patient",
-      "email": "nowak@onet.pl",
-      "password": "qazwsxedc",
-      "name": "Adam",
-      "surname": "Nowak",
-      "pesel": "75010123456",
-      "address": {
-        "street": "ul. Warszawska",
-        "house_number": "78",
-        "city": "Kraków",
-        "postalCode": "31-155",
-        "state": "małopolskie"
-      },
-      "phoneNumber": "555-123-456",
-      "appointments": null
-    },
-    {
-      "id": 3,
-      "role": "patient",
-      "email": "user@firmaplus.pl",
-      "password": "adminadmin",
-      "password2": "adminadmin",
-      "name": "Anna",
-      "surname": "Kowalczyk",
-      "pesel": "86071256789",
-      "address": {
-        "street": "ul. Zwycięstwa",
-        "house_number": "10",
-        "city": "Gdańsk",
-        "postalCode": "80-123",
-        "state": "pomorskie"
-      },
-      "phoneNumber": "555-987-654"
-    },
-    {
-      "id": 4,
-      "role": "patient",
-      "email": "janusz.majer@gmail.com",
-      "password": "password123",
-      "name": "Janusz",
-      "surname": "Majer",
-      "pesel": "60060812345",
-      "address": {
-        "street": "ul. 3 Maja",
-        "house_number": "4/6",
-        "city": "Warszawa",
-        "postalCode": "00-001",
-        "state": "mazowieckie"
-      },
-      "phoneNumber": "555-234-567"
-    },
-    {
       "role": "employee",
       "email": "john.doe@example.com",
       "password": "mysecret123",
@@ -125,152 +72,143 @@
       "id": 8
     },
     {
-      "email": "emai@mada.pl",
-      "name": "Marcin",
-      "surname": "Plak",
-      "pesel": "00125235112",
-      "address": {
-        "street": "Niepodleglosci",
-        "house_number": "3",
-        "city": "Luiblin",
-        "postal_code": "20000",
-        "state": "Kujawsko-pomorskie"
-      },
-      "phoneNumber": "444333222",
+      "email": "tomaszt@op.pl",
+      "name": "Tomasz",
+      "surname": "Testowy",
+      "bloodGroup": "B+",
+      "treatment": "Leczenie oka",
+      "pesel": "00221423020",
+      "address": "Ulica 2/3,\nMiasto, 20-123",
+      "phoneNumber": "519055003",
+      "gender": "male",
       "role": "patient",
-      "id": 9
+      "id": 46
     },
     {
-      "id": 10
-    },
-    {
-      "id": 11
-    },
-    {
-      "id": 12
-    },
-    {
-      "id": 13
-    },
-    {
-      "id": 14
-    },
-    {
-      "id": 15
-    },
-    {
-      "id": 16
-    },
-    {
-      "id": 17
-    },
-    {
-      "id": 18
-    },
-    {
-      "id": 19
-    },
-    {
-      "id": 20
-    },
-    {
-      "id": 21
-    },
-    {
-      "id": 22
-    },
-    {
-      "id": 23
-    },
-    {
-      "id": 24
-    },
-    {
-      "id": 25
-    },
-    {
-      "id": 26
-    },
-    {
-      "id": 27
-    },
-    {
-      "id": 28
-    },
-    {
-      "id": 29
-    },
-    {
-      "id": 30
-    },
-    {
-      "id": 31
-    },
-    {
-      "id": 32
-    },
-    {
-      "id": 33
-    },
-    {
-      "email": "",
-      "name": "",
-      "surname": "",
-      "pesel": "",
-      "address": {
-        "street": "",
-        "house_number": "",
-        "city": "",
-        "postal_code": "",
-        "state": ""
-      },
-      "phoneNumber": "",
+      "email": "anna123@example.com",
+      "name": "Anna",
+      "surname": "Kowalska",
+      "bloodGroup": "A-",
+      "treatment": "Kontrola stomatologiczna",
+      "pesel": "91010212345",
+      "address": "ul. Kwiatowa 5/2, Warszawa",
+      "phoneNumber": "555123456",
+      "gender": "female",
       "role": "patient",
-      "id": 34
+      "id": 101
     },
     {
-      "email": "",
-      "name": "",
-      "surname": "",
-      "pesel": "",
-      "address": {
-        "street": "",
-        "house_number": "",
-        "city": "",
-        "postal_code": "",
-        "state": ""
-      },
-      "phoneNumber": "",
+      "email": "jan.kowalski@email.com",
+      "name": "Jan",
+      "surname": "Kowalski",
+      "bloodGroup": "O+",
+      "treatment": "Złamanie ręki",
+      "pesel": "75020298765",
+      "address": "ul. Sportowa 10, Kraków",
+      "phoneNumber": "600987654",
+      "gender": "male",
       "role": "patient",
-      "id": 35
+      "id": 102
     },
     {
-      "email": "",
-      "name": "",
-      "surname": "",
-      "pesel": "",
-      "address": {
-        "street": "",
-        "house_number": "",
-        "city": "",
-        "postal_code": "",
-        "state": ""
-      },
-      "phoneNumber": "",
+      "email": "ewa.nowak@samplemail.com",
+      "name": "Ewa",
+      "surname": "Nowak",
+      "bloodGroup": "AB+",
+      "treatment": "Konsultacja psychiatryczna",
+      "pesel": "88051154321",
+      "address": "ul. Leśna 7, Gdańsk",
+      "phoneNumber": "512555444",
+      "gender": "female",
       "role": "patient",
-      "id": 36
+      "id": 103
     },
     {
-      "id": 37
+      "id": 104
     },
     {
-      "id": 38
+      "id": 105
     },
     {
-      "id": 39
+      "id": 106
     },
     {
-      "id": 40
+      "id": 107
+    },
+    {
+      "id": 108
+    },
+    {
+      "id": 109
+    },
+    {
+      "id": 110
+    },
+    {
+      "id": 111
+    },
+    {
+      "id": 112
+    },
+    {
+      "id": 113
+    },
+    {
+      "id": 114
+    },
+    {
+      "id": 115
+    },
+    {
+      "id": 116
+    },
+    {
+      "id": 117
+    },
+    {
+      "id": 118
+    },
+    {
+      "id": 119
+    },
+    {
+      "id": 120
+    },
+    {
+      "id": 121
+    },
+    {
+      "id": 122
+    },
+    {
+      "id": 123
+    },
+    {
+      "id": 124
+    },
+    {
+      "id": 125
+    },
+    {
+      "id": 126
+    },
+    {
+      "id": 127
+    },
+    {
+      "id": 128
+    },
+    {
+      "id": 129
+    },
+    {
+      "id": 130
+    },
+    {
+      "id": 131
+    },
+    {
+      "id": 132
     }
   ],
   "calendarEvent": [
@@ -433,6 +371,12 @@
     },
     {
       "id": 51
+    },
+    {
+      "id": 52
+    },
+    {
+      "id": 53
     }
   ]
 }

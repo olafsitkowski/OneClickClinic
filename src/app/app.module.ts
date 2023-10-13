@@ -1,3 +1,4 @@
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -23,6 +24,8 @@ import { NewUserDialogComponent } from './dialogs/new-user-dialog/new-user-dialo
 import { NewEmployeeDialogComponent } from './dialogs/new-employee-dialog/new-employee-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { FileUploadComponent } from './shared/file-upload/file-upload.component';
+import { ToastrModule } from 'ngx-toastr';
+import { UserInfoCardComponent } from './dialogs/user-info-card/user-info-card.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { FileUploadComponent } from './shared/file-upload/file-upload.component'
     NewUserDialogComponent,
     NewEmployeeDialogComponent,
     FileUploadComponent,
+    UserInfoCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { FileUploadComponent } from './shared/file-upload/file-upload.component'
     MatSlideToggleModule,
     MatDialogModule,
     MatRadioModule,
+    ToastrModule.forRoot(),
+    TabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

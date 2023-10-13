@@ -1,5 +1,13 @@
 @import './../../../../assets/scss/variables';
 
+.mat-mdc-table .mdc-data-table__row {
+  border-color: lightgray;
+}
+
+.mat-mdc-table .mdc-data-table__header-row {
+  background-color: rgb(226, 225, 225); // to change
+}
+
 table {
   width: 50%;
   background: white;
@@ -89,12 +97,4 @@ tr.user-row:not(.expanded-row):active {
 
 .appointments-table {
   background-color: lightgray;
-}
-
-.odd-row {
-  background-color: white;
-}
-
-.even-row {
-  background-color: #eee;
 }

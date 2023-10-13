@@ -1,44 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MatDialog } from '@angular/material/dialog';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { forkJoin } from 'rxjs';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { UserService } from 'src/app/services/user.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
-import { User } from 'src/interfaces/User';
+import { User, UserType } from 'src/interfaces/User';
 import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user-dialog.component';
+import { UserInfoCardComponent } from 'src/app/dialogs/user-info-card/user-info-card.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-patients',
-  templateUrl: './patients.component.html',
-  styleUrls: ['./patients.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      ),
-    ]),
-  ],
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss'],
+  animations: [],
 })
-export class PatientsComponent implements OnInit {
-  constructor(
-    private userService: UserService,
-    private calendarService: CalendarService,
-    private modal: MatDialog
-  ) {}
-
-  public patientsList: User[] = [];
+export class UsersComponent implements OnInit {
+  public usersList: User[] = [];
   public calendarEvents: CustomCalendarEvent[] = [];
   public columns = [
     'name',
@@ -48,7 +28,7 @@ export class PatientsComponent implements OnInit {
     'pesel',
     'actions',
   ];
-  public appointmentsColumns = ['title', 'start'];
+
   public addressLabels = [
     'Street',
     'House number',
@@ -57,9 +37,18 @@ export class PatientsComponent implements OnInit {
     'State',
   ];
   public columnsExpand = [...this.columns, 'expand'];
-  public expandedUser: User | null | undefined;
   public dataSource = new MatTableDataSource<User>();
   public isLoading: boolean = true;
+  public userType: UserType;
+
+  constructor(
+    private userService: UserService,
+    private calendarService: CalendarService,
+    private modal: MatDialog,
+    private route: ActivatedRoute
+  ) {
+    this.userType = this.route.snapshot.data['userType'];
+  }
 
   public ngOnInit(): void {
     this.loadData();
@@ -76,11 +65,11 @@ export class PatientsComponent implements OnInit {
       this.calendarService.getCalendarEvents(),
     ]).subscribe({
       next: ([users, events]) => {
-        const patientsList: User[] = users.filter(
-          (user) => user.role === 'patient'
+        const usersList: User[] = users.filter(
+          (user) => user.role === this.userType
         );
-        this.dataSource.data = patientsList;
-        this.patientsList = patientsList;
+        this.dataSource.data = usersList;
+        this.usersList = usersList;
         this.calendarEvents = events;
         this.mergeAppointments();
       },
@@ -90,7 +79,7 @@ export class PatientsComponent implements OnInit {
     });
   }
 
-  public addNewPatient(): void {
+  public addNewUser(): void {
     const dialogRef = this.modal.open(NewUserDialogComponent, {
       disableClose: true,
     });
@@ -100,10 +89,31 @@ export class PatientsComponent implements OnInit {
     });
   }
 
+  public editUser(): void {
+    // const dialogRef = this.modal.open(UserInfoCardComponent, {});
+    // dialogRef.afterClosed().subscribe((data: any) => {
+    //   console.warn('dialog closed');
+    // });
+  }
+
+  public viewUserInfo(user: User): void {
+    const dialogRef = this.modal.open(UserInfoCardComponent, {
+      data: { user: user },
+    });
+
+    dialogRef.afterClosed().subscribe((data: any) => {
+      console.warn('dialog closed', data);
+    });
+  }
+
   private mergeAppointments(): void {
     this.calendarEvents.forEach((event) => {
-      const user = this.patientsList.find(
-        (user) => user.id === event.patientId
+      const user = this.usersList.find(
+        (user) =>
+          user.id ===
+          (this.userType === UserType.PATIENT
+            ? event.patientId
+            : event.employeeId)
       );
       if (user) {
         !user.appointments ? (user.appointments = []) : null; // TO DO: refactor, add getCurretAppointments
@@ -112,7 +122,4 @@ export class PatientsComponent implements OnInit {
     });
     this.isLoading = false;
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private setPersonalInfo(): void {} //add labels to personal info and make it generic in html
 }

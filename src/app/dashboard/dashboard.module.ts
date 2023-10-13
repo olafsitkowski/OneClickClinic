@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { AppointmentsComponent } from './pages/appointments/appointments.component';
-import { PatientsComponent } from './pages/patients/patients.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -23,11 +22,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AddEventModalComponent } from './pages/appointments/add-event-modal/add-event-modal.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
-import { EmployeesComponent } from './pages/employees/employees.component';
-
+import { UsersComponent } from './pages/users/users.component';
 registerLocaleData(localePl);
 
 @NgModule({
@@ -35,10 +32,9 @@ registerLocaleData(localePl);
     DashboardComponent,
     SideNavComponent,
     AppointmentsComponent,
-    PatientsComponent,
+    UsersComponent,
     AddEventModalComponent,
     AnalyticsComponent,
-    EmployeesComponent,
   ],
   imports: [
     CommonModule,
@@ -48,9 +44,20 @@ registerLocaleData(localePl);
         component: DashboardComponent,
         children: [
           { path: 'appointments', component: AppointmentsComponent },
-          { path: 'patients', component: PatientsComponent },
-          { path: 'analytics', component: AnalyticsComponent },
-          { path: 'employees', component: EmployeesComponent },
+          {
+            path: 'patients',
+            component: UsersComponent,
+            data: { userType: 'patient' },
+          },
+          {
+            path: 'analytics',
+            component: AnalyticsComponent,
+          },
+          {
+            path: 'employees',
+            component: UsersComponent,
+            data: { userType: 'employee' },
+          },
           { path: '', redirectTo: 'analytics', pathMatch: 'full' },
         ],
       },
@@ -72,7 +79,6 @@ registerLocaleData(localePl);
     MatDialogModule,
     MatButtonToggleModule,
     MatAutocompleteModule,
-    NgxChartsModule,
     MatDividerModule,
     MatCardModule,
   ],
