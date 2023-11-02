@@ -33,6 +33,7 @@ export class NewUserDialogComponent implements OnInit {
   ];
 
   constructor(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<NewUserDialogComponent>,
     private toastr: ToastrService

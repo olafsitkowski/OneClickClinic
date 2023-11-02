@@ -1,7 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CalendarEvent } from 'angular-calendar';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 
 @Injectable({
@@ -19,8 +18,10 @@ export class CalendarService {
     );
   }
 
-  public postCalendarEvent(value: CalendarEvent): Observable<CalendarEvent> {
-    return this.http.post<CalendarEvent>(
+  public postCalendarEvent(
+    value: CustomCalendarEvent
+  ): Observable<CustomCalendarEvent> {
+    return this.http.post<CustomCalendarEvent>(
       `${this.API_URL}/calendarEvent/`,
       value
     );

@@ -1,15 +1,40 @@
-.dialog-content{
-  display: flex;
-  padding-top: 12px;
-  width: 500px;
-}
-
 form {
+  width: 700px;
+  height: 600px;
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-wrap: wrap;
+  padding: 40px;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
-.mat-mdc-dialog-actions {
-  justify-content: space-between;
+ng-container {
+  overflow: hidden;
+}
+
+.form-group {
+  max-width: 100%;
+  padding: 8px 0;
+}
+
+.modal-body {
+  width: 700px;
+}
+
+.small-input {
+  width: 75px;
+}
+
+.medium-input {
+  width: 150px;
+}
+
+.large-input {
+  width: 300px;
+}
+
+.text-area {
+  width: 620px;
+  height: 200px;
+  max-height: 200px;
 }

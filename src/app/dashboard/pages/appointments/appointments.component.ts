@@ -15,6 +15,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { User } from 'src/interfaces/User';
 import { UserService } from 'src/app/services/user.service';
+import { Dropdown } from 'bootstrap';
 
 @Component({
   selector: 'app-appointments',
@@ -59,6 +60,11 @@ export class AppointmentsComponent implements OnInit {
     this.getCalendarEvents();
     this.getEmployees();
     this.setView(CalendarView.Month);
+  }
+
+  public toggle(modalElement: HTMLElement): void {
+    const modal = new Dropdown(modalElement);
+    modal.toggle();
   }
 
   public dayClicked({
@@ -108,7 +114,7 @@ export class AppointmentsComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result: CalendarEvent) => {
+    dialogRef.afterClosed().subscribe((result: CustomCalendarEvent) => {
       this.calendarService.postCalendarEvent(result).subscribe(() => {
         this.getCalendarEvents();
       });

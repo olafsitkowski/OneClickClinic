@@ -70,7 +70,7 @@
   }
 
   button.active {
-    background-color: crimson;
+    background-color: #0275d8;
     box-shadow: $box-shadow;
     span,
     mat-icon {
@@ -92,4 +92,12 @@
       color: white;
     }
   }
+}
+
+.settings {
+  background-color: #292b2c;
+}
+
+.log-out {
+  background-color: #292b2c;
 }

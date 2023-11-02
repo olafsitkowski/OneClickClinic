@@ -6,15 +6,15 @@
           <h3>Personal info</h3>
           <div>
             <h6>Full Name</h6>
-            <span>{{ user?.name }} {{ user?.surname }}</span>
+            <span>{{ user.name }} {{ user.surname }}</span>
           </div>
           <div>
             <h6>Email</h6>
-            <span>{{ user?.email }}</span>
+            <span>{{ user.email }}</span>
           </div>
           <div>
             <h6>Address</h6>
-            <span>{{ user?.address }}</span>
+            <span>{{ user.address }}</span>
           </div>
           <div>
             <h6>State</h6>
@@ -22,22 +22,22 @@
           </div>
           <div>
             <h6>Phone</h6>
-            <span>{{ user?.phoneNumber }}</span>
+            <span>{{ user.phoneNumber }}</span>
           </div>
           <div>
             <h6>Pesel</h6>
-            <span>{{ user?.pesel }}</span>
+            <span>{{ user.pesel }}</span>
           </div>
         </div>
         <div class="medical-info">
           <h3>Medical information</h3>
           <div>
             <h6>Blood grup</h6>
-            <span>{{ user?.bloodGroup }}</span>
+            <span>{{ user.bloodGroup }}</span>
           </div>
           <div>
             <h6>Gender</h6>
-            <span>{{ user?.gender }}</span>
+            <span>{{ user.gender }}</span>
           </div>
           <div>
             <h6>BMI</h6>
@@ -51,14 +51,41 @@
       </tab>
       <tab heading="Active appointments">
         <div class="user-appointments">
-          <table mat-table class="appointments-table">
-            <mat-text-column
-              *ngFor="let cloumn of appointmentsColumns"
-              name="{{ cloumn }}"
-            ></mat-text-column>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container
+              matColumnDef="{{ column }}"
+              *ngFor="let column of appointmentsColumns"
+            >
+              <th mat-header-cell *matHeaderCellDef>
+                {{ column | titlecase }}
+              </th>
+              <td mat-cell *matCellDef="let appointment">
+                <ng-container
+                  *ngIf="
+                    column === 'start' || column === 'end';
+                    else otherColumn
+                  "
+                >
+                  {{ appointment[column] | date : 'yyyy-MM-dd HH:mm:ss' }}
+                </ng-container>
+                <ng-template #otherColumn>
+                  {{ appointment[column] }}
+                </ng-template>
+              </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="appointmentsColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: appointmentsColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="
+                let user;
+                columns: appointmentsColumns;
+                let i = dataIndex
+              "
+              class="user-row"
+              [class.odd-row]="i % 2"
+              [class.even-row]="!(i % 2)"
+            ></tr>
           </table>
         </div>
       </tab>

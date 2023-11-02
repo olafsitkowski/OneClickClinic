@@ -20,10 +20,11 @@ export class AddEventModalComponent {
   public ngOnInit(): void {
     this.eventForm = new FormGroup({
       title: new FormControl(''),
-      start: new FormControl('', Validators.required),
-      end: new FormControl('', Validators.required),
+      startDate: new FormControl('', Validators.required),
+      endDate: new FormControl('', Validators.required),
       patientId: new FormControl('', Validators.required),
       employeeId: new FormControl('', Validators.required),
+      description: new FormControl(''),
     });
 
     this.userService.getUsers().subscribe((res: User[]) => {
@@ -44,5 +45,9 @@ export class AddEventModalComponent {
 
   public onSubmit(): void {
     this.dialogRef.close(this.eventForm.value);
+  }
+
+  public closeDialog(): void {
+    this.dialogRef.close();
   }
 }
