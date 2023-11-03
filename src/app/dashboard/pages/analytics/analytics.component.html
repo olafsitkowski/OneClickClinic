@@ -16,12 +16,29 @@
     <h4>Available slots</h4>
     <canvas id="slotsChart">{{ slotsChart }}</canvas>
   </div>
-  <div class="age-chart">
-    <h4>Patients age</h4>
-    <canvas id="ageChart">{{ ageChart }}</canvas>
-  </div>
-  <div class="patients-chart">
-    <h4>Patients count</h4>
-    <canvas id="patientsCountChart">{{ patientsCountChart }}</canvas>
+  <div class="table-widget">
+    <h4>New appointments</h4>
+    <div class="table">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columns"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user[column] }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr
+          mat-row
+          *matRowDef="let user; columns: columns; let i = dataIndex"
+          class="user-row"
+          [class.odd-row]="i % 2"
+          [class.even-row]="!(i % 2)"
+        ></tr>
+      </table>
+    </div>
   </div>
 </div>

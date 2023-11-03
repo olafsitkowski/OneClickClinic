@@ -1,7 +1,12 @@
+import { CalendarService } from 'src/app/services/calendar.service';
+import {
+  SimpleWidget,
+  WidgetAppointment,
+} from './../../../../interfaces/DashboardModels';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Chart } from 'chart.js/auto';
-import { SimpleWidget } from 'src/interfaces/DashboardModels';
 
 @Component({
   selector: 'app-analytics',
@@ -12,6 +17,8 @@ export class AnalyticsComponent implements OnInit {
   public slotsChart: any;
   public ageChart: any;
   public patientsCountChart: any;
+  public dataSource = new MatTableDataSource<WidgetAppointment>();
+  public columns: string[] = ['title', 'start', 'end', 'doctor', 'patient'];
   public statsWidgets: SimpleWidget[] = [
     {
       icon: 'event',
@@ -34,9 +41,20 @@ export class AnalyticsComponent implements OnInit {
       count: 0,
     },
   ];
-  constructor() {}
+  constructor(private calendarService: CalendarService) {}
   public ngOnInit(): void {
     this.createChart();
+    this.getAppointments();
+  }
+
+  private getAppointments(): void {
+    this.calendarService.getCalendarEvents().subscribe((events) => {
+      this.statsWidgets[0].count = events.length;
+      events = events.sort((a, b) => {
+        return <any>new Date(b.start) - <any>new Date(a.start);
+      });
+      this.dataSource.data = events.slice(0, 10);
+    });
   }
 
   private createChart(): void {
@@ -70,43 +88,6 @@ export class AnalyticsComponent implements OnInit {
       },
       options: {
         aspectRatio: 3.75,
-      },
-    });
-
-    this.ageChart = new Chart('ageChart', {
-      type: 'doughnut',
-      data: {
-        labels: ['Data1', 'Data2'],
-        datasets: [
-          {
-            data: [55, 45],
-            backgroundColor: ['rgba(255, 0, 0, 1)', 'rgba(255, 0, 0, 0.1)'],
-          },
-        ],
-      },
-    });
-
-    this.patientsCountChart = new Chart('patientsCountChart', {
-      type: 'line',
-      data: {
-        labels: [
-          'label1',
-          'label2',
-          'label3',
-          'label4',
-          'label5',
-          'label6',
-          'label7',
-        ],
-        datasets: [
-          {
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-          },
-        ],
       },
     });
   }
