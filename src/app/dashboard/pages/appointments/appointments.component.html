@@ -71,10 +71,10 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li role="menuitem">
-            <span class="dropdown-item">Block calendar</span>
+            <span class="dropdown-item" (click)="openModal('blockCalendar')">Block calendar</span>
           </li>
           <li role="menuitem">
-            <span class="dropdown-item" (click)="addEvent()"
+            <span class="dropdown-item" (click)="openModal('addEvent')"
               >Add new event</span
             >
           </li>
@@ -96,9 +96,9 @@
             id="employeeSelect"
             class="form-control large-input"
             [(ngModel)]="selectedEmployee"
-            (change)="getCalenderByUser(selectedEmployee?.id)"
+            (change)="getCalendarByUser(selectedEmployee?.id)"
           >
-            <option value="" hidden selected>Select employee</option>
+            <option [ngValue]="" selected>All employees</option>
             <option *ngFor="let employee of employeeList" [ngValue]="employee">
               {{ employee.name }} {{ employee.surname }}
             </option>

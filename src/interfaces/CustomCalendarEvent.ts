@@ -12,6 +12,15 @@ export interface CustomCalendarEvent {
     afterEnd?: boolean;
   };
   draggable?: boolean;
+  reason?: string;
+  color?: EventColor;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions?: any;
+  type?: string;
+}
+
+export interface EventColor {
+  primary: string;
+  secondary: string;
+  secondaryText?: string;
 }

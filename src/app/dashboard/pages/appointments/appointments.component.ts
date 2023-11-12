@@ -1,3 +1,4 @@
+import { CalendarBlockModalComponent } from './calendar-block-modal/calendar-block-modal.component';
 import { DialogService } from './../../../services/dialog.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
@@ -16,6 +17,23 @@ import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { User } from 'src/interfaces/User';
 import { UserService } from 'src/app/services/user.service';
 import { Dropdown } from 'bootstrap';
+import { forkJoin } from 'rxjs';
+import { EventColor } from 'calendar-utils';
+
+const colors: Record<string, EventColor> = {
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3',
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF',
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA',
+  },
+};
 
 @Component({
   selector: 'app-appointments',
@@ -41,6 +59,7 @@ export class AppointmentsComponent implements OnInit {
   public locale: string = 'pl';
   public activeDayIsOpen!: boolean;
   public employeeList: User[] = [];
+  public patientsList: User[] = [];
   public selectedEmployee: User | undefined;
   public modalData:
     | {
@@ -57,8 +76,7 @@ export class AppointmentsComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.getCalendarEvents();
-    this.getEmployees();
+    this.getData();
     this.setView(CalendarView.Month);
   }
 
@@ -92,7 +110,7 @@ export class AppointmentsComponent implements OnInit {
     newStart,
     newEnd,
   }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
+    this.events = this.events?.map((iEvent) => {
       if (iEvent === event) {
         return {
           ...event,
@@ -109,16 +127,17 @@ export class AppointmentsComponent implements OnInit {
     this.modalData = { event, action };
   }
 
-  public addEvent(): void {
-    const dialogRef = this.modal.open(AddEventModalComponent, {
-      disableClose: true,
-    });
-
-    dialogRef.afterClosed().subscribe((result: CustomCalendarEvent) => {
-      this.calendarService.postCalendarEvent(result).subscribe(() => {
-        this.getCalendarEvents();
-      });
-    });
+  public openModal(modal: string): void {
+    switch (modal) {
+      case 'addEvent':
+        this.addEvent();
+        break;
+      case 'blockCalendar':
+        this.blockCalendar();
+        break;
+      default:
+        break;
+    }
   }
 
   public deleteEvent(eventId: number): void {
@@ -145,10 +164,10 @@ export class AppointmentsComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  public getCalenderByUser(userId: number | undefined): void {
+  public getCalendarByUser(userId: number | undefined): void {
     if (userId) {
       const filteredEvents = this.storedEvents
-        .filter((item) => item.employeeId === userId)
+        .filter((item) => Number(item.employeeId) === userId)
         .map((item) => {
           return { ...item, userId: userId };
         });
@@ -160,35 +179,75 @@ export class AppointmentsComponent implements OnInit {
     this.refresh.next();
   }
 
+  private blockCalendar(): void {
+    const dialogRef = this.modal.open(CalendarBlockModalComponent, {
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result: CustomCalendarEvent) => {
+      if (result) {
+        this.calendarService.postCalendarEvent(result).subscribe(() => {
+          this.getCalendarEvents();
+        });
+      }
+    });
+  }
+
+  private addEvent(): void {
+    const dialogRef = this.modal.open(AddEventModalComponent, {
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe((result: CustomCalendarEvent) => {
+      if (result) {
+        this.calendarService.postCalendarEvent(result).subscribe(() => {
+          this.getCalendarEvents();
+        });
+      }
+    });
+  }
+
   private getCalendarEvents(): void {
     this.storedEvents = [];
 
     this.calendarService.getCalendarEvents().subscribe((calendarEvents) => {
-      for (const calendarEvent of calendarEvents) {
+      this.storedEvents = calendarEvents.map((calendarEvent) => {
         calendarEvent.start = new Date(calendarEvent.start);
         if (calendarEvent.end) {
           calendarEvent.end = new Date(calendarEvent.end);
         }
-        this.storedEvents.push(calendarEvent);
-      }
+        const patient = this.patientsList.find(
+          (patient) => patient.id === Number(calendarEvent.patientId)
+        );
+        if (patient) {
+          calendarEvent.title = `${calendarEvent.title} - ${patient?.name} ${patient?.surname}`;
+          calendarEvent.color = colors['blue'];
+        } else {
+          calendarEvent.color = colors['red'];
+        }
+        return calendarEvent;
+      });
       this.events = this.storedEvents;
       this.addEventButtons();
       this.refresh.next();
     });
   }
 
-  private getEmployees(): void {
-    this.userService.getEmployees().subscribe((value) => {
-      this.employeeList = value;
+  private getData(): void {
+    forkJoin([
+      this.userService.getEmployees(),
+      this.userService.getPatients(),
+    ]).subscribe(([employees, patients]) => {
+      this.employeeList = employees;
+      this.patientsList = patients;
+      this.getCalendarEvents();
     });
   }
-
   private addEventButtons(): void {
     const actions = [
       {
-        label: '<i>Delete</i>',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onClick: ({ event }: { event: any }): void => {
+        label: '<i class="material-icons">delete</i>',
+        onClick: ({ event }: { event: { id: number } }): void => {
           this.deleteEvent(event.id);
         },
       },

@@ -18,7 +18,13 @@ export class AnalyticsComponent implements OnInit {
   public ageChart: any;
   public patientsCountChart: any;
   public dataSource = new MatTableDataSource<WidgetAppointment>();
-  public columns: string[] = ['title', 'start', 'end', 'doctor', 'patient'];
+  public columns: string[] = [
+    'title',
+    'start',
+    'end',
+    'employeeId',
+    'patientId',
+  ];
   public statsWidgets: SimpleWidget[] = [
     {
       icon: 'event',
@@ -49,6 +55,7 @@ export class AnalyticsComponent implements OnInit {
 
   private getAppointments(): void {
     this.calendarService.getCalendarEvents().subscribe((events) => {
+      events = events.filter((event) => event.type === 'appointment');
       this.statsWidgets[0].count = events.length;
       events = events.sort((a, b) => {
         return <any>new Date(b.start) - <any>new Date(a.start);

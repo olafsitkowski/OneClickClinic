@@ -25,6 +25,7 @@ import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { UsersComponent } from './pages/users/users.component';
+import { CalendarBlockModalComponent } from './pages/appointments/calendar-block-modal/calendar-block-modal.component';
 registerLocaleData(localePl);
 
 @NgModule({
@@ -35,6 +36,7 @@ registerLocaleData(localePl);
     UsersComponent,
     AddEventModalComponent,
     AnalyticsComponent,
+    CalendarBlockModalComponent,
   ],
   imports: [
     CommonModule,

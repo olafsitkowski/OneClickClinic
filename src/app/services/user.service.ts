@@ -23,6 +23,12 @@ export class UserService {
     return this.http.post<User>(`${this.API_URL}/user/`, user);
   }
 
+  public getPatients(): Observable<User[]> {
+    return this.getUsers().pipe(
+      map((users: User[]) => users.filter((user) => user.role === 'patient'))
+    );
+  }
+
   public getEmployees(): Observable<User[]> {
     return this.getUsers().pipe(
       map((users: User[]) => users.filter((user) => user.role === 'employee'))

@@ -1,33 +1,31 @@
 <div class="dialog-content">
   <form [formGroup]="eventForm">
     <div class="form-group">
-      <label for="employeeSelect">Doctor</label>
+      <label for="employee-select">Doctor</label>
       <select
-        id="employeeSelect"
+        id="employee-select"
         class="form-control large-input"
         formControlName="employeeId"
         aria-label="Default select example"
       >
-      <option value="" hidden selected>Select the doctor</option>
+        <option value="" hidden selected>Select the doctor</option>
         <option *ngFor="let employee of employeeList" [value]="employee.id">
           {{ employee.name }} {{ employee.surname }}
         </option>
       </select>
     </div>
     <div class="form-group">
-      <label for="patientSelect">Patient</label>
+      <label for="reason-select">Select absent reason</label>
       <select
-        id="patientSelect"
+        id="reason-select"
         class="form-control large-input"
-        formControlName="patientId"
+        formControlName="title"
       >
-        <option value="" hidden selected>Select the patient</option>
-        <option *ngFor="let patient of patientsList" [value]="patient.id">
-          {{ patient.pesel }} - {{ patient.name }} {{ patient.surname }}
+        <option *ngFor="let reason of absentReasons" [value]="reason">
+          {{ reason }}
         </option>
       </select>
     </div>
-
     <div class="form-group large-input">
       <label id="start">Start date</label>
       <input
@@ -37,6 +35,7 @@
         type="text"
         formControlName="start"
         mwlFlatpickr
+        minDate="today"
         [altInput]="true"
         [convertModelValue]="true"
         [enableTime]="true"
@@ -54,6 +53,7 @@
         formControlName="end"
         type="text"
         mwlFlatpickr
+        minDate="today"
         [altInput]="true"
         [convertModelValue]="true"
         [enableTime]="true"
@@ -61,26 +61,6 @@
         altFormat="F j, Y H:i"
         placeholder="Pick a date"
       />
-    </div>
-    <div class="form-group">
-      <label for="eventTitle">Event title</label>
-      <input
-        id="eventTitle"
-        type="text"
-        class="form-control large-input"
-        formControlName="title"
-        placeholder="Add a title"
-      />
-    </div>
-    <div class="form-group">
-      <label>Description</label>
-      <textarea
-        type="text"
-        class="form-control text-area"
-        rows="3"
-        formControlName="description"
-        placeholder="Write a message"
-      ></textarea>
     </div>
   </form>
 </div>
