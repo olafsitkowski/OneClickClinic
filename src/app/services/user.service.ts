@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { User } from './../../interfaces/User';
+import { User, UserType } from './../../interfaces/User';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly API_URL = 'http://localhost:3000';
+  private readonly API_URL = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
@@ -20,18 +20,31 @@ export class UserService {
   }
 
   public postUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.API_URL}/user/`, user);
+    const data = {
+      profile: {
+        ...user,
+      },
+    };
+    return this.http.post<User>(`${this.API_URL}/user/`, data);
   }
 
   public getPatients(): Observable<User[]> {
     return this.getUsers().pipe(
-      map((users: User[]) => users.filter((user) => user.role === 'patient'))
+      map((users: User[]) =>
+        users.filter((user) => user.profile?.role === UserType.PATIENT)
+      )
     );
   }
 
-  public getEmployees(): Observable<User[]> {
+  public getDoctors(): Observable<User[]> {
     return this.getUsers().pipe(
-      map((users: User[]) => users.filter((user) => user.role === 'employee'))
+      map((users: User[]) =>
+        users.filter((user) => user.profile?.role === UserType.DOCTOR)
+      )
     );
+  }
+
+  public deleteUser(id: string): Observable<unknown> {
+    return this.http.delete(`${this.API_URL}/user/${id}`);
   }
 }

@@ -58,7 +58,7 @@ export class AppointmentsComponent implements OnInit {
   public storedEvents: CustomCalendarEvent[] = [];
   public locale: string = 'pl';
   public activeDayIsOpen!: boolean;
-  public employeeList: User[] = [];
+  public doctorsList: User[] = [];
   public patientsList: User[] = [];
   public selectedEmployee: User | undefined;
   public modalData:
@@ -220,7 +220,7 @@ export class AppointmentsComponent implements OnInit {
           (patient) => patient.id === Number(calendarEvent.patientId)
         );
         if (patient) {
-          calendarEvent.title = `${calendarEvent.title} - ${patient?.name} ${patient?.surname}`;
+          calendarEvent.title = `${calendarEvent.title} - ${patient?.profile.name} ${patient?.profile.surname}`;
           calendarEvent.color = colors['blue'];
         } else {
           calendarEvent.color = colors['red'];
@@ -235,10 +235,10 @@ export class AppointmentsComponent implements OnInit {
 
   private getData(): void {
     forkJoin([
-      this.userService.getEmployees(),
+      this.userService.getDoctors(),
       this.userService.getPatients(),
     ]).subscribe(([employees, patients]) => {
-      this.employeeList = employees;
+      this.doctorsList = employees;
       this.patientsList = patients;
       this.getCalendarEvents();
     });

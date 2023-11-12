@@ -6,15 +6,15 @@
           <h3>Personal info</h3>
           <div>
             <h6>Full Name</h6>
-            <span>{{ user.name }} {{ user.surname }}</span>
+            <span>{{ user.profile.name }} {{ user.profile.surname }}</span>
           </div>
           <div>
             <h6>Email</h6>
-            <span>{{ user.email }}</span>
+            <span>{{ user.profile.contact_email }}</span>
           </div>
           <div>
             <h6>Address</h6>
-            <span>{{ user.address }}</span>
+            <span>{{ user.profile.address }}</span>
           </div>
           <div>
             <h6>State</h6>
@@ -22,22 +22,22 @@
           </div>
           <div>
             <h6>Phone</h6>
-            <span>{{ user.phoneNumber }}</span>
+            <span>{{ user.profile.phoneNumber }}</span>
           </div>
           <div>
             <h6>Pesel</h6>
-            <span>{{ user.pesel }}</span>
+            <span>{{ user.profile.pesel }}</span>
           </div>
         </div>
         <div class="medical-info">
           <h3>Medical information</h3>
           <div>
             <h6>Blood grup</h6>
-            <span>{{ user.bloodGroup }}</span>
+            <span>{{ user.profile.bloodGroup }}</span>
           </div>
           <div>
             <h6>Gender</h6>
-            <span>{{ user.gender }}</span>
+            <span>{{ user.profile.gender }}</span>
           </div>
           <div>
             <h6>BMI</h6>

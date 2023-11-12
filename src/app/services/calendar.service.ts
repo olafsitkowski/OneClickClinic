@@ -8,13 +8,13 @@ import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 })
 export class CalendarService {
   public storedEvents: Subject<CustomCalendarEvent[]> = new Subject();
-  private readonly API_URL = 'http://localhost:3000';
+  private readonly API_URL = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
   public getCalendarEvents(): Observable<CustomCalendarEvent[]> {
     return this.http.get<CustomCalendarEvent[]>(
-      `${this.API_URL}/calendarEvent/`
+      `${this.API_URL}/calendar-events/`
     );
   }
 
@@ -22,12 +22,20 @@ export class CalendarService {
     value: CustomCalendarEvent
   ): Observable<CustomCalendarEvent> {
     return this.http.post<CustomCalendarEvent>(
-      `${this.API_URL}/calendarEvent/`,
+      `${this.API_URL}/calendar-events/`,
       value
     );
   }
 
   public deleteCalendarEvent(id: number): Observable<unknown> {
-    return this.http.delete(`${this.API_URL}/calendarEvent/${id}`);
+    return this.http.delete(`${this.API_URL}/calendar-events/${id}`);
+  }
+
+  public getCalendarEventsByUserId(
+    id: number
+  ): Observable<CustomCalendarEvent[]> {
+    return this.http.get<CustomCalendarEvent[]>(
+      `${this.API_URL}/calendar-events/user/${id}`
+    );
   }
 }

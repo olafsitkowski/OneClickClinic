@@ -41,7 +41,10 @@ export class NewUserDialogComponent implements OnInit {
 
   public ngOnInit(): void {
     this.userForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      contactEmail: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
       bloodGroup: new FormControl('', [Validators.required]),

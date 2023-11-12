@@ -37,7 +37,7 @@ export class UsersComponent implements OnInit {
     'State',
   ];
   public columnsExpand = [...this.columns, 'expand'];
-  public dataSource = new MatTableDataSource<User>();
+  public dataSource = new MatTableDataSource<any>();
   public isLoading: boolean = true;
   public userType: UserType;
 
@@ -66,9 +66,9 @@ export class UsersComponent implements OnInit {
     ]).subscribe({
       next: ([users, events]) => {
         const usersList: User[] = users.filter(
-          (user) => user.role === this.userType
+          (user) => user.profile?.role === this.userType
         );
-        this.dataSource.data = usersList;
+        this.dataSource.data = usersList.map((user) => user.profile);
         this.usersList = usersList;
         this.calendarEvents = events;
         this.mergeAppointments();
@@ -116,8 +116,8 @@ export class UsersComponent implements OnInit {
             : event.employeeId)
       );
       if (user) {
-        !user.appointments ? (user.appointments = []) : null; // TO DO: refactor, add getCurretAppointments
-        user.appointments?.push(event);
+        !user.profile.appointments ? (user.profile.appointments = []) : null; // TO DO: refactor, add getCurretAppointments
+        user.profile.appointments?.push(event);
       }
     });
     this.isLoading = false;

@@ -99,8 +99,8 @@
             (change)="getCalendarByUser(selectedEmployee?.id)"
           >
             <option [ngValue]="" selected>All employees</option>
-            <option *ngFor="let employee of employeeList" [ngValue]="employee">
-              {{ employee.name }} {{ employee.surname }}
+            <option *ngFor="let doctor of doctorsList" [ngValue]="doctor">
+              {{ doctor.profile.name }} {{ doctor.profile.surname }}
             </option>
           </select>
         </div>

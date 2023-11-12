@@ -58,7 +58,7 @@ registerLocaleData(localePl);
           {
             path: 'employees',
             component: UsersComponent,
-            data: { userType: 'employee' },
+            data: { userType: 'doctor' },
           },
           { path: '', redirectTo: 'analytics', pathMatch: 'full' },
         ],

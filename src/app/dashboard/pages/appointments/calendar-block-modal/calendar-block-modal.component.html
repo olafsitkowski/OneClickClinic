@@ -9,8 +9,8 @@
         aria-label="Default select example"
       >
         <option value="" hidden selected>Select the doctor</option>
-        <option *ngFor="let employee of employeeList" [value]="employee.id">
-          {{ employee.name }} {{ employee.surname }}
+        <option *ngFor="let doctor of doctorsList" [value]="doctor.id">
+          {{ doctor.profile.name }} {{ doctor.profile.surname }}
         </option>
       </select>
     </div>

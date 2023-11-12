@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class CalendarBlockModalComponent implements OnInit {
   public eventForm!: FormGroup;
-  public employeeList: User[] = [];
+  public doctorsList: User[] = [];
   public absentReasons: string[] = [];
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
@@ -31,12 +31,10 @@ export class CalendarBlockModalComponent implements OnInit {
       employeeId: new FormControl('', Validators.required),
     });
 
-    this.userService.getUsers().subscribe((res: User[]) => {
-      res.forEach((user) => {
-        if (user.role === 'employee') {
-          this.employeeList.push(user);
-        }
-      });
+    this.userService.getDoctors().subscribe((res: User[]) => {
+      if (res) {
+        this.doctorsList = res;
+      }
     });
   }
 

@@ -26,7 +26,7 @@ export class LoginComponent extends AbstractUnsubscribe implements OnInit {
   public ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['admin@admin.pl', [Validators.required, Validators.email]],
-      password: ['adminadmin', [Validators.required, Validators.minLength(6)]],
+      password: ['admin', [Validators.required, Validators.minLength(1)]],
     });
   }
 
@@ -36,13 +36,10 @@ export class LoginComponent extends AbstractUnsubscribe implements OnInit {
 
   public onSubmit(): void {
     this.loginService
-      .userIdentification(
-        this.loginForm.value.email,
-        this.loginForm.value.password
-      )
+      .userLogin(this.loginForm.value.email, this.loginForm.value.password)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((isValid: User | undefined) => {
-        if (isValid) {
+      .subscribe((res: { user: User; token: string }) => {
+        if (res.token) {
           this.router.navigate(['dashboard']);
         } else {
           this.isUserExists = false;

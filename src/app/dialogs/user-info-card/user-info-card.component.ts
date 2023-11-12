@@ -25,13 +25,13 @@ export class UserInfoCardComponent implements OnInit {
   public ngOnInit(): void {
     this.setData();
 
-    if (this.user.appointments) {
-      this.dataSource.data = this.user.appointments;
+    if (this.user.profile.appointments) {
+      this.dataSource.data = this.user.profile.appointments;
     }
   }
 
   private setData(): void {
-    if (this.user.role === 'patient') {
+    if (this.user.profile.role === 'patient') {
       // add enum
       this.appointmentsColumns = ['title', 'start', 'end', 'doctor'];
     } else {
@@ -42,7 +42,7 @@ export class UserInfoCardComponent implements OnInit {
   private getUserName(userId: number): string | unknown {
     return this.userService.getUserById(userId).subscribe((user: User) => {
       if (user) {
-        return `${user.name} ${user.surname}`;
+        return `${user.profile.name} ${user.profile.surname}`;
       } else {
         return 'unknown user';
       }

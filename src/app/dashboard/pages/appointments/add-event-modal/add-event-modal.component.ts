@@ -1,4 +1,4 @@
-import { User } from './../../../../../interfaces/User';
+import { User, UserType } from './../../../../../interfaces/User';
 import { UserService } from './../../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class AddEventModalComponent implements OnInit {
   public eventForm!: FormGroup;
   public patientsList: User[] = [];
-  public employeeList: User[] = [];
+  public doctorsList: User[] = [];
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
 
@@ -35,10 +35,10 @@ export class AddEventModalComponent implements OnInit {
 
     this.userService.getUsers().subscribe((res: User[]) => {
       res.forEach((user) =>
-        user.role === 'patient'
+        user.profile?.role === UserType.PATIENT
           ? this.patientsList.push(user)
-          : user.role === 'employee'
-          ? this.employeeList.push(user)
+          : user.profile?.role === UserType.DOCTOR
+          ? this.doctorsList.push(user)
           : null
       );
     });
