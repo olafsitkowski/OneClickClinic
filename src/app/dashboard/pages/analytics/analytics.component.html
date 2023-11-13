@@ -14,6 +14,7 @@
   </div>
   <div class="slots-graph">
     <h4>Available slots</h4>
+    <mat-spinner *ngIf="!isDataLoaded"></mat-spinner>
     <canvas id="slotsChart">{{ slotsChart }}</canvas>
   </div>
   <div class="table-widget">

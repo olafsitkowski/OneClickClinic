@@ -8,6 +8,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Chart } from 'chart.js/auto';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-analytics',
@@ -19,6 +20,7 @@ export class AnalyticsComponent implements OnInit {
   public ageChart: any;
   public patientsCountChart: any;
   public dataSource = new MatTableDataSource<WidgetAppointment>();
+  public isDataLoaded: boolean = false;
   public columns: string[] = [
     'title',
     'start',
@@ -34,17 +36,12 @@ export class AnalyticsComponent implements OnInit {
     },
     {
       icon: 'personal_injury',
-      description: 'New Patients',
+      description: 'Patients',
       count: 0,
     },
     {
-      icon: 'question_mark',
-      description: 'Visits',
-      count: 0,
-    },
-    {
-      icon: 'mood',
-      description: 'Satisfaction',
+      icon: 'medication',
+      description: 'Doctors',
       count: 0,
     },
   ];
@@ -52,10 +49,15 @@ export class AnalyticsComponent implements OnInit {
     labels: [],
     datasets: [{ busySlots: [], availableSlots: [] }],
   };
-  constructor(private calendarService: CalendarService) {}
+  constructor(
+    private calendarService: CalendarService,
+    private userService: UserService
+  ) {}
+
   public ngOnInit(): void {
     this.getAvailableSlots();
     this.getAppointments();
+    this.getWidgetInfo();
   }
 
   private getAppointments(): void {
@@ -98,6 +100,17 @@ export class AnalyticsComponent implements OnInit {
       options: {
         aspectRatio: 3.75,
       },
+    });
+    this.isDataLoaded = true;
+  }
+
+  private getWidgetInfo(): void {
+    this.userService.getPatients().subscribe((patients) => {
+      this.statsWidgets[1].count = patients.length;
+    });
+
+    this.userService.getDoctors().subscribe((doctors) => {
+      this.statsWidgets[2].count = doctors.length;
     });
   }
 }
