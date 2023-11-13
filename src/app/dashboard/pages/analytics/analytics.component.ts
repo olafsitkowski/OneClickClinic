@@ -1,5 +1,6 @@
 import { CalendarService } from 'src/app/services/calendar.service';
 import {
+  AvalibleSlotsWidget,
   SimpleWidget,
   WidgetAppointment,
 } from './../../../../interfaces/DashboardModels';
@@ -47,9 +48,13 @@ export class AnalyticsComponent implements OnInit {
       count: 0,
     },
   ];
+  public slotsData: AvalibleSlotsWidget = {
+    labels: [],
+    datasets: [{ busySlots: [], availableSlots: [] }],
+  };
   constructor(private calendarService: CalendarService) {}
   public ngOnInit(): void {
-    this.createChart();
+    this.getAvailableSlots();
     this.getAppointments();
   }
 
@@ -64,31 +69,28 @@ export class AnalyticsComponent implements OnInit {
     });
   }
 
+  private getAvailableSlots(): void {
+    this.calendarService.getAvalibleSlots().subscribe((slots) => {
+      this.slotsData = slots;
+      this.createChart();
+    });
+  }
+
   private createChart(): void {
     this.slotsChart = new Chart('slotsChart', {
       type: 'bar',
 
       data: {
-        // values on X-Axis
-        labels: [
-          '2022-05-10',
-          '2022-05-11',
-          '2022-05-12',
-          '2022-05-13',
-          '2022-05-14',
-          '2022-05-15',
-          '2022-05-16',
-          '2022-05-17',
-        ],
+        labels: this.slotsData.labels,
         datasets: [
           {
             label: 'Free slots',
-            data: ['8', '6', '5', '3', '9', '10', '2', '1'],
+            data: this.slotsData.datasets[0].availableSlots,
             backgroundColor: '#336cfb',
           },
           {
             label: 'Busy slots',
-            data: ['2', '4', '5', '7', '1', '0', '8', '9'],
+            data: this.slotsData.datasets[0].busySlots,
             backgroundColor: 'gray',
           },
         ],

@@ -20,12 +20,23 @@ import { ActivatedRoute } from '@angular/router';
 export class UsersComponent implements OnInit {
   public usersList: User[] = [];
   public calendarEvents: CustomCalendarEvent[] = [];
-  public columns = [
+  public columns: string[] = [];
+
+  public patientColumns = [
     'name',
     'surname',
     'email',
     'phoneNumber',
     'pesel',
+    'actions',
+  ];
+
+  public employeeColumns = [
+    'name',
+    'surname',
+    'email',
+    'phoneNumber',
+    'role',
     'actions',
   ];
 
@@ -51,6 +62,12 @@ export class UsersComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    if (this.userType === UserType.PATIENT) {
+      this.columns = this.patientColumns;
+    } else {
+      this.columns = this.employeeColumns;
+    }
+
     this.loadData();
   }
 

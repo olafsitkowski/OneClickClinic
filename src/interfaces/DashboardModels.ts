@@ -11,3 +11,13 @@ export interface WidgetAppointment {
   employeeId?: number;
   patientId?: number;
 }
+
+export interface AvalibleSlotsWidget {
+  labels: string[];
+  datasets: [
+    {
+      busySlots: string[];
+      availableSlots: string[];
+    }
+  ];
+}

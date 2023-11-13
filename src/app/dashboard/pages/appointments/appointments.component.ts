@@ -150,7 +150,9 @@ export class AppointmentsComponent implements OnInit {
     confrimationDialog.afterClosed().subscribe((res) => {
       if (res) {
         this.calendarService.deleteCalendarEvent(eventId).subscribe((res) => {
-          res ? this.getCalendarEvents() : null;
+          if (res) {
+            this.getCalendarEvents();
+          }
         });
       }
     });

@@ -1,7 +1,7 @@
+import { User } from './../../interfaces/User';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/interfaces/User';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -10,21 +10,6 @@ import { tap } from 'rxjs/operators';
 export class LoginService {
   constructor(private http: HttpClient) {}
   private readonly API_URL = 'http://localhost:8080';
-
-  // public userIdentification(
-  //   email: string,
-  //   password: string
-  // ): Observable<User | undefined> {
-  //   return this.userService
-  //     .getUsers()
-  //     .pipe(
-  //       map((userList: User[]) =>
-  //         userList.find(
-  //           (user) => user.password === password && user.email === email
-  //         )
-  //       )
-  //     );
-  // }
 
   public userLogin(
     email: string,

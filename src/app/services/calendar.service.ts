@@ -1,3 +1,4 @@
+import { AvalibleSlotsWidget } from './../../interfaces/DashboardModels';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -36,6 +37,12 @@ export class CalendarService {
   ): Observable<CustomCalendarEvent[]> {
     return this.http.get<CustomCalendarEvent[]>(
       `${this.API_URL}/calendar-events/user/${id}`
+    );
+  }
+
+  public getAvalibleSlots(): Observable<AvalibleSlotsWidget> {
+    return this.http.get<AvalibleSlotsWidget>(
+      `${this.API_URL}/available-slots/`
     );
   }
 }
