@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { User, UserType } from './../../interfaces/User';
+import { User, UserProfile, UserType } from './../../interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +34,18 @@ export class UserService {
         users.filter((user) => user.profile?.role === UserType.PATIENT)
       )
     );
+  }
+
+  public patchUserProfile(
+    userProfile: UserProfile,
+    userId: number
+  ): Observable<User> {
+    const data = {
+      profile: {
+        ...userProfile,
+      },
+    };
+    return this.http.put<User>(`${this.API_URL}/user/${userId}`, data);
   }
 
   public getDoctors(): Observable<User[]> {

@@ -21,7 +21,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NewUserDialogComponent } from './dialogs/new-user-dialog/new-user-dialog.component';
-import { NewEmployeeDialogComponent } from './dialogs/new-employee-dialog/new-employee-dialog.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { FileUploadComponent } from './shared/file-upload/file-upload.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -39,7 +38,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     RegisterComponent,
     ConfirmationDialogComponent,
     NewUserDialogComponent,
-    NewEmployeeDialogComponent,
     FileUploadComponent,
     UserInfoCardComponent,
   ],

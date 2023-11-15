@@ -8,6 +8,7 @@ import {
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { UserProfile } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-new-user-dialog',
@@ -33,8 +34,8 @@ export class NewUserDialogComponent implements OnInit {
   ];
 
   constructor(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: { userProfile: UserProfile; isEditUser: boolean },
     public dialogRef: MatDialogRef<NewUserDialogComponent>,
     private toastr: ToastrService
   ) {}
@@ -62,6 +63,10 @@ export class NewUserDialogComponent implements OnInit {
       gender: new FormControl('', Validators.required),
       role: new FormControl('patient'),
     });
+
+    if (this.data.isEditUser) {
+      this.getDataToEditUser();
+    }
   }
 
   public onSubmit(): void {
@@ -92,5 +97,10 @@ export class NewUserDialogComponent implements OnInit {
     if (indexToRemove !== -1) {
       this.userFiles.splice(indexToRemove, 1);
     }
+  }
+
+  public getDataToEditUser(): void {
+    console.warn('path');
+    this.userForm.patchValue(this.data.userProfile);
   }
 }

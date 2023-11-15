@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from 'src/app/services/user.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
-import { User } from 'src/interfaces/User';
+import { User, UserProfile, UserType } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-user-info-card',
@@ -11,28 +11,29 @@ import { User } from 'src/interfaces/User';
   styleUrls: ['./user-info-card.component.scss'],
 })
 export class UserInfoCardComponent implements OnInit {
-  public user: User;
+  public userProfile: UserProfile | undefined;
   public appointmentsColumns: string[] = [];
   public dataSource = new MatTableDataSource<CustomCalendarEvent>();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { user: User },
+    @Inject(MAT_DIALOG_DATA) public data: { userProfile: UserProfile },
     private userService: UserService
   ) {
-    this.user = this.data.user;
+    console.warn(data);
+    this.userProfile = data.userProfile;
   }
 
   public ngOnInit(): void {
     this.setData();
 
-    if (this.user.profile.appointments) {
-      this.dataSource.data = this.user.profile.appointments;
+    if (this.userProfile) {
+      this.dataSource = new MatTableDataSource(this.userProfile?.appointments);
     }
+    console.warn(this.userProfile);
   }
 
   private setData(): void {
-    if (this.user.profile.role === 'patient') {
-      // add enum
+    if (this.userProfile?.role === UserType.PATIENT) {
       this.appointmentsColumns = ['title', 'start', 'end', 'doctor'];
     } else {
       this.appointmentsColumns = ['title', 'start', 'end', 'patient'];

@@ -6,7 +6,7 @@ import { forkJoin } from 'rxjs';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { UserService } from 'src/app/services/user.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
-import { User, UserType } from 'src/interfaces/User';
+import { User, UserProfile, UserType } from 'src/interfaces/User';
 import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user-dialog.component';
 import { UserInfoCardComponent } from 'src/app/dialogs/user-info-card/user-info-card.component';
 import { ActivatedRoute } from '@angular/router';
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
     'State',
   ];
   public columnsExpand = [...this.columns, 'expand'];
-  public dataSource = new MatTableDataSource<any>();
+  public dataSource = new MatTableDataSource<User>();
   public isLoading: boolean = true;
   public userType: UserType;
 
@@ -85,7 +85,7 @@ export class UsersComponent implements OnInit {
         const usersList: User[] = users.filter(
           (user) => user.profile?.role === this.userType
         );
-        this.dataSource.data = usersList.map((user) => user.profile);
+        this.dataSource.data = usersList;
         this.usersList = usersList;
         this.calendarEvents = events;
         this.mergeAppointments();
@@ -106,16 +106,26 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  public editUser(): void {
-    // const dialogRef = this.modal.open(UserInfoCardComponent, {});
-    // dialogRef.afterClosed().subscribe((data: any) => {
-    //   console.warn('dialog closed');
-    // });
+  public editUser(user: User): void {
+    const dialogRef = this.modal.open(NewUserDialogComponent, {
+      data: { userProfile: user.profile, isEditUser: true },
+    });
+    dialogRef.afterClosed().subscribe((userForm: UserProfile) => {
+      if (userForm) {
+        this.userService
+          .patchUserProfile(userForm, user.id)
+          .subscribe((res) => {
+            if (res) {
+              this.loadData();
+            }
+          });
+      }
+    });
   }
 
   public viewUserInfo(user: User): void {
     const dialogRef = this.modal.open(UserInfoCardComponent, {
-      data: { user: user },
+      data: { userProfile: user.profile },
     });
 
     dialogRef.afterClosed().subscribe((data: any) => {
