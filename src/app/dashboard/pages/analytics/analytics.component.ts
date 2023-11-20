@@ -5,7 +5,6 @@ import {
   SimpleWidget,
   WidgetAppointment,
 } from './../../../../interfaces/DashboardModels';
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Chart } from 'chart.js/auto';
@@ -17,9 +16,8 @@ import { Observable, Subject, catchError, map, of, takeUntil } from 'rxjs';
   styleUrls: ['./analytics.component.scss'],
 })
 export class AnalyticsComponent implements OnInit, OnDestroy {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public slotsChart: any;
-  public ageChart: any;
-  public patientsCountChart: any;
   public dataSource = new MatTableDataSource<WidgetAppointment>();
   public isDataLoaded: boolean = false;
   public columns: string[] = [
@@ -96,7 +94,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         });
         this.statsWidgets[0].count = events.length;
         events = events.sort((a, b) => {
-          return <any>new Date(b.start) - <any>new Date(a.start);
+          return new Date(b.start).getTime() - new Date(a.start).getTime();
         });
         this.dataSource.data = events.slice(0, 10);
       });

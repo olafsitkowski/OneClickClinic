@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserService } from 'src/app/services/user.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
-import { User, UserProfile, UserType } from 'src/interfaces/User';
+import { UserProfile, UserType } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-user-info-card',
@@ -16,10 +15,8 @@ export class UserInfoCardComponent implements OnInit {
   public dataSource = new MatTableDataSource<CustomCalendarEvent>();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { userProfile: UserProfile },
-    private userService: UserService
+    @Inject(MAT_DIALOG_DATA) public data: { userProfile: UserProfile }
   ) {
-    console.warn(data);
     this.userProfile = data.userProfile;
   }
 
@@ -29,7 +26,6 @@ export class UserInfoCardComponent implements OnInit {
     if (this.userProfile) {
       this.dataSource = new MatTableDataSource(this.userProfile?.appointments);
     }
-    console.warn(this.userProfile);
   }
 
   private setData(): void {
@@ -38,15 +34,5 @@ export class UserInfoCardComponent implements OnInit {
     } else {
       this.appointmentsColumns = ['title', 'start', 'end', 'patient'];
     }
-  }
-
-  private getUserName(userId: number): string | unknown {
-    return this.userService.getUserById(userId).subscribe((user: User) => {
-      if (user) {
-        return `${user.profile.name} ${user.profile.surname}`;
-      } else {
-        return 'unknown user';
-      }
-    });
   }
 }

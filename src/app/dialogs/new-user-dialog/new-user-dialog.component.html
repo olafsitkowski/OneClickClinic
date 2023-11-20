@@ -1,4 +1,3 @@
-
 <div class="modal-body">
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -97,7 +96,7 @@
         class="form-control large-input"
         formControlName="bloodGroup"
       >
-        <option *ngFor="let option of bloodGroups" value="{{option}}">
+        <option *ngFor="let option of bloodGroups" value="{{ option }}">
           {{ option }}
         </option>
       </select>
@@ -137,13 +136,13 @@
   </form>
 </div>
 
-<mat-dialog-actions align="end" class="fotter">
+<mat-dialog-actions align="end">
   <div>
-    <button mat-button (click)="closeDialog()">Close</button>
+    <button class="btn btn-outline-info" (click)="closeDialog()">Close</button>
   </div>
   <div class="button">
     <button
-      mat-raised-button
+      class="btn btn-primary"
       type="submit"
       [disabled]="userForm.invalid"
       (click)="onSubmit()"

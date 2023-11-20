@@ -38,3 +38,9 @@ ng-container {
   height: 200px;
   max-height: 200px;
 }
+
+.mdc-dialog__actions {
+  button {
+    margin-left: 4px;
+  }
+}

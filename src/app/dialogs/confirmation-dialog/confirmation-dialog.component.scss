@@ -1,13 +1,16 @@
 .dialog {
-  padding: 15px;
+  padding: 8px;
 }
 
-.title {
-  display: flex;
-  align-items: center;
+.content {
+  margin: 8px;
+  span {
+    font-size: medium;
+  }
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: space-between;
+.mdc-dialog__actions {
+  button {
+    margin-left: 4px;
+  }
 }

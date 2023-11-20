@@ -1,5 +1,4 @@
 import { ConfirmationDialogComponent } from './../../../dialogs/confirmation-dialog/confirmation-dialog.component';
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -100,9 +99,7 @@ export class UsersComponent implements OnInit {
   public deleteUser(user: User): void {
     const dialogRef = this.modal.open(ConfirmationDialogComponent, {
       data: {
-        title: 'Delete User',
         content: `Are you sure you want to delete ${user.profile?.name} ${user.profile?.surname}?`,
-        type: 'delete',
       },
     });
     dialogRef.afterClosed().subscribe((res) => {
@@ -121,7 +118,7 @@ export class UsersComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((userForm: any) => {
+    dialogRef.afterClosed().subscribe((userForm: User) => {
       this.userService.postUser(userForm).subscribe();
     });
   }
@@ -144,12 +141,8 @@ export class UsersComponent implements OnInit {
   }
 
   public viewUserInfo(user: User): void {
-    const dialogRef = this.modal.open(UserInfoCardComponent, {
+    this.modal.open(UserInfoCardComponent, {
       data: { userProfile: user.profile },
-    });
-
-    dialogRef.afterClosed().subscribe((data: any) => {
-      console.warn('dialog closed', data);
     });
   }
 

@@ -100,7 +100,6 @@ export class NewUserDialogComponent implements OnInit {
   }
 
   public getDataToEditUser(): void {
-    console.warn('path');
     this.userForm.patchValue(this.data.userProfile);
   }
 }

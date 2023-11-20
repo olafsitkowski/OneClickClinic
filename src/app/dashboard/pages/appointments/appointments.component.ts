@@ -1,5 +1,9 @@
+import { ConfirmationDialogComponent } from './../../../dialogs/confirmation-dialog/confirmation-dialog.component';
+import { User } from './../../../../../src/interfaces/User';
+import { UserService } from './../../../services/user.service';
+import { CalendarService } from './../../../services/calendar.service';
+import { CustomCalendarEvent } from './../../../../interfaces/CustomCalendarEvent';
 import { CalendarBlockModalComponent } from './calendar-block-modal/calendar-block-modal.component';
-import { DialogService } from './../../../services/dialog.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   CalendarDateFormatter,
@@ -12,10 +16,6 @@ import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomDateFormatter } from '../../../../providers/custom-date-formatter.provider';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
-import { CalendarService } from 'src/app/services/calendar.service';
-import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
-import { User } from 'src/interfaces/User';
-import { UserService } from 'src/app/services/user.service';
 import { Dropdown } from 'bootstrap';
 import { forkJoin } from 'rxjs';
 import { EventColor } from 'calendar-utils';
@@ -71,8 +71,7 @@ export class AppointmentsComponent implements OnInit {
   constructor(
     private modal: MatDialog,
     private calendarService: CalendarService,
-    private userService: UserService,
-    private dialogService: DialogService
+    private userService: UserService
   ) {}
 
   public ngOnInit(): void {
@@ -141,13 +140,13 @@ export class AppointmentsComponent implements OnInit {
   }
 
   public deleteEvent(eventId: number): void {
-    const confrimationDialog = this.dialogService.openConfirmationDialog({
-      title: 'Deleting an event',
-      content: 'Are you sure you want to delete this event?',
-      type: 'alert',
+    const dialogRef = this.modal.open(ConfirmationDialogComponent, {
+      data: {
+        content: `Are you sure you want to delete this event?`,
+      },
     });
 
-    confrimationDialog.afterClosed().subscribe((res) => {
+    dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.calendarService.deleteCalendarEvent(eventId).subscribe((res) => {
           if (res) {
@@ -245,6 +244,7 @@ export class AppointmentsComponent implements OnInit {
       this.getCalendarEvents();
     });
   }
+
   private addEventButtons(): void {
     const actions = [
       {
