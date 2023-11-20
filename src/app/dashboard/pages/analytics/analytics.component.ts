@@ -1,21 +1,22 @@
-import { CalendarService } from 'src/app/services/calendar.service';
+import { UserService } from './../../../services/user.service';
+import { CalendarService } from './../../../services/calendar.service';
 import {
   AvalibleSlotsWidget,
   SimpleWidget,
   WidgetAppointment,
 } from './../../../../interfaces/DashboardModels';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Chart } from 'chart.js/auto';
-import { UserService } from 'src/app/services/user.service';
+import { Observable, Subject, catchError, map, of, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.scss'],
 })
-export class AnalyticsComponent implements OnInit {
+export class AnalyticsComponent implements OnInit, OnDestroy {
   public slotsChart: any;
   public ageChart: any;
   public patientsCountChart: any;
@@ -28,6 +29,13 @@ export class AnalyticsComponent implements OnInit {
     'employeeId',
     'patientId',
   ];
+  public columnLabels: { [key: string]: string } = {
+    title: 'Title',
+    start: 'Start',
+    end: 'End',
+    employeeId: 'Doctor',
+    patientId: 'Patient',
+  };
   public statsWidgets: SimpleWidget[] = [
     {
       icon: 'event',
@@ -49,6 +57,8 @@ export class AnalyticsComponent implements OnInit {
     labels: [],
     datasets: [{ busySlots: [], availableSlots: [] }],
   };
+  private readonly unsubscribe$ = new Subject<void>();
+
   constructor(
     private calendarService: CalendarService,
     private userService: UserService
@@ -60,25 +70,64 @@ export class AnalyticsComponent implements OnInit {
     this.getWidgetInfo();
   }
 
+  public ngOnDestroy(): void {
+    this.slotsChart.destroy();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   private getAppointments(): void {
-    this.calendarService.getCalendarEvents().subscribe((events) => {
-      events = events.filter((event) => event.type === 'appointment');
-      this.statsWidgets[0].count = events.length;
-      events = events.sort((a, b) => {
-        return <any>new Date(b.start) - <any>new Date(a.start);
+    this.calendarService
+      .getCalendarEvents()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((events) => {
+        events = events.filter((event) => event.type === 'appointment');
+        events.forEach((event) => {
+          this.getUserName(Number(event.employeeId)).subscribe((res) => {
+            {
+              event.employeeId = res;
+            }
+          });
+          this.getUserName(Number(event.patientId)).subscribe((res) => {
+            {
+              event.patientId = res;
+            }
+          });
+        });
+        this.statsWidgets[0].count = events.length;
+        events = events.sort((a, b) => {
+          return <any>new Date(b.start) - <any>new Date(a.start);
+        });
+        this.dataSource.data = events.slice(0, 10);
       });
-      this.dataSource.data = events.slice(0, 10);
-    });
+  }
+
+  private getUserName(id: number): Observable<string> {
+    return this.userService.getUserById(id).pipe(
+      map((user) => {
+        return `${user.profile?.name} ${user.profile?.surname}`;
+      }),
+      catchError(() => {
+        return of('Deleted user');
+      })
+    );
   }
 
   private getAvailableSlots(): void {
-    this.calendarService.getAvalibleSlots().subscribe((slots) => {
-      this.slotsData = slots;
-      this.createChart();
-    });
+    this.calendarService
+      .getAvalibleSlots()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((slots) => {
+        this.slotsData = slots;
+        this.createChart();
+      });
   }
 
   private createChart(): void {
+    if (this.slotsChart) {
+      this.slotsChart.destroy();
+    }
+
     this.slotsChart = new Chart('slotsChart', {
       type: 'bar',
 
@@ -98,19 +147,25 @@ export class AnalyticsComponent implements OnInit {
         ],
       },
       options: {
-        aspectRatio: 3.75,
+        aspectRatio: 1.5,
       },
     });
     this.isDataLoaded = true;
   }
 
   private getWidgetInfo(): void {
-    this.userService.getPatients().subscribe((patients) => {
-      this.statsWidgets[1].count = patients.length;
-    });
+    this.userService
+      .getPatients()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((patients) => {
+        this.statsWidgets[1].count = patients.length;
+      });
 
-    this.userService.getDoctors().subscribe((doctors) => {
-      this.statsWidgets[2].count = doctors.length;
-    });
+    this.userService
+      .getDoctors()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((doctors) => {
+        this.statsWidgets[2].count = doctors.length;
+      });
   }
 }

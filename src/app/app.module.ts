@@ -28,6 +28,7 @@ import { UserInfoCardComponent } from './dialogs/user-info-card/user-info-card.c
 import { CdkColumnDef } from '@angular/cdk/table';
 import { DatePipe } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ToastrModule.forRoot(),
     TabsModule,
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [CdkColumnDef, DatePipe],
   bootstrap: [AppComponent],

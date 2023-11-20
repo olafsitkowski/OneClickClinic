@@ -8,8 +8,8 @@ export interface WidgetAppointment {
   title?: string;
   start?: Date;
   end?: Date;
-  employeeId?: number;
-  patientId?: number;
+  employeeId?: number | string;
+  patientId?: number | string;
 }
 
 export interface AvalibleSlotsWidget {

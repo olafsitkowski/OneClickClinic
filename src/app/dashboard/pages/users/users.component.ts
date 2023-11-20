@@ -1,3 +1,4 @@
+import { ConfirmationDialogComponent } from './../../../dialogs/confirmation-dialog/confirmation-dialog.component';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -93,6 +94,25 @@ export class UsersComponent implements OnInit {
       error: (error) => {
         console.error('ERROR:', error);
       },
+    });
+  }
+
+  public deleteUser(user: User): void {
+    const dialogRef = this.modal.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Delete User',
+        content: `Are you sure you want to delete ${user.profile?.name} ${user.profile?.surname}?`,
+        type: 'delete',
+      },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.userService.deleteUser(user.id).subscribe((res) => {
+          if (res) {
+            this.loadData();
+          }
+        });
+      }
     });
   }
 

@@ -56,7 +56,7 @@ export class UserService {
     );
   }
 
-  public deleteUser(id: string): Observable<unknown> {
+  public deleteUser(id: number): Observable<unknown> {
     return this.http.delete(`${this.API_URL}/user/${id}`);
   }
 }
