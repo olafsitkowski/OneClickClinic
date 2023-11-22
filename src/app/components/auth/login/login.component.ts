@@ -40,6 +40,10 @@ export class LoginComponent extends AbstractUnsubscribe implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: { user: User; token: string }) => {
         if (res.token) {
+          localStorage.setItem(
+            'userInfo',
+            JSON.stringify(res.user.authentication)
+          );
           this.router.navigate(['dashboard']);
         } else {
           this.isUserExists = false;

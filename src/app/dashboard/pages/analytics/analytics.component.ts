@@ -69,7 +69,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.slotsChart.destroy();
+    this.slotsChart?.destroy();
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }

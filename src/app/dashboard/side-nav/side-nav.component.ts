@@ -1,6 +1,8 @@
+import { UserService } from './../../services/user.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { UserAuthentication } from 'src/interfaces/User';
 
 export interface Sections {
   route: string;
@@ -14,8 +16,7 @@ export interface Sections {
   styleUrls: ['./side-nav.component.scss'],
 })
 export class SideNavComponent implements OnInit, OnDestroy {
-  constructor(private router: Router) {}
-
+  public userInfo: UserAuthentication | undefined;
   public currentRoute: string = '';
   public sectionsList: Sections[] = [
     {
@@ -40,8 +41,13 @@ export class SideNavComponent implements OnInit, OnDestroy {
     },
   ];
   private unsubscribe$: Subject<void> = new Subject<void>();
+
+  constructor(private router: Router, private userService: UserService) {}
+
   public ngOnInit(): void {
+    this.currentRoute = '/dashboard/analytics';
     this.setupRoutes();
+    this.getUserInfo();
   }
 
   public ngOnDestroy(): void {
@@ -51,6 +57,19 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   public changeRoute(route: string): void {
     this.router.navigate([`/dashboard/${route}`]);
+  }
+
+  public logOut(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentRoute');
+    this.router.navigate(['/login']);
+  }
+
+  private getUserInfo(): void {
+    const data = localStorage.getItem('userInfo');
+    if (data) {
+      this.userInfo = JSON.parse(data);
+    }
   }
 
   private setupRoutes(): void {

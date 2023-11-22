@@ -10,6 +10,12 @@ import { User, UserProfile, UserType } from 'src/interfaces/User';
 import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user-dialog.component';
 import { UserInfoCardComponent } from 'src/app/dialogs/user-info-card/user-info-card.component';
 import { ActivatedRoute } from '@angular/router';
+import {
+  addressLabels,
+  columnLabels,
+  employeeColumns,
+  patientColumns,
+} from './users-data';
 
 @Component({
   selector: 'app-users',
@@ -21,42 +27,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   public usersList: User[] = [];
   public calendarEvents: CustomCalendarEvent[] = [];
   public columns: string[] = [];
-  public patientColumns = [
-    'name',
-    'surname',
-    'contactEmail',
-    'phoneNumber',
-    'pesel',
-    'actions',
-  ];
-  public employeeColumns = [
-    'name',
-    'surname',
-    'contactEmail',
-    'phoneNumber',
-    'role',
-    'actions',
-  ];
-  public addressLabels = [
-    'Street',
-    'House number',
-    'City',
-    'Postal code',
-    'State',
-  ];
-  public columnLabels: { [key: string]: string } = {
-    name: 'Name',
-    surname: 'Surname',
-    contactEmail: 'Email',
-    phoneNumber: 'Phone number',
-    pesel: 'PESEL',
-    role: 'Role',
-    street: 'Street',
-    houseNumber: 'House number',
-    city: 'City',
-    postalCode: 'Postal code',
-    state: 'State',
-  };
+  public patientColumns = patientColumns;
+  public employeeColumns = employeeColumns;
+  public addressLabels = addressLabels;
+  public columnLabels: { [key: string]: string } = columnLabels;
   public columnsExpand = [...this.columns, 'expand'];
   public dataSource = new MatTableDataSource<User>();
   public isLoading: boolean = true;

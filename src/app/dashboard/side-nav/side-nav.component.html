@@ -4,8 +4,8 @@
       <img src="./../../../assets/img/avatars/frog.jpg" alt="" />
     </div>
     <div class="user-info">
-      <span>Admin</span>
-      <p>Bottom info</p>
+      <span>{{ userInfo?.userName | titlecase }}</span>
+      <p>{{ userInfo?.email }}</p>
     </div>
   </div>
   <div class="navigation">
@@ -24,7 +24,11 @@
     <button class="btn btn-info custom-button">
       <mat-icon>settings</mat-icon>Settings
     </button>
-    <button class="btn btn-danger custom-button" routerLink="/home">
+    <button
+      class="btn btn-danger custom-button"
+      routerLink="/home"
+      (click)="logOut()"
+    >
       <mat-icon>logout</mat-icon>Log out
     </button>
   </div>
