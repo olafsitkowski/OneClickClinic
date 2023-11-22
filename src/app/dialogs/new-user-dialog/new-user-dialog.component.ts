@@ -64,7 +64,7 @@ export class NewUserDialogComponent implements OnInit {
       role: new FormControl('patient'),
     });
 
-    if (this.data.isEditUser) {
+    if (this.data?.isEditUser) {
       this.getDataToEditUser();
     }
   }

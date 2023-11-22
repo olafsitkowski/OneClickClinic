@@ -1,5 +1,6 @@
 import { NavigationEnd, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 export interface Sections {
   route: string;
@@ -12,7 +13,7 @@ export interface Sections {
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
 })
-export class SideNavComponent implements OnInit {
+export class SideNavComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
   public currentRoute: string = '';
@@ -38,9 +39,14 @@ export class SideNavComponent implements OnInit {
       label: 'Employees',
     },
   ];
-
+  private unsubscribe$: Subject<void> = new Subject<void>();
   public ngOnInit(): void {
     this.setupRoutes();
+  }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public changeRoute(route: string): void {
@@ -48,7 +54,7 @@ export class SideNavComponent implements OnInit {
   }
 
   private setupRoutes(): void {
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
         localStorage.setItem('currentRoute', this.currentRoute);

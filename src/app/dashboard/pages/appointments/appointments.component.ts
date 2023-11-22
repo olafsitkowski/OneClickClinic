@@ -4,7 +4,13 @@ import { UserService } from './../../../services/user.service';
 import { CalendarService } from './../../../services/calendar.service';
 import { CustomCalendarEvent } from './../../../../interfaces/CustomCalendarEvent';
 import { CalendarBlockModalComponent } from './calendar-block-modal/calendar-block-modal.component';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import {
   CalendarDateFormatter,
   CalendarEvent,
@@ -12,7 +18,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomDateFormatter } from '../../../../providers/custom-date-formatter.provider';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
@@ -46,7 +52,7 @@ const colors: Record<string, EventColor> = {
     },
   ],
 })
-export class AppointmentsComponent implements OnInit {
+export class AppointmentsComponent implements OnInit, OnDestroy {
   @ViewChild('modalContent', { static: true }) public modalContent:
     | TemplateRef<unknown>
     | undefined;
@@ -67,7 +73,7 @@ export class AppointmentsComponent implements OnInit {
         event: CalendarEvent;
       }
     | undefined;
-
+  private unsubscribe$: Subject<void> = new Subject<void>();
   constructor(
     private modal: MatDialog,
     private calendarService: CalendarService,
@@ -77,6 +83,11 @@ export class AppointmentsComponent implements OnInit {
   public ngOnInit(): void {
     this.getData();
     this.setView(CalendarView.Month);
+  }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public toggle(modalElement: HTMLElement): void {
@@ -146,15 +157,21 @@ export class AppointmentsComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((res) => {
-      if (res) {
-        this.calendarService.deleteCalendarEvent(eventId).subscribe((res) => {
-          if (res) {
-            this.getCalendarEvents();
-          }
-        });
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res) => {
+        if (res) {
+          this.calendarService
+            .deleteCalendarEvent(eventId)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((res) => {
+              if (res) {
+                this.getCalendarEvents();
+              }
+            });
+        }
+      });
   }
 
   public setView(view: CalendarView): void {
@@ -185,13 +202,19 @@ export class AppointmentsComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result: CustomCalendarEvent) => {
-      if (result) {
-        this.calendarService.postCalendarEvent(result).subscribe(() => {
-          this.getCalendarEvents();
-        });
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((result: CustomCalendarEvent) => {
+        if (result) {
+          this.calendarService
+            .postCalendarEvent(result)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(() => {
+              this.getCalendarEvents();
+            });
+        }
+      });
   }
 
   private addEvent(): void {
@@ -199,50 +222,58 @@ export class AppointmentsComponent implements OnInit {
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result: CustomCalendarEvent) => {
-      if (result) {
-        this.calendarService.postCalendarEvent(result).subscribe(() => {
-          this.getCalendarEvents();
-        });
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((result: CustomCalendarEvent) => {
+        if (result) {
+          this.calendarService
+            .postCalendarEvent(result)
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe(() => {
+              this.getCalendarEvents();
+            });
+        }
+      });
   }
 
   private getCalendarEvents(): void {
     this.storedEvents = [];
 
-    this.calendarService.getCalendarEvents().subscribe((calendarEvents) => {
-      this.storedEvents = calendarEvents.map((calendarEvent) => {
-        calendarEvent.start = new Date(calendarEvent.start);
-        if (calendarEvent.end) {
-          calendarEvent.end = new Date(calendarEvent.end);
-        }
-        const patient = this.patientsList.find(
-          (patient) => patient.id === Number(calendarEvent.patientId)
-        );
-        if (patient) {
-          calendarEvent.title = `${calendarEvent.title} - ${patient?.profile.name} ${patient?.profile.surname}`;
-          calendarEvent.color = colors['blue'];
-        } else {
-          calendarEvent.color = colors['red'];
-        }
-        return calendarEvent;
+    this.calendarService
+      .getCalendarEvents()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((calendarEvents) => {
+        this.storedEvents = calendarEvents.map((calendarEvent) => {
+          calendarEvent.start = new Date(calendarEvent.start);
+          if (calendarEvent.end) {
+            calendarEvent.end = new Date(calendarEvent.end);
+          }
+          const patient = this.patientsList.find(
+            (patient) => patient.id === Number(calendarEvent.patientId)
+          );
+          if (patient) {
+            calendarEvent.title = `${calendarEvent.title} - ${patient?.profile.name} ${patient?.profile.surname}`;
+            calendarEvent.color = colors['blue'];
+          } else {
+            calendarEvent.color = colors['red'];
+          }
+          return calendarEvent;
+        });
+        this.events = this.storedEvents;
+        this.addEventButtons();
+        this.refresh.next();
       });
-      this.events = this.storedEvents;
-      this.addEventButtons();
-      this.refresh.next();
-    });
   }
 
   private getData(): void {
-    forkJoin([
-      this.userService.getDoctors(),
-      this.userService.getPatients(),
-    ]).subscribe(([employees, patients]) => {
-      this.doctorsList = employees;
-      this.patientsList = patients;
-      this.getCalendarEvents();
-    });
+    forkJoin([this.userService.getDoctors(), this.userService.getPatients()])
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(([employees, patients]) => {
+        this.doctorsList = employees;
+        this.patientsList = patients;
+        this.getCalendarEvents();
+      });
   }
 
   private addEventButtons(): void {

@@ -81,16 +81,20 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       .subscribe((events) => {
         events = events.filter((event) => event.type === 'appointment');
         events.forEach((event) => {
-          this.getUserName(Number(event.employeeId)).subscribe((res) => {
-            {
-              event.employeeId = res;
-            }
-          });
-          this.getUserName(Number(event.patientId)).subscribe((res) => {
-            {
-              event.patientId = res;
-            }
-          });
+          this.getUserName(Number(event.employeeId))
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((res) => {
+              {
+                event.employeeId = res;
+              }
+            });
+          this.getUserName(Number(event.patientId))
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((res) => {
+              {
+                event.patientId = res;
+              }
+            });
         });
         this.statsWidgets[0].count = events.length;
         events = events.sort((a, b) => {

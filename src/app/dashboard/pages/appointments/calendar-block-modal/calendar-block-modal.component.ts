@@ -3,7 +3,7 @@ import { UserService } from './../../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-calendar-block-modal',
@@ -16,6 +16,7 @@ export class CalendarBlockModalComponent implements OnInit {
   public absentReasons: string[] = [];
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private userService: UserService,
@@ -31,11 +32,19 @@ export class CalendarBlockModalComponent implements OnInit {
       employeeId: new FormControl('', Validators.required),
     });
 
-    this.userService.getDoctors().subscribe((res: User[]) => {
-      if (res) {
-        this.doctorsList = res;
-      }
-    });
+    this.userService
+      .getDoctors()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: User[]) => {
+        if (res) {
+          this.doctorsList = res;
+        }
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public get isWholeDay(): boolean {

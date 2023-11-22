@@ -1,22 +1,22 @@
 import { User, UserType } from './../../../../../interfaces/User';
 import { UserService } from './../../../../services/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-add-event-modal',
   templateUrl: './add-event-modal.component.html',
   styleUrls: ['./add-event-modal.component.scss'],
 })
-export class AddEventModalComponent implements OnInit {
+export class AddEventModalComponent implements OnInit, OnDestroy {
   public eventForm!: FormGroup;
   public patientsList: User[] = [];
   public doctorsList: User[] = [];
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
-
+  private unsubscribe$: Subject<void> = new Subject<void>();
   constructor(
     private userService: UserService,
     private dialogRef: MatDialogRef<AddEventModalComponent>
@@ -33,15 +33,23 @@ export class AddEventModalComponent implements OnInit {
       description: new FormControl(''),
     });
 
-    this.userService.getUsers().subscribe((res: User[]) => {
-      res.forEach((user) =>
-        user.profile?.role === UserType.PATIENT
-          ? this.patientsList.push(user)
-          : user.profile?.role === UserType.DOCTOR
-          ? this.doctorsList.push(user)
-          : null
-      );
-    });
+    this.userService
+      .getUsers()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res: User[]) => {
+        res.forEach((user) =>
+          user.profile?.role === UserType.PATIENT
+            ? this.patientsList.push(user)
+            : user.profile?.role === UserType.DOCTOR
+            ? this.doctorsList.push(user)
+            : null
+        );
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public onSubmit(): void {
