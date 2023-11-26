@@ -1,5 +1,5 @@
 import { ConfirmationDialogComponent } from './../../../dialogs/confirmation-dialog/confirmation-dialog.component';
-import { User } from './../../../../../src/interfaces/User';
+import { User } from '../../../../interfaces/User';
 import { UserService } from './../../../services/user.service';
 import { CalendarService } from './../../../services/calendar.service';
 import { CustomCalendarEvent } from './../../../../interfaces/CustomCalendarEvent';

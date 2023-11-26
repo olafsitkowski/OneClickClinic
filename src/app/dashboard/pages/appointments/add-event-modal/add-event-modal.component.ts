@@ -1,4 +1,4 @@
-import { User, UserType } from './../../../../../interfaces/User';
+import { User, UserType } from '../../../../../interfaces/User';
 import { UserService } from './../../../../services/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

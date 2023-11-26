@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
-import { User } from './../../../../interfaces/User';
+import { User } from '../../../../interfaces/User';
 
 @Component({
   selector: 'app-login',

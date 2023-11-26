@@ -8,7 +8,7 @@ import {
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { UserProfile } from 'src/interfaces/User';
+import { UserProfile, UserType } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-new-user-dialog',
@@ -48,25 +48,23 @@ export class NewUserDialogComponent implements OnInit {
       ]),
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
-      bloodGroup: new FormControl('', [Validators.required]),
+      bloodGroup: new FormControl(''),
       treatment: new FormControl(''),
-      pesel: new FormControl('', [
-        Validators.required,
-        Validators.minLength(11),
-      ]),
+      pesel: new FormControl('', [Validators.minLength(11)]),
       address: new FormControl(''),
       phoneNumber: new FormControl('', [
         Validators.required,
         Validators.minLength(9),
         Validators.maxLength(9),
       ]),
-      gender: new FormControl('', Validators.required),
+      gender: new FormControl(''),
       role: new FormControl('patient'),
     });
 
     if (this.data?.isEditUser) {
       this.getDataToEditUser();
     }
+    this.setValidators();
   }
 
   public onSubmit(): void {
@@ -100,6 +98,16 @@ export class NewUserDialogComponent implements OnInit {
   }
 
   public getDataToEditUser(): void {
-    this.userForm.patchValue(this.data.userProfile);
+    this.userForm.patchValue(this.data?.userProfile);
+  }
+
+  private setValidators(): void {
+    const isPatient = this.data?.userProfile?.role === UserType.PATIENT;
+
+    if (isPatient) {
+      this.userForm.get('bloodGroup')?.setValidators([Validators.required]);
+      this.userForm.get('gender')?.setValidators([Validators.required]);
+      this.userForm.get('pesel')?.setValidators([Validators.required]);
+    }
   }
 }
