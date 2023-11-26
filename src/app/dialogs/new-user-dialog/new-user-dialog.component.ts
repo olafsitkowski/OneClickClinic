@@ -1,10 +1,10 @@
+import { UserProfile, UserType } from './../../../interfaces/User';
 import { userFromFields } from './../../dashboard/pages/users/users-data';
 import { RegisterForm } from 'src/interfaces/RegisterForm';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { UserProfile, UserType } from 'src/interfaces/User';
 
 @Component({
   selector: 'app-new-user-dialog',
