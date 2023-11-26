@@ -4,12 +4,12 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="box">
-          <h2 class="text-center">Register the Admin</h2>
+          <h2 class="text-center">{{ 'REGISTER_THE_ADMIN' | translate }}</h2>
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div>
               <div *ngFor="let field of registerFormFields">
                 <div class="form-group">
-                  <label [for]="field.controlName">{{ field.label }}</label>
+                  <label [for]="field.controlName">{{ field.label | translate}}</label>
                   <input
                     [type]="field.type"
                     class="form-control"
@@ -24,7 +24,7 @@
                     }"
                     [tooltip]="
                       field.controlName === 'password'
-                        ? 'Password must contain at least 8 characters, including at least 1 number, 1 lowercase letter, 1 uppercase letter and 1 special character.'
+                        ? ('PASSWORD.REQUIREMENTS' | translate)
                         : ''
                     "
                     [delay]="500"

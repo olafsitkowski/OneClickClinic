@@ -25,6 +25,7 @@ import { AddEventModalComponent } from './add-event-modal/add-event-modal.compon
 import { Dropdown } from 'bootstrap';
 import { forkJoin } from 'rxjs';
 import { EventColor } from 'calendar-utils';
+import { TranslateService } from '@ngx-translate/core';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -77,7 +78,8 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   constructor(
     private modal: MatDialog,
     private calendarService: CalendarService,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) {}
 
   public ngOnInit(): void {
@@ -153,7 +155,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   public deleteEvent(eventId: number): void {
     const dialogRef = this.modal.open(ConfirmationDialogComponent, {
       data: {
-        content: `Are you sure you want to delete this event?`,
+        content: this.translate.instant('DELETE_EVENT.DIALOG'),
       },
     });
 

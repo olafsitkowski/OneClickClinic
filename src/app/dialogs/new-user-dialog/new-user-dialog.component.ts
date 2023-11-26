@@ -1,6 +1,6 @@
+import { RegisterForm } from './../../../interfaces/RegisterForm';
+import { userFormFields } from './../../dashboard/pages/users/users-data';
 import { UserProfile, UserType } from './../../../interfaces/User';
-import { userFromFields } from './../../dashboard/pages/users/users-data';
-import { RegisterForm } from 'src/interfaces/RegisterForm';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewUserDialogComponent implements OnInit {
   public userForm!: FormGroup;
-  public loginFormFields: RegisterForm[] = userFromFields;
+  public loginFormFields: RegisterForm[] = userFormFields;
   public userFiles: File[] = [];
   public maxFilesCount: number = 1;
   public currentUserType: string = UserType.PATIENT;

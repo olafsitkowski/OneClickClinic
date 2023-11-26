@@ -12,7 +12,7 @@
           <mat-icon class="icon">{{ widget.icon }}</mat-icon>
           <div class="description">
             <span>
-              {{ widget.description }}
+              {{ widget.description | translate }}
             </span>
             <span>{{ widget.count }}</span>
           </div>
@@ -20,16 +20,16 @@
       </div>
     </div>
     <div class="slots-graph">
-      <h4>Available slots</h4>
+      <h4>{{ 'AVALIBLE_SLOTS' | translate }}</h4>
       <canvas id="slotsChart">{{ slotsChart }}</canvas>
     </div>
     <div class="table-widget">
-      <h4>New appointments</h4>
+      <h4>{{ 'NEW_APPOINTMENTS' | translate }}</h4>
       <div
         *ngIf="dataSource.data.length === 0; else tableContainer"
         class="empty-appointments"
       >
-        <span> No new appointments </span>
+        <span>{{ 'NO_NEW_APPOINTMENTS' | translate }}</span>
       </div>
       <ng-template #tableContainer class="table">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -38,7 +38,7 @@
             *ngFor="let column of columns"
           >
             <th mat-header-cell *matHeaderCellDef>
-              {{ columnLabels[column] || column | titlecase }}
+              {{ columnLabels[column] || column | titlecase | translate }}
             </th>
             <td mat-cell *matCellDef="let user">
               <ng-container

@@ -27,51 +27,51 @@ export const addressLabels = [
 ];
 
 export const columnLabels: { [key: string]: string } = {
-  name: 'Name',
-  surname: 'Surname',
-  contactEmail: 'Email',
-  phoneNumber: 'Phone number',
+  name: 'NAME',
+  surname: 'SURNAME',
+  contactEmail: 'EMAIL',
+  phoneNumber: 'PHONE_NUMBER',
   pesel: 'PESEL',
-  role: 'Role',
-  street: 'Street',
-  houseNumber: 'House number',
-  city: 'City',
-  postalCode: 'Postal code',
-  state: 'State',
+  role: 'ROLE',
+  title: 'TITLE',
+  start: 'START',
+  end: 'END',
+  patient: 'PATIENT',
+  actions: 'ACTIONS',
 };
 
-export const userFromFields: RegisterForm[] = [
+export const userFormFields: RegisterForm[] = [
   {
     name: 'email',
-    label: 'Email',
+    label: 'EMAIL',
     type: 'email',
     controlName: 'email',
     class: 'email',
   },
   {
     name: 'phoneNumber',
-    label: 'Phone number',
+    label: 'PHONE_NUMBER',
     type: 'text',
     controlName: 'phoneNumber',
     class: 'phone-number',
   },
   {
     name: 'name',
-    label: 'Name',
+    label: 'NAME',
     type: 'text',
     controlName: 'name',
     class: 'name',
   },
   {
     name: 'surname',
-    label: 'Surname',
+    label: 'SURNAME',
     type: 'text',
     controlName: 'surname',
     class: 'surname',
   },
   {
     name: 'pesel',
-    label: 'Pesel',
+    label: 'PESEL',
     type: 'text',
     controlName: 'pesel',
     class: 'pesel',

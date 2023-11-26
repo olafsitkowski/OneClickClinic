@@ -2,34 +2,68 @@
 <div class="login-page">
   <div class="box">
     <div class="title">
-      <span>Login</span>
+      <span>{{ 'LOGIN' | translate }}</span>
     </div>
     <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" class="form-control" formControlName="email" (input)="onFormInput()">
-        <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="alert alert-danger">
-          <span *ngIf="loginForm.controls['email'].hasError('required')">Email is required.</span>
-          <span *ngIf="loginForm.controls['email'].hasError('email')">Invalid email format.</span>
+        <label>{{ 'EMAIL' | translate }}</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          (input)="onFormInput()"
+        />
+        <div
+          *ngIf="
+            loginForm.controls['email'].invalid &&
+            loginForm.controls['email'].touched
+          "
+          class="alert alert-danger"
+        >
+          <span *ngIf="loginForm.controls['email'].hasError('required')">{{
+            'EMAIL.REQUIRED' | translate
+          }}</span>
+          <span *ngIf="loginForm.controls['email'].hasError('email')"
+            >I{{ 'EMAIL.INVALID' | translate }}</span
+          >
         </div>
       </div>
 
       <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" formControlName="password" (input)="onFormInput()">
-        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="alert alert-danger">
-          <span *ngIf="loginForm.controls['password'].hasError('required')">Password is required.</span>
+        <label>{{ 'PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          (input)="onFormInput()"
+        />
+        <div
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+          class="alert alert-danger"
+        >
+          <span *ngIf="loginForm.controls['password'].hasError('required')">{{
+            'PASSWORD.REQUIRED' | translate
+          }}</span>
         </div>
       </div>
 
-        <div class="credentials-error" *ngIf="!isUserExists">
-          <div>
-            <span>Wrong email or password!</span>
-          </div>
+      <div class="credentials-error" *ngIf="!isUserExists">
+        <div>
+          <span>{{ 'WRONG_CREDENTIALS' | translate }}</span>
         </div>
+      </div>
 
       <div class="button">
-        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="loginForm.invalid"
+        >
+          {{ 'LOGIN' | translate }}
+        </button>
       </div>
     </form>
   </div>

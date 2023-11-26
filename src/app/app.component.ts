@@ -1,6 +1,7 @@
 import { LoginService } from './services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './services/theme.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,12 @@ import { ThemeService } from './services/theme.service';
 export class AppComponent implements OnInit {
   constructor(
     private themeService: ThemeService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private translate: TranslateService
   ) {}
 
   public ngOnInit(): void {
+    this.translate.setDefaultLang('en');
     this.themeService.toggleTheme();
     this.isFirstLogin();
   }

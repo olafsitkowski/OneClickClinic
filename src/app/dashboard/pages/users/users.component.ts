@@ -16,6 +16,7 @@ import {
   employeeColumns,
   patientColumns,
 } from './users-data';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-users',
@@ -41,7 +42,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private calendarService: CalendarService,
     private modal: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private translate: TranslateService
   ) {
     this.userType = this.route.snapshot.data['userType'];
   }
@@ -95,7 +97,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   public deleteUser(user: User): void {
     const dialogRef = this.modal.open(ConfirmationDialogComponent, {
       data: {
-        content: `Are you sure you want to delete ${user.profile?.name} ${user.profile?.surname}?`,
+        content: this.translate.instant('DIALOGS.DELETE_USER', {
+          name: user.profile?.name,
+          surname: user.profile?.surname,
+        }),
       },
     });
     dialogRef

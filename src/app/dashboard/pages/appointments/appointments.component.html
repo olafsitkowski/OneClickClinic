@@ -8,7 +8,7 @@
           [ngClass]="{ active: view === CalendarView.Month }"
           (click)="setView(CalendarView.Month)"
         >
-          Month
+          {{ 'MONTH' | translate }}
         </button>
         <button
           type="button"
@@ -16,7 +16,7 @@
           [ngClass]="{ active: view === CalendarView.Week }"
           (click)="setView(CalendarView.Week)"
         >
-          Week
+          {{ 'WEEK' | translate }}
         </button>
         <button
           type="button"
@@ -24,7 +24,7 @@
           [ngClass]="{ active: view === CalendarView.Day }"
           (click)="setView(CalendarView.Day)"
         >
-          Day
+          {{ 'DAY' | translate }}
         </button>
       </div>
 
@@ -37,7 +37,7 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
         >
-          Previous
+          {{ 'PREVIOUS' | translate }}
         </button>
         <button
           type="button"
@@ -45,7 +45,7 @@
           mwlCalendarToday
           [(viewDate)]="viewDate"
         >
-          Today
+          {{ 'TODAY' | translate }}
         </button>
         <button
           type="button"
@@ -55,7 +55,7 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
         >
-          Next
+          {{ 'NEXT' | translate }}
         </button>
       </div>
 
@@ -67,16 +67,18 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Actions
+          {{ 'ACTIONS' | translate }}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li role="menuitem">
-            <span class="dropdown-item" (click)="openModal('blockCalendar')">Block calendar</span>
+            <span class="dropdown-item" (click)="openModal('blockCalendar')">{{
+              'BLOCK_CALEDNAR' | translate
+            }}</span>
           </li>
           <li role="menuitem">
-            <span class="dropdown-item" (click)="openModal('addEvent')"
-              >Add new event</span
-            >
+            <span class="dropdown-item" (click)="openModal('addEvent')">{{
+              'ADD_NEW_EVENT' | translate
+            }}</span>
           </li>
         </ul>
       </div>
@@ -98,7 +100,9 @@
             [(ngModel)]="selectedEmployee"
             (change)="getCalendarByUser(selectedEmployee?.id)"
           >
-            <option [ngValue]="" selected>All employees</option>
+            <option [ngValue]="" selected>
+              {{ 'ALL_EMPLOYEES' | translate }}
+            </option>
             <option *ngFor="let doctor of doctorsList" [ngValue]="doctor">
               {{ doctor.profile.name }} {{ doctor.profile.surname }}
             </option>

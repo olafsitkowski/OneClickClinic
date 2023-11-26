@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { UsersComponent } from './pages/users/users.component';
 import { CalendarBlockModalComponent } from './pages/appointments/calendar-block-modal/calendar-block-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 registerLocaleData(localePl);
 
 @NgModule({
@@ -83,6 +84,7 @@ registerLocaleData(localePl);
     MatAutocompleteModule,
     MatDividerModule,
     MatCardModule,
+    TranslateModule,
   ],
 })
 export class DashboardModule {}

@@ -16,20 +16,20 @@
         [ngClass]="{ active: currentRoute === '/dashboard/' + section.route }"
       >
         <mat-icon>{{ section.icon }}</mat-icon
-        ><span>{{ section.label }}</span>
+        ><span>{{ section.label | translate }}</span>
       </button>
     </div>
   </div>
   <div class="footer">
     <button class="btn btn-info custom-button">
-      <mat-icon>settings</mat-icon>Settings
+      <mat-icon>settings</mat-icon>{{ 'SETTINGS' | translate }}
     </button>
     <button
       class="btn btn-danger custom-button"
       routerLink="/home"
       (click)="logOut()"
     >
-      <mat-icon>logout</mat-icon>Log out
+      <mat-icon>logout</mat-icon>{{ 'LOGOUT' | translate }}
     </button>
   </div>
 </div>

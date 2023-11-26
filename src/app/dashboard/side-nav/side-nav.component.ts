@@ -1,4 +1,3 @@
-import { UserService } from './../../services/user.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -22,27 +21,27 @@ export class SideNavComponent implements OnInit, OnDestroy {
     {
       route: 'analytics',
       icon: 'dashboard',
-      label: 'Analytics',
+      label: 'ANALYTICS',
     },
     {
       route: 'appointments',
       icon: 'event',
-      label: 'Appointments',
+      label: 'APPOINTMENTS',
     },
     {
       route: 'patients',
       icon: 'person',
-      label: 'Patients',
+      label: 'PATIENTS',
     },
     {
       route: 'employees',
       icon: 'badge',
-      label: 'Employees',
+      label: 'EMPLOYEES',
     },
   ];
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router) {}
 
   public ngOnInit(): void {
     this.currentRoute = '/dashboard/analytics';

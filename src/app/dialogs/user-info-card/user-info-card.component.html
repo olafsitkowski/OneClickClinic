@@ -1,55 +1,55 @@
 <div class="user-info-card" mat-dialog-content>
   <div class="card-content">
     <tabset [justified]="true">
-      <tab heading="Personal info">
+      <tab heading="{{ 'PERSONAL_INFO' | translate }}">
         <div class="personal-info">
-          <h3>Personal info</h3>
+          <h3>{{ 'PERSONAL_INFO' | translate }}</h3>
           <div>
-            <h6>Full Name</h6>
+            <h6>{{ 'FULL_NAME' | translate }}</h6>
             <span>{{ userProfile?.name }} {{ userProfile?.surname }}</span>
           </div>
           <div>
-            <h6>Email</h6>
+            <h6>{{ 'EMAIL' | translate }}</h6>
             <span>{{ userProfile?.contact_email }}</span>
           </div>
           <div>
-            <h6>Address</h6>
+            <h6>{{ 'ADDRESS' | translate }}</h6>
             <span>{{ userProfile?.address }}</span>
           </div>
           <div>
-            <h6>State</h6>
-            <span>add state</span>
+            <h6>{{ 'STATE' | translate }}</h6>
+            <span>{{ 'ADD_STATE' | translate }}</span>
           </div>
           <div>
-            <h6>Phone</h6>
+            <h6>{{ 'PHONE' | translate }}</h6>
             <span>{{ userProfile?.phoneNumber }}</span>
           </div>
           <div>
-            <h6>Pesel</h6>
+            <h6>{{ 'PESEL' | translate }}</h6>
             <span>{{ userProfile?.pesel }}</span>
           </div>
         </div>
         <div class="medical-info">
-          <h3>Medical information</h3>
+          <h3>{{ 'MEDICAL_INFORMATION' | translate }}</h3>
           <div>
-            <h6>Blood grup</h6>
+            <h6>{{ 'BLOOD_GROUP' | translate }}</h6>
             <span>{{ userProfile?.bloodGroup }}</span>
           </div>
           <div>
-            <h6>Gender</h6>
+            <h6>{{ 'GENDER' | translate }}</h6>
             <span>{{ userProfile?.gender }}</span>
           </div>
           <div>
-            <h6>BMI</h6>
-            <span>add info</span>
+            <h6>{{ 'BMI' | translate }}</h6>
+            <span>{{ 'ADD_INFO' | translate }}</span>
           </div>
           <div>
-            <h6>Chronic diseases</h6>
-            <span>add info</span>
+            <h6>{{ 'CHRONIC_DISEASES' | translate }}</h6>
+            <span>{{ 'ADD_INFO' | translate }}</span>
           </div>
         </div>
       </tab>
-      <tab heading="Active appointments">
+      <tab heading="{{ 'ACTIVE_APPOINTMENTS' | translate }}">
         <div class="user-appointments">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container
@@ -57,7 +57,7 @@
               *ngFor="let column of appointmentsColumns"
             >
               <th mat-header-cell *matHeaderCellDef>
-                {{ column | titlecase }}
+                {{ column | translate | titlecase }}
               </th>
               <td mat-cell *matCellDef="let appointment">
                 <ng-container
@@ -89,12 +89,14 @@
           </table>
         </div>
       </tab>
-      <tab heading="Documentation">
+      <tab heading="{{ 'DOCUMENTATION' | translate }}">
         <div></div>
       </tab>
     </tabset>
   </div>
 </div>
 <div mat-dialog-actions align="end">
-  <button class="btn btn-outline-info" mat-dialog-close>Close</button>
+  <button class="btn btn-outline-info" mat-dialog-close>
+    {{ 'CLOSE' | translate }}
+  </button>
 </div>

@@ -1,21 +1,24 @@
 <div class="dialog-content">
   <form [formGroup]="eventForm">
     <div class="form-group">
-      <label for="employee-select">Doctor</label>
+      <label for="employee-select">{{ 'DOCTOR' | translate }}</label>
       <select
         id="employee-select"
         class="form-control large-input"
         formControlName="employeeId"
-        aria-label="Default select example"
       >
-        <option value="" hidden selected>Select the doctor</option>
+        <option value="" hidden selected>
+          {{ 'SELECT_THE_DOCTOR' | translate }}
+        </option>
         <option *ngFor="let doctor of doctorsList" [value]="doctor.id">
           {{ doctor.profile.name }} {{ doctor.profile.surname }}
         </option>
       </select>
     </div>
     <div class="form-group">
-      <label for="reason-select">Select absent reason</label>
+      <label for="reason-select">{{
+        'SELECT_ABSENCE_REASON' | translate
+      }}</label>
       <select
         id="reason-select"
         class="form-control large-input"
@@ -27,7 +30,7 @@
       </select>
     </div>
     <div class="form-group large-input">
-      <label id="start">Start date</label>
+      <label id="start">{{ 'START_DATE' | translate }}</label>
       <input
         matInput
         name="start"
@@ -41,11 +44,11 @@
         [enableTime]="true"
         dateFormat="Y-m-dTH:i"
         altFormat="F j, Y H:i"
-        placeholder="Pick a date"
+        [placeholder]="'PICK_THE_DATE' | translate"
       />
     </div>
     <div class="form-group large-input">
-      <label id="end">End date</label>
+      <label id="end">{{ 'END_DATE' | translate }}</label>
       <input
         matInput
         name="end"
@@ -59,7 +62,7 @@
         [enableTime]="true"
         dateFormat="Y-m-dTH:i"
         altFormat="F j, Y H:i"
-        placeholder="Pick a date"
+        [placeholder]="'PICK_THE_DATE' | translate"
       />
     </div>
   </form>
@@ -67,7 +70,9 @@
 
 <mat-dialog-actions align="end" class="fotter">
   <div>
-    <button class="btn btn-outline-info" (click)="closeDialog()">Close</button>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CLOSE' | translate }}
+    </button>
   </div>
   <div class="button">
     <button
@@ -76,7 +81,7 @@
       [disabled]="eventForm.invalid"
       (click)="onSubmit()"
     >
-      Confirm
+      {{ 'CONFIRM' | translate }}
     </button>
   </div>
 </mat-dialog-actions>

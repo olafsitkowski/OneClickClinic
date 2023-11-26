@@ -3,7 +3,11 @@
     <span>{{ data.content }}</span>
   </div>
   <div mat-dialog-actions align="end">
-    <button class="btn btn-outline-info" (click)="closeDialog()">Cancel</button>
-    <button class="btn btn-danger" (click)="confirmDialog()">Confirm</button>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CANCEL' | translate }}
+    </button>
+    <button class="btn btn-danger" (click)="confirmDialog()">
+      {{ 'CONFIRM' | translate }}
+    </button>
   </div>
 </div>

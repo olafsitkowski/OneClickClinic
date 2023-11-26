@@ -14,7 +14,12 @@
   >
     <div class="hint">
       <mat-icon>upload_file</mat-icon>
-      <span><b (click)="browseFiles()">Choose a file</b> or drop it here</span>
+      <span
+        ><b (click)="browseFiles()">{{
+          'FILE_UPLOAD.CHOOSE_A_FILE' | translate
+        }}</b>
+        {{ 'FILE_UPLOAD.DROP_IT_HERE' | translate }}</span
+      >
     </div>
   </div>
 </div>

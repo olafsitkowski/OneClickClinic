@@ -31,7 +31,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -78,7 +82,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       },
     }),
   ],
-  providers: [CdkColumnDef, DatePipe],
+  providers: [CdkColumnDef, DatePipe, TranslateService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

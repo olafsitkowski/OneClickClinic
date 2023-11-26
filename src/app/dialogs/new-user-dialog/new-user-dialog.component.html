@@ -1,7 +1,7 @@
 <div class="modal-body">
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label>First name*</label>
+      <label>{{ 'FIRST_NAME' | translate }}*</label>
       <input
         type="text"
         class="form-control large-input"
@@ -9,7 +9,7 @@
       />
     </div>
     <div class="form-group">
-      <label>Last name*</label>
+      <label>{{ 'LAST_NAME' | translate }}*</label>
       <input
         type="text"
         class="form-control large-input"
@@ -17,7 +17,7 @@
       />
     </div>
     <div class="form-group">
-      <label>Email*</label>
+      <label>{{ 'EMAIL' | translate }}*</label>
       <input
         type="email"
         class="form-control large-input"
@@ -25,7 +25,7 @@
       />
     </div>
     <div class="form-group">
-      <label>Phone number*</label>
+      <label>{{ 'PHONE_NUMBER' | translate }}*</label>
       <input
         type="text"
         class="form-control large-input"
@@ -34,9 +34,7 @@
     </div>
     <ng-container *ngIf="currentUserType === userType.PATIENT">
       <div class="form-group">
-        <label
-          >Pesel*</label
-        >
+        <label>{{ 'PESEL' | translate }}*</label>
         <input
           type="text"
           class="form-control large-input"
@@ -44,10 +42,7 @@
         />
       </div>
       <div class="form-group gender-select">
-        <label for="gender"
-          >Gender*
-          </label
-        >
+        <label for="gender">{{ 'GENDER' | translate }}* </label>
         <div class="row">
           <div class="col">
             <div class="form-check">
@@ -59,7 +54,9 @@
                 value="male"
                 formControlName="gender"
               />
-              <label class="form-check-label" for="male">Male</label>
+              <label class="form-check-label" for="male">{{
+                'MALE' | translate
+              }}</label>
             </div>
           </div>
           <div class="col">
@@ -72,14 +69,16 @@
                 value="female"
                 formControlName="gender"
               />
-              <label class="form-check-label" for="female">Female</label>
+              <label class="form-check-label" for="female">{{
+                'FEMALE' | translate
+              }}</label>
             </div>
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Adress</label>
+        <label>{{ 'ADDRESS' | translate }}</label>
         <textarea
           type="text"
           class="form-control text-area"
@@ -88,7 +87,7 @@
         ></textarea>
       </div>
       <div class="form-group">
-        <label>Treatment</label>
+        <label>{{ 'TREATMENT' | translate }}</label>
         <input
           type="text"
           class="form-control large-input"
@@ -96,9 +95,7 @@
         />
       </div>
       <div class="form-group">
-        <label
-          >Blood group*</label
-        >
+        <label>{{ 'BLOOD_GROUP' | translate }}*</label>
         <select
           aria-label="0"
           class="form-control large-input"
@@ -109,7 +106,7 @@
           </option>
         </select>
       </div>
-      <label>Files</label>
+      <label>{{ 'FILES' | translate }}</label>
       <app-file-upload (fileEmit)="getFile($event)"></app-file-upload>
       <!-- <div class="file-list">
         <div *ngFor="let file of userFiles" class="file-name">
@@ -122,8 +119,8 @@
       <table class="table" *ngIf="userFiles.length">
         <thead>
           <tr class="column-spacing">
-            <th>File Name</th>
-            <th>Action</th>
+            <th>{{ 'FILE_NAME' | translate }}</th>
+            <th>{{ 'ACTION' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -135,7 +132,7 @@
                 (click)="removeFile(file)"
                 class="delete-button"
               >
-                <mat-icon>delete</mat-icon>
+                <mat-icon>{{ 'DELETE' | translate }}</mat-icon>
               </button>
             </td>
           </tr>
@@ -147,7 +144,9 @@
 
 <mat-dialog-actions align="end">
   <div>
-    <button class="btn btn-outline-info" (click)="closeDialog()">Close</button>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CLOSE' | translate }}
+    </button>
   </div>
   <div class="button">
     <button
@@ -156,7 +155,7 @@
       [disabled]="userForm.invalid"
       (click)="onSubmit()"
     >
-      Confirm
+      {{ 'CONFIRM' | translate }}
     </button>
   </div>
   <div></div>

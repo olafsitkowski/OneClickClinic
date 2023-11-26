@@ -9,6 +9,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Chart } from 'chart.js/auto';
 import { Observable, Subject, catchError, map, of, takeUntil } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-analytics',
@@ -28,26 +29,26 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     'patientId',
   ];
   public columnLabels: { [key: string]: string } = {
-    title: 'Title',
-    start: 'Start',
-    end: 'End',
-    employeeId: 'Doctor',
-    patientId: 'Patient',
+    title: 'TITLE',
+    start: 'START',
+    end: 'END',
+    employeeId: 'DOCTOR',
+    patientId: 'PATIENT',
   };
   public statsWidgets: SimpleWidget[] = [
     {
       icon: 'event',
-      description: 'Appointments',
+      description: 'APPOINTMENTS',
       count: 0,
     },
     {
       icon: 'personal_injury',
-      description: 'Patients',
+      description: 'PATIENTS',
       count: 0,
     },
     {
       icon: 'medication',
-      description: 'Doctors',
+      description: 'DOCTORS',
       count: 0,
     },
   ];
@@ -59,7 +60,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
   constructor(
     private calendarService: CalendarService,
-    private userService: UserService
+    private userService: UserService,
+    private translate: TranslateService
   ) {}
 
   public ngOnInit(): void {
@@ -137,12 +139,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         labels: this.slotsData.labels,
         datasets: [
           {
-            label: 'Free slots',
+            label: this.translate.instant('FREE_SLOTS'),
             data: this.slotsData.datasets[0].availableSlots,
             backgroundColor: '#336cfb',
           },
           {
-            label: 'Busy slots',
+            label: this.translate.instant('BUSY_SLOTS'),
             data: this.slotsData.datasets[0].busySlots,
             backgroundColor: 'gray',
           },

@@ -1,35 +1,40 @@
 <div class="dialog-content">
   <form [formGroup]="eventForm">
     <div class="form-group">
-      <label for="employeeSelect">Doctor</label>
+      <label for="employeeSelect">{{ 'DOCTOR' | translate }}</label>
       <select
         id="employeeSelect"
         class="form-control large-input"
         formControlName="employeeId"
         aria-label="Default select example"
       >
-      <option value="" hidden selected>Select the doctor</option>
+        <option value="" hidden selected>
+          {{ 'SELECT_THE_DOCTOR' | translate }}
+        </option>
         <option *ngFor="let doctor of doctorsList" [value]="doctor.id">
           {{ doctor.profile.name }} {{ doctor.profile.surname }}
         </option>
       </select>
     </div>
     <div class="form-group">
-      <label for="patientSelect">Patient</label>
+      <label for="patientSelect">{{ 'PATIENT' | translate }}</label>
       <select
         id="patientSelect"
         class="form-control large-input"
         formControlName="patientId"
       >
-        <option value="" hidden selected>Select the patient</option>
+        <option value="" hidden selected>
+          {{ 'SELECT_THE_PATIENT' | translate }}
+        </option>
         <option *ngFor="let patient of patientsList" [value]="patient.id">
-          {{ patient.profile.pesel }} - {{ patient.profile.name }} {{ patient.profile.surname }}
+          {{ patient.profile.pesel }} - {{ patient.profile.name }}
+          {{ patient.profile.surname }}
         </option>
       </select>
     </div>
 
     <div class="form-group large-input">
-      <label id="start">Start date</label>
+      <label id="start">{{ 'START_DATE' | translate }}</label>
       <input
         matInput
         name="start"
@@ -46,7 +51,7 @@
       />
     </div>
     <div class="form-group large-input">
-      <label id="end">End date</label>
+      <label id="end">{{ 'END_DATE' | translate }}</label>
       <input
         matInput
         name="end"
@@ -59,27 +64,27 @@
         [enableTime]="true"
         dateFormat="Y-m-dTH:i"
         altFormat="F j, Y H:i"
-        placeholder="Pick a date"
+        [placeholder]="'PICK_THE_DATE' | translate"
       />
     </div>
     <div class="form-group">
-      <label for="eventTitle">Event title</label>
+      <label for="eventTitle">{{ 'EVENT_TITLE' | translate }}</label>
       <input
         id="eventTitle"
         type="text"
         class="form-control large-input"
         formControlName="title"
-        placeholder="Add a title"
+        [placeholder]="'ADD_THE_TITLE' | translate"
       />
     </div>
     <div class="form-group">
-      <label>Description</label>
+      <label>{{ 'DESCRIPTION' | translate }}</label>
       <textarea
         type="text"
         class="form-control text-area"
         rows="3"
         formControlName="description"
-        placeholder="Write a message"
+        [placeholder]="'WRITE_A_MESSAGE' | translate"
       ></textarea>
     </div>
   </form>
@@ -87,7 +92,9 @@
 
 <mat-dialog-actions align="end" class="fotter">
   <div>
-    <button class="btn btn-outline-info" (click)="closeDialog()">Close</button>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CLOSE' | translate }}
+    </button>
   </div>
   <div class="button">
     <button
@@ -96,7 +103,7 @@
       [disabled]="eventForm.invalid"
       (click)="onSubmit()"
     >
-      Confirm
+      {{ 'CONFIRM' | translate }}
     </button>
   </div>
 </mat-dialog-actions>
