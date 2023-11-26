@@ -1,10 +1,7 @@
+import { LoginService } from './../../../services/login.service';
 import { takeUntil } from 'rxjs/operators';
-import {
-  mockRegisterInfoFormFields,
-  mockAddressformFields,
-  mockStateList,
-} from './mock-data';
-import { Component, OnInit } from '@angular/core';
+import { mockRegisterInfoFormFields } from './register-data';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -14,23 +11,17 @@ import {
 } from '@angular/forms';
 import { RegisterForm } from '../../../../interfaces/RegisterForm';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { AbstractUnsubscribe } from 'src/app/abstracts/AbstractUnsubscribe';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends AbstractUnsubscribe implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
-
-  public stateList: string[] = mockStateList;
-  public loginFormFields: RegisterForm[] = mockRegisterInfoFormFields;
-  public mockAddressformFields: RegisterForm[] = mockAddressformFields;
-
-  constructor(private router: Router, private userService: UserService) {
-    super();
-  }
+  public registerFormFields: RegisterForm[] = mockRegisterInfoFormFields;
+  private unsubscribe$: Subject<void> = new Subject<void>();
+  constructor(private router: Router, private loginService: LoginService) {}
 
   public ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -47,34 +38,28 @@ export class RegisterComponent extends AbstractUnsubscribe implements OnInit {
         Validators.minLength(8),
         this.confirmPasswordValidator.bind(this),
       ]),
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      pesel: new FormControl('', [
-        Validators.required,
-        Validators.minLength(11),
-      ]),
-      address: new FormGroup({
-        street: new FormControl('', [Validators.required]),
-        house_number: new FormControl(''),
-        city: new FormControl('', [Validators.required]),
-        postal_code: new FormControl('', [Validators.required]),
-        state: new FormControl('', [Validators.required]),
-      }),
-      phoneNumber: new FormControl('', [
-        Validators.required,
-        Validators.minLength(9),
-        Validators.maxLength(9),
-      ]),
-      role: new FormControl('patient'),
+      userName: new FormControl('', [Validators.required]),
+      role: new FormControl('admin'),
     });
   }
 
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   public onSubmit(): void {
-    this.userService
-      .postUser(this.registerForm.value)
+    this.registerForm.removeControl('confirmPassword');
+    console.warn(this.registerForm.value);
+
+    this.loginService
+      .registerUser(this.registerForm.value)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => {
-        this.router.navigate(['login']);
+      .subscribe((res) => {
+        if (res) {
+          localStorage.removeItem('isFirstLogin');
+          this.router.navigate(['login']);
+        }
       });
   }
 

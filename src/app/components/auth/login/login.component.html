@@ -22,13 +22,11 @@
         </div>
       </div>
 
-      <div class="form-group">
         <div class="credentials-error" *ngIf="!isUserExists">
-          <div class="alert alert-danger">
-            <span>Wrong email or password</span>
+          <div>
+            <span>Wrong email or password!</span>
           </div>
         </div>
-      </div>
 
       <div class="button">
         <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>

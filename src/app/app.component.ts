@@ -1,6 +1,6 @@
+import { LoginService } from './services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './services/theme.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,21 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private themeService: ThemeService, private ts: ToastrService) {}
+  constructor(
+    private themeService: ThemeService,
+    private loginService: LoginService
+  ) {}
 
   public ngOnInit(): void {
     this.themeService.toggleTheme();
+    this.isFirstLogin();
+  }
+
+  public isFirstLogin(): void {
+    this.loginService.isFirstLogin().subscribe((isFirstLogin: boolean) => {
+      if (isFirstLogin) {
+        localStorage.setItem('isFirstLogin', isFirstLogin.toString());
+      }
+    });
   }
 }

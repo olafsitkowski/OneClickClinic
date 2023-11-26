@@ -1,10 +1,6 @@
+import { userFromFields } from './../../dashboard/pages/users/users-data';
 import { RegisterForm } from 'src/interfaces/RegisterForm';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {
-  mockStateList,
-  mockRegisterInfoFormFields,
-  mockAddressformFields,
-} from './../../components/auth/register/mock-data';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -17,9 +13,7 @@ import { UserProfile, UserType } from 'src/interfaces/User';
 })
 export class NewUserDialogComponent implements OnInit {
   public userForm!: FormGroup;
-  public stateList: string[] = mockStateList;
-  public loginFormFields: RegisterForm[] = mockRegisterInfoFormFields;
-  public mockAddressformFields: RegisterForm[] = mockAddressformFields;
+  public loginFormFields: RegisterForm[] = userFromFields;
   public userFiles: File[] = [];
   public maxFilesCount: number = 1;
   public bloodGroups: string[] = [

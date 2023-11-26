@@ -1,8 +1,8 @@
 import { User } from '../../interfaces/User';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class LoginService {
   public userLogin(
     email: string,
     password: string
-  ): Observable<{ user: User; token: string }> {
+  ): Observable<{ user: User; token: string } | null> {
     return this.http
       .post<{ user: User; token: string }>(`${this.API_URL}/login`, {
         email,
@@ -25,7 +25,22 @@ export class LoginService {
           if (res.user && res.token) {
             localStorage.setItem('token', res.token);
           }
+        }),
+        catchError(() => {
+          return of(null);
         })
       );
+  }
+
+  public registerUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.API_URL}/register`, user);
+  }
+
+  public isFirstLogin(): Observable<boolean> {
+    return this.http.get<User[]>(`${this.API_URL}/user/`).pipe(
+      map((users: User[]) => {
+        return users.length === 0;
+      })
+    );
   }
 }

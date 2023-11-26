@@ -29,6 +29,7 @@ import { CdkColumnDef } from '@angular/cdk/table';
 import { DatePipe } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TabsModule,
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    TooltipModule.forRoot(),
   ],
   providers: [CdkColumnDef, DatePipe],
   bootstrap: [AppComponent],

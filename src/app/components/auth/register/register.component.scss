@@ -1,9 +1,5 @@
 @import './../../../../assets/scss/variables';
 
-:host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
-  height: 0;
-}
-
 .register-page {
   width: 100%;
   height: 100vh;
@@ -14,15 +10,9 @@
 }
 
 .box {
-  height: fit-content;
-  width: 550px;
   background-color: var(--background-standard);
-  box-shadow: var(--box-shadow);
+  box-shadow: $box-shadow;
   border-radius: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   padding: 50px;
 }
 
@@ -33,35 +23,20 @@
   align-items: flex-start;
   width: 500px;
 
-  .login-info {
-    display: flex;
-    margin-bottom: auto;
-    flex-direction: column;
-  }
-
   input {
     color: var(--text-color);
-  }
-
-  mat-form-field {
-    padding-bottom: $xlarge-spacing;
-  }
-
-  mat-error span {
-    position: absolute;
-  }
-}
-
-.title {
-  padding-bottom: 25px;
-
-  span {
-    font-size: xx-large;
   }
 }
 
 .button {
-  display: flex;
-  justify-content: center;
   margin-top: 20px;
+}
+
+.invalid-field {
+  display: block;
+  color: var(--error-color);
+}
+
+.error {
+  border: 1px solid var(--error-color);
 }
