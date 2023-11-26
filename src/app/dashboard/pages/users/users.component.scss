@@ -123,10 +123,17 @@ tr.user-row:not(.expanded-row):active {
   width: 15%;
 }
 
-.mat-column-pesel .mat-column-role{
+.mat-column-pesel .mat-column-role {
   width: 10%;
 }
 
 .mat-column-actions {
   width: 15%;
+}
+
+.table-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 24px;
 }

@@ -50,6 +50,9 @@
           [class.even-row]="!(i % 2)"
         ></tr>
       </table>
+      <div *ngIf="dataSource.data.length === 0" class="table-empty">
+        <span>No users found. Add new one to display the table.</span>
+      </div>
     </div>
   </div>
 </div>

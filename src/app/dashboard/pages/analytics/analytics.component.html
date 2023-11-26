@@ -25,7 +25,13 @@
     </div>
     <div class="table-widget">
       <h4>New appointments</h4>
-      <div class="table">
+      <div
+        *ngIf="dataSource.data.length === 0; else tableContainer"
+        class="empty-appointments"
+      >
+        <span> No new appointments </span>
+      </div>
+      <ng-template #tableContainer class="table">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container
             matColumnDef="{{ column }}"
@@ -55,7 +61,7 @@
             [class.even-row]="!(i % 2)"
           ></tr>
         </table>
-      </div>
+      </ng-template>
     </div>
   </div>
 </div>

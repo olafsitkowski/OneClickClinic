@@ -117,3 +117,13 @@
   width: 5rem;
   height: 5rem;
 }
+
+.empty-appointments {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
