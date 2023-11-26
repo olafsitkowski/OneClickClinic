@@ -117,6 +117,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public addNewUser(): void {
     const dialogRef = this.modal.open(NewUserDialogComponent, {
+      data: { userProfile: { role: this.userType }, isEditUser: false },
       disableClose: true,
     });
 

@@ -32,107 +32,116 @@
         formControlName="phoneNumber"
       />
     </div>
-    <div class="form-group">
-      <label>Pesel<span *ngIf="data?.userProfile?.role !== 'doctor'">*</span></label>
-      <input
-        type="text"
-        class="form-control large-input"
-        formControlName="pesel"
-      />
-    </div>
-    <div class="form-group gender-select">
-      <label for="gender">Gender <span *ngIf="data?.userProfile?.role !== 'doctor'">*</span></label>
-      <div class="row">
-        <div class="col">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="gender"
-              id="male"
-              value="male"
-              formControlName="gender"
-            />
-            <label class="form-check-label" for="male">Male</label>
+    <ng-container *ngIf="currentUserType === userType.PATIENT">
+      <div class="form-group">
+        <label
+          >Pesel*</label
+        >
+        <input
+          type="text"
+          class="form-control large-input"
+          formControlName="pesel"
+        />
+      </div>
+      <div class="form-group gender-select">
+        <label for="gender"
+          >Gender*
+          </label
+        >
+        <div class="row">
+          <div class="col">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                formControlName="gender"
+              />
+              <label class="form-check-label" for="male">Male</label>
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="gender"
-              id="female"
-              value="female"
-              formControlName="gender"
-            />
-            <label class="form-check-label" for="female">Female</label>
+          <div class="col">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+                formControlName="gender"
+              />
+              <label class="form-check-label" for="female">Female</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Adress</label>
-      <textarea
-        type="text"
-        class="form-control text-area"
-        rows="3"
-        formControlName="address"
-      ></textarea>
-    </div>
-    <div class="form-group">
-      <label>Treatment</label>
-      <input
-        type="text"
-        class="form-control large-input"
-        formControlName="treatment"
-      />
-    </div>
-    <div class="form-group">
-      <label>Blood group<span *ngIf="data?.userProfile?.role !== 'doctor'">*</span></label>
-      <select
-        aria-label="0"
-        class="form-control large-input"
-        formControlName="bloodGroup"
-      >
-        <option *ngFor="let option of bloodGroups" value="{{ option }}">
-          {{ option }}
-        </option>
-      </select>
-    </div>
-    <label>Files</label>
-    <app-file-upload (fileEmit)="getFile($event)"></app-file-upload>
-    <!-- <div class="file-list">
-      <div *ngFor="let file of userFiles" class="file-name">
-        <span>{{ file.name }}</span>
-        <button mat-icon-button (click)="removeFile(file)">
-          <mat-icon>delete</mat-icon>
-        </button>
+      <div class="form-group">
+        <label>Adress</label>
+        <textarea
+          type="text"
+          class="form-control text-area"
+          rows="3"
+          formControlName="address"
+        ></textarea>
       </div>
-    </div> -->
-    <table class="table" *ngIf="userFiles.length">
-      <thead>
-        <tr class="column-spacing">
-          <th>File Name</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let file of userFiles" class="file-row">
-          <td class="align-middle">{{ file.name }}</td>
-          <td class="align-middle">
-            <button
-              mat-icon-button
-              (click)="removeFile(file)"
-              class="delete-button"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="form-group">
+        <label>Treatment</label>
+        <input
+          type="text"
+          class="form-control large-input"
+          formControlName="treatment"
+        />
+      </div>
+      <div class="form-group">
+        <label
+          >Blood group*</label
+        >
+        <select
+          aria-label="0"
+          class="form-control large-input"
+          formControlName="bloodGroup"
+        >
+          <option *ngFor="let option of bloodGroups" value="{{ option }}">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <label>Files</label>
+      <app-file-upload (fileEmit)="getFile($event)"></app-file-upload>
+      <!-- <div class="file-list">
+        <div *ngFor="let file of userFiles" class="file-name">
+          <span>{{ file.name }}</span>
+          <button mat-icon-button (click)="removeFile(file)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div> -->
+      <table class="table" *ngIf="userFiles.length">
+        <thead>
+          <tr class="column-spacing">
+            <th>File Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of userFiles" class="file-row">
+            <td class="align-middle">{{ file.name }}</td>
+            <td class="align-middle">
+              <button
+                mat-icon-button
+                (click)="removeFile(file)"
+                class="delete-button"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
   </form>
 </div>
 

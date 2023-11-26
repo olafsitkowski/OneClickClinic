@@ -16,6 +16,8 @@ export class NewUserDialogComponent implements OnInit {
   public loginFormFields: RegisterForm[] = userFromFields;
   public userFiles: File[] = [];
   public maxFilesCount: number = 1;
+  public currentUserType: string = UserType.PATIENT;
+  public userType = UserType;
   public bloodGroups: string[] = [
     'A+',
     'A-',
@@ -35,6 +37,8 @@ export class NewUserDialogComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.currentUserType = this.data?.userProfile?.role;
+
     this.userForm = new FormGroup({
       contactEmail: new FormControl('', [
         Validators.required,
@@ -42,23 +46,17 @@ export class NewUserDialogComponent implements OnInit {
       ]),
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
-      bloodGroup: new FormControl(''),
-      treatment: new FormControl(''),
-      pesel: new FormControl('', [Validators.minLength(11)]),
-      address: new FormControl(''),
       phoneNumber: new FormControl('', [
         Validators.required,
         Validators.minLength(9),
         Validators.maxLength(9),
       ]),
-      gender: new FormControl(''),
-      role: new FormControl('patient'),
+      role: new FormControl(''),
     });
-
+    this.setValidators();
     if (this.data?.isEditUser) {
       this.getDataToEditUser();
     }
-    this.setValidators();
   }
 
   public onSubmit(): void {
@@ -96,12 +94,23 @@ export class NewUserDialogComponent implements OnInit {
   }
 
   private setValidators(): void {
-    const isPatient = this.data?.userProfile?.role === UserType.PATIENT;
+    this.userForm.setControl('role', new FormControl(this.currentUserType));
 
-    if (isPatient) {
-      this.userForm.get('bloodGroup')?.setValidators([Validators.required]);
-      this.userForm.get('gender')?.setValidators([Validators.required]);
-      this.userForm.get('pesel')?.setValidators([Validators.required]);
+    if (this.currentUserType === UserType.PATIENT) {
+      this.userForm.addControl(
+        'bloodGroup',
+        new FormControl('', [Validators.required])
+      );
+      this.userForm.addControl('treatment', new FormControl(''));
+      this.userForm.addControl(
+        'pesel',
+        new FormControl('', [Validators.required, Validators.minLength(11)])
+      );
+      this.userForm.addControl('address', new FormControl(''));
+      this.userForm.addControl(
+        'gender',
+        new FormControl('', [Validators.required])
+      );
     }
   }
 }
