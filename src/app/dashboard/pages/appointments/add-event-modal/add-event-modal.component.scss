@@ -1,3 +1,5 @@
+@import '../../../../../assets/scss/variables';
+
 form {
   width: 700px;
   height: 600px;
@@ -14,7 +16,7 @@ ng-container {
 
 .form-group {
   max-width: 100%;
-  padding: 8px 0;
+  padding: $spacing 0;
 }
 
 .modal-body {
@@ -41,6 +43,6 @@ ng-container {
 
 .mdc-dialog__actions {
   button {
-    margin-left: 4px;
+    margin-left: $small-spacing;
   }
 }

@@ -1,9 +1,11 @@
+@import '../../../assets/scss/variables';
+
 .dialog {
-  padding: 8px;
+  padding: $spacing;
 }
 
 .content {
-  margin: 8px;
+  margin: $spacing;
   span {
     font-size: medium;
   }
@@ -11,6 +13,6 @@
 
 .mdc-dialog__actions {
   button {
-    margin-left: 4px;
+    margin-left: $small-spacing;
   }
 }

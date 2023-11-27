@@ -1,3 +1,5 @@
+@import '../../../assets/scss/variables';
+
 .navbar {
   height: 125px;
   background-color: var(--background-standard);
@@ -15,7 +17,7 @@
 
   li {
     color: var(--text-color);
-    padding: 0 25px 0 25px;
+    padding: 0 $xlarge-spacing 0 $xlarge-spacing;
     list-style: none;
     text-decoration: none;
   }
@@ -30,7 +32,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding-left: 25px;
+  padding-left: $xlarge-spacing;
 }
 
 .buttons {
