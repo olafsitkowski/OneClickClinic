@@ -13,7 +13,12 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 export class CalendarBlockModalComponent implements OnInit {
   public eventForm!: FormGroup;
   public doctorsList: User[] = [];
-  public absentReasons: string[] = [];
+  public absentReasons: string[] = [
+    'VACATION',
+    'SICK_LEAVE',
+    'BUSINESS_TRIP',
+    'OTHER',
+  ];
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
   private unsubscribe$: Subject<void> = new Subject<void>();

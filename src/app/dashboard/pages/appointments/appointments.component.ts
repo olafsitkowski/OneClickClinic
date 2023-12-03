@@ -122,17 +122,20 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     newStart,
     newEnd,
   }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events?.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
+    const editedEvent = {
+      ...event,
+      title: event.title.slice(0, event.title.indexOf('-')),
+      start: newStart,
+      end: newEnd,
+    };
+    this.calendarService
+      .editCalendarEventById(Number(event.id), editedEvent)
+      .subscribe((res) => {
+        if (res) {
+          this.getCalendarEvents();
+          this.refresh.next();
+        }
+      });
   }
 
   public handleEvent(action: string, event: CalendarEvent): void {
@@ -170,6 +173,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
             .subscribe((res) => {
               if (res) {
                 this.getCalendarEvents();
+                this.refresh.next();
               }
             });
         }

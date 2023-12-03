@@ -25,12 +25,14 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.eventForm = new FormGroup({
       type: new FormControl('appointment'),
-      title: new FormControl(''),
+      title: new FormControl('', Validators.required),
       start: new FormControl('', Validators.required),
       end: new FormControl('', Validators.required),
       patientId: new FormControl('', Validators.required),
       employeeId: new FormControl('', Validators.required),
       description: new FormControl(''),
+      draggable: new FormControl(true),
+      resizable: new FormControl({ beforeStart: true, afterEnd: true }),
     });
 
     this.userService

@@ -40,6 +40,16 @@ export class CalendarService {
     );
   }
 
+  public editCalendarEventById(
+    id: number,
+    event: CustomCalendarEvent
+  ): Observable<CustomCalendarEvent> {
+    return this.http.put<CustomCalendarEvent>(
+      `${this.API_URL}/calendar-events/${id}`,
+      event
+    );
+  }
+
   public getAvalibleSlots(): Observable<AvalibleSlotsWidget> {
     return this.http.get<AvalibleSlotsWidget>(
       `${this.API_URL}/available-slots/`

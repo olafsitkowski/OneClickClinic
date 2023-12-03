@@ -88,5 +88,9 @@
   "REGISTER_THE_ADMIN": "Register the Admin",
   "PASSWORD.REQUIREMENTS": "Password must contain at least 8 characters, including at least 1 number, 1 lowercase letter, 1 uppercase letter and 1 special character.",
   "USER_NAME": "User Name",
-  "CONFIRM_PASSWORD": "Confirm Password"
+  "CONFIRM_PASSWORD": "Confirm Password",
+  "VACATION": "Vacation",
+  "SICK_LEAVE": "Sick Leave",
+  "OTHER": "Other",
+  "BUSINESS_TRIP": "Business trip"
 }

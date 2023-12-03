@@ -25,7 +25,7 @@
         formControlName="title"
       >
         <option *ngFor="let reason of absentReasons" [value]="reason">
-          {{ reason }}
+          {{ reason | translate }}
         </option>
       </select>
     </div>
