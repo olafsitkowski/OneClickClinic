@@ -4,7 +4,13 @@
   .hide {
     display: none;
   }
+
+  .mat-elevation-z8,
+  .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: none;
+  }
 }
+
 .analytics-container {
   height: 100vh;
   width: 100%;

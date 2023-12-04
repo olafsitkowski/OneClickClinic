@@ -12,25 +12,29 @@
 }
 
 h3 {
+  display: flex;
+  justify-content: center;
   color: black;
   margin-top: $xlarge-spacing;
 }
 
 .personal-info,
 .medical-info {
-  h3 {
-    margin-left: $large-spacing;
-  }
+  // h3 {
+  //   margin-left: $large-spacing;
+  // }
 
   div {
     display: flex;
+    justify-content: space-between;
     align-items: baseline;
-    margin-left: 10%;
-    margin-top: 32px;
+    padding: $xlarge-spacing;
 
     h6 {
+      color: black;
       margin: 0;
       margin-right: $spacing;
+      font-weight: bold;
     }
 
     span {

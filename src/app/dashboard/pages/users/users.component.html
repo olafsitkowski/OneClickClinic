@@ -41,7 +41,7 @@
               <button mat-icon-button (click)="editUser(user)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="viewUserInfo(user)">
+              <button mat-icon-button (click)="viewUserInfo(user)" *ngIf="this.userType === UserTypeEnum.PATIENT">
                 <mat-icon>visibility</mat-icon>
               </button>
             </ng-container>

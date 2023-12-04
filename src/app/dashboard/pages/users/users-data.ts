@@ -38,6 +38,8 @@ export const columnLabels: { [key: string]: string } = {
   end: 'END',
   patient: 'PATIENT',
   actions: 'ACTIONS',
+  employeeId: 'DOCTOR',
+  patientId: 'PATIENT',
 };
 
 export const userFormFields: RegisterForm[] = [

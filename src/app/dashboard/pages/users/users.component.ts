@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource<User>();
   public isLoading: boolean = true;
   public userType: UserType;
+  public UserTypeEnum = UserType;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -97,9 +98,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   public deleteUser(user: User): void {
     const dialogRef = this.modal.open(ConfirmationDialogComponent, {
       data: {
-        content: this.translate.instant('DIALOGS.DELETE_USER', {
-          name: user.profile?.name,
-          surname: user.profile?.surname,
+        content: this.translate.instant('DELETE_USER.DIALOG', {
+          userName: user.profile?.name,
+          userSurname: user.profile?.surname,
         }),
       },
     });

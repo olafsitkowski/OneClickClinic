@@ -130,6 +130,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     };
     this.calendarService
       .editCalendarEventById(Number(event.id), editedEvent)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res) => {
         if (res) {
           this.getCalendarEvents();
@@ -170,11 +171,9 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
           this.calendarService
             .deleteCalendarEvent(eventId)
             .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((res) => {
-              if (res) {
-                this.getCalendarEvents();
-                this.refresh.next();
-              }
+            .subscribe(() => {
+              this.getCalendarEvents();
+              this.refresh.next();
             });
         }
       });

@@ -92,5 +92,6 @@
   "VACATION": "Vacation",
   "SICK_LEAVE": "Sick Leave",
   "OTHER": "Other",
-  "BUSINESS_TRIP": "Business trip"
+  "BUSINESS_TRIP": "Business trip",
+  "CONTACT_EMAIL": "Contact Email"
 }

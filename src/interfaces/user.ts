@@ -15,10 +15,11 @@ export interface UserAuthentication {
 }
 
 export interface UserProfile {
+  id: number;
   role: string;
   name: string;
   surname: string;
-  contact_email: string;
+  contactEmail: string;
   bloodGroup?: string;
   phoneNumber?: string;
   gender?: string;
