@@ -19,6 +19,8 @@ const moon =
 })
 export class NavBarComponent implements AfterViewInit {
   @Input() public disableNavigation: boolean = false;
+  @Input() public position: 'absolute' | 'fixed' | 'relative' | 'static' =
+    'absolute';
 
   constructor(private themeService: ThemeService) {}
 
