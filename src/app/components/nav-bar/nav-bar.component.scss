@@ -13,6 +13,7 @@
 
   .brand {
     font-size: x-large;
+    cursor: pointer;
   }
 
   li {
@@ -38,7 +39,7 @@
 .buttons {
   display: flex;
   align-items: center;
-  width: 150px;
+  // width: 150px;
   justify-content: space-between;
 
   mat-slide-toggle {
