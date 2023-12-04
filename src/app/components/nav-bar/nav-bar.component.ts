@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 
@@ -17,12 +18,17 @@ const moon =
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
-export class NavBarComponent implements AfterViewInit {
+export class NavBarComponent implements AfterViewInit, OnInit {
+  public isDarkMode: boolean = false;
   @Input() public disableNavigation: boolean = false;
   @Input() public position: 'absolute' | 'fixed' | 'relative' | 'static' =
     'absolute';
 
   constructor(private themeService: ThemeService) {}
+
+  public ngOnInit(): void {
+    this.isDarkMode = this.themeService.getTheme() === 'dark';
+  }
 
   public toggleTheme(): void {
     this.themeService.toggleTheme();
