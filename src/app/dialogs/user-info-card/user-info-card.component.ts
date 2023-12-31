@@ -6,6 +6,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { UserProfile, UserType } from 'src/interfaces/User';
+import { FilesService } from 'src/app/services/files.service';
+import { UserFile } from 'src/interfaces/File';
 
 @Component({
   selector: 'app-user-info-card',
@@ -17,16 +19,30 @@ export class UserInfoCardComponent implements OnInit {
   public appointmentsColumns: string[] = [];
   public dataSource = new MatTableDataSource<CustomCalendarEvent>();
   public columnLabels = columnLabels;
+  public userFiles: UserFile[] = [];
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { userProfile: UserProfile },
+    @Inject(MAT_DIALOG_DATA)
+    public data: { userProfile: UserProfile; userId: number },
     private calendarService: CalendarService,
-    private userService: UserService
+    private userService: UserService,
+    private filesService: FilesService
   ) {
     this.userProfile = data.userProfile;
   }
 
   public ngOnInit(): void {
     this.setData();
+    this.getFiles();
+  }
+
+  public downloadFile(file: UserFile): void {
+    this.filesService.downloadFile(file).subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.fileName;
+      link.click();
+    });
   }
 
   private setData(): void {
@@ -58,6 +74,16 @@ export class UserInfoCardComponent implements OnInit {
               });
           });
           this.dataSource = new MatTableDataSource(events);
+        });
+    }
+  }
+
+  private getFiles(): void {
+    if (this.userProfile) {
+      this.filesService
+        .getFilesByUserId(this.data.userId)
+        .subscribe((files) => {
+          this.userFiles = files as unknown as UserFile[];
         });
     }
   }

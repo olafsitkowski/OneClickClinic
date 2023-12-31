@@ -87,7 +87,18 @@
         </div>
       </tab>
       <tab heading="{{ 'DOCUMENTATION' | translate }}">
-        <div></div>
+        <div class="documentation-container">
+          <div
+            *ngFor="let file of userFiles"
+            class="file"
+            (click)="downloadFile(file)"
+          >
+            <img src="./../../../assets/img/file-icon.svg" />
+            <span>
+              {{ file.originalName }}
+            </span>
+          </div>
+        </div>
       </tab>
     </tabset>
   </div>

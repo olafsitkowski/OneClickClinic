@@ -1,21 +1,24 @@
+import { FilesService } from './../../services/files.service';
 import { RegisterForm } from './../../../interfaces/RegisterForm';
 import { userFormFields } from './../../dashboard/pages/users/users-data';
 import { UserProfile, UserType } from './../../../interfaces/User';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-new-user-dialog',
   templateUrl: './new-user-dialog.component.html',
   styleUrls: ['./new-user-dialog.component.scss'],
 })
-export class NewUserDialogComponent implements OnInit {
+export class NewUserDialogComponent implements OnInit, OnDestroy {
   public userForm!: FormGroup;
   public loginFormFields: RegisterForm[] = userFormFields;
   public userFiles: File[] = [];
-  public maxFilesCount: number = 1;
+  public maxFilesCount: number = 3;
   public currentUserType: string = UserType.PATIENT;
   public userType = UserType;
   public bloodGroups: string[] = [
@@ -28,12 +31,19 @@ export class NewUserDialogComponent implements OnInit {
     '0+',
     '0-',
   ];
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { userProfile: UserProfile; isEditUser: boolean },
+    public data: {
+      userProfile: UserProfile;
+      isEditUser: boolean;
+      userId: number;
+    },
     public dialogRef: MatDialogRef<NewUserDialogComponent>,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translate: TranslateService,
+    private filesService: FilesService
   ) {}
 
   public ngOnInit(): void {
@@ -59,7 +69,13 @@ export class NewUserDialogComponent implements OnInit {
     }
   }
 
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
   public onSubmit(): void {
+    this.uploadFiles();
     this.dialogRef.close(this.userForm.value);
   }
 
@@ -75,7 +91,7 @@ export class NewUserDialogComponent implements OnInit {
     if (this.userFiles.length !== this.maxFilesCount) {
       this.userFiles.push(file);
     } else {
-      this.toastr.warning('Max files reached!'); // TODO: Add tranlation.
+      this.toastr.warning(this.translate.instant('MAX_FILES_REACHED'));
     }
   }
 
@@ -112,5 +128,14 @@ export class NewUserDialogComponent implements OnInit {
         new FormControl('', [Validators.required])
       );
     }
+  }
+
+  private uploadFiles(): void {
+    this.userFiles.forEach((userFile) => {
+      this.filesService
+        .uploadFile(userFile, this.data.userId)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe();
+    });
   }
 }

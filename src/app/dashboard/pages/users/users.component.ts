@@ -144,7 +144,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public editUser(user: User): void {
     const dialogRef = this.modal.open(NewUserDialogComponent, {
-      data: { userProfile: user.profile, isEditUser: true },
+      data: { userProfile: user.profile, isEditUser: true, userId: user.id },
     });
     dialogRef
       .afterClosed()
@@ -165,7 +165,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public viewUserInfo(user: User): void {
     this.modal.open(UserInfoCardComponent, {
-      data: { userProfile: user.profile },
+      data: { userProfile: user.profile, userId: user.id },
     });
   }
 
