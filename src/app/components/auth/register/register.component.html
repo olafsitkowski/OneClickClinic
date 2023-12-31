@@ -9,7 +9,9 @@
             <div>
               <div *ngFor="let field of registerFormFields">
                 <div class="form-group">
-                  <label [for]="field.controlName">{{ field.label | translate}}</label>
+                  <label [for]="field.controlName">{{
+                    field.label | translate
+                  }}</label>
                   <input
                     [type]="field.type"
                     class="form-control"
@@ -42,7 +44,7 @@
                           'required'
                         )
                       "
-                      >This field is required.</span
+                      >{{ 'FIELD_REQUIRED' | translate }}</span
                     >
                     <span
                       *ngIf="
@@ -50,7 +52,7 @@
                           'email'
                         )
                       "
-                      >Invalid email format.</span
+                      >{{ 'INVALID_EMAIL_FORMAT' | translate }}</span
                     >
                     <span
                       *ngIf="
@@ -58,7 +60,7 @@
                           'passwordsDoNotMatch'
                         ) && registerForm.controls['password'].value.length >= 8
                       "
-                      >Password do not match.</span
+                      >{{ 'PASSWORDS_NOT_MATCH' | translate }}</span
                     >
                     <span
                       *ngIf="
@@ -66,7 +68,7 @@
                           'pattern'
                         )
                       "
-                      >Password is too weak.</span
+                      >{{ 'PASSWORD_TOO_WEAK' | translate }}</span
                     >
                   </div>
                 </div>
@@ -79,7 +81,7 @@
                 type="submit"
                 [disabled]="registerForm.invalid"
               >
-                Confirm
+                {{ 'CONFIRM' | translate }}
               </button>
             </div>
           </form>

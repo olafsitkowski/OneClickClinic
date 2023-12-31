@@ -53,7 +53,7 @@ tr.user-row:not(.expanded-row):active {
   }
 }
 
-.add-patient-button {
+.add-user-button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -70,7 +70,7 @@ tr.user-row:not(.expanded-row):active {
   border-radius: 10px;
 }
 
-.patients-container {
+.users-container {
   display: flex;
   justify-content: center;
   flex-direction: column;

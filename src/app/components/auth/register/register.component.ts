@@ -1,6 +1,6 @@
 import { LoginService } from './../../../services/login.service';
 import { takeUntil } from 'rxjs/operators';
-import { mockRegisterInfoFormFields } from './register-data';
+import { registerFormFields } from './register-data';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
@@ -18,8 +18,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  public registerForm!: FormGroup;
-  public registerFormFields: RegisterForm[] = mockRegisterInfoFormFields;
+  public registerForm: FormGroup = new FormGroup({});
+  public registerFormFields: RegisterForm[] = registerFormFields;
   private unsubscribe$: Subject<void> = new Subject<void>();
   constructor(private router: Router, private loginService: LoginService) {}
 
@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     this.registerForm.removeControl('confirmPassword');
-    console.warn(this.registerForm.value);
 
     this.loginService
       .registerUser(this.registerForm.value)

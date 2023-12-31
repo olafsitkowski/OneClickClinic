@@ -1,6 +1,6 @@
 import { RegisterForm } from 'src/interfaces/RegisterForm';
 
-export const mockRegisterInfoFormFields: RegisterForm[] = [
+export const registerFormFields: RegisterForm[] = [
   {
     name: 'email',
     label: 'EMAIL',

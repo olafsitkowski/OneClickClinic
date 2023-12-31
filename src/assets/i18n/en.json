@@ -30,7 +30,7 @@
   "DOCUMENTATION": "Documentation",
   "LOGOUT": "Logout",
   "SETTINGS": "Settings",
-  "ADD_NEW_PATIENT": "Add New Patient",
+  "ADD_NEW_USER": "Add New User",
   "NO_USERS_FOUND.TABLE": "No users found. Add new one to display the table.",
   "DELETE_USER.DIALOG": "Are you sure you want to delete {{userName}} {{userSurname}}?",
   "AVALIBLE_SLOTS": "Avalible Slots",
@@ -54,6 +54,7 @@
   "NEXT": "Next",
   "ACTIONS": "Actions",
   "BLOCK_CALENDAR": "Block Calendar",
+  "CANCEL": "Cancel",
   "ADD_NEW_EVENT": "Add New Event",
   "ALL_EMPLOYEES": "All Employees",
   "DELETE_EVENT.DIALOG": "Are you sure you want to delete this event?",
@@ -93,5 +94,9 @@
   "SICK_LEAVE": "Sick Leave",
   "OTHER": "Other",
   "BUSINESS_TRIP": "Business trip",
-  "CONTACT_EMAIL": "Contact Email"
+  "CONTACT_EMAIL": "Contact Email",
+  "FIELD_REQUIRED": "This field is required.",
+  "INVALID_EMAIL_FORMAT": "Invalid email format.",
+  "PASSWORDS_NOT_MATCH": "Passwords do not match.",
+  "PASSWORD_TOO_WEAK": "Password is too weak."
 }
