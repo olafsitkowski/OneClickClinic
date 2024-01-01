@@ -56,7 +56,7 @@ export class UserInfoCardComponent implements OnInit {
       this.calendarService
         .getCalendarEventsByUserId(this.userProfile.id)
         .subscribe((events) => {
-          events.map((event) => {
+          events.forEach((event) => {
             this.userService
               .getUserById(
                 Number(
