@@ -1,4 +1,4 @@
-import { FilesService } from './../../services/files.service';
+import { FilesService } from '../../services/file-service/files.service';
 import { RegisterForm } from './../../../interfaces/RegisterForm';
 import { userFormFields } from './../../dashboard/pages/users/users-data';
 import { UserProfile, UserType } from './../../../interfaces/User';

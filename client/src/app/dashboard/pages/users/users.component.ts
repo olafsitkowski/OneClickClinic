@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, forkJoin, takeUntil } from 'rxjs';
-import { CalendarService } from 'src/app/services/calendar.service';
-import { UserService } from 'src/app/services/user.service';
+import { CalendarService } from 'src/app/services/calendar-service/calendar.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { User, UserProfile, UserType } from 'src/interfaces/User';
 import { NewUserDialogComponent } from 'src/app/dialogs/new-user-dialog/new-user-dialog.component';
@@ -179,7 +179,9 @@ export class UsersComponent implements OnInit, OnDestroy {
             : event.employeeId)
       );
       if (user) {
-        !user.profile.appointments ? (user.profile.appointments = []) : null; // TO DO: refactor, add getCurretAppointments
+        if (!user.profile.appointments) {
+          user.profile.appointments = [];
+        }
         user.profile.appointments?.push(event);
       }
     });

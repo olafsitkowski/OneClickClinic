@@ -1,7 +1,7 @@
 import { ConfirmationDialogComponent } from './../../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { User } from '../../../../interfaces/User';
-import { UserService } from './../../../services/user.service';
-import { CalendarService } from './../../../services/calendar.service';
+import { UserService } from '../../../services/user-service/user.service';
+import { CalendarService } from '../../../services/calendar-service/calendar.service';
 import { CustomCalendarEvent } from './../../../../interfaces/CustomCalendarEvent';
 import { CalendarBlockModalComponent } from './calendar-block-modal/calendar-block-modal.component';
 import {

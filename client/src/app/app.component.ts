@@ -1,6 +1,6 @@
-import { LoginService } from './services/login.service';
+import { LoginService } from './services/login-service/login.service';
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from './services/theme.service';
+import { ThemeService } from './services/theme-service/theme.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

@@ -1,4 +1,4 @@
-import { ThemeService } from './../../services/theme.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import {
   AfterViewInit,
   Component,

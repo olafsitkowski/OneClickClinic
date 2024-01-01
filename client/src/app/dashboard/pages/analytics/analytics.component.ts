@@ -1,5 +1,5 @@
-import { UserService } from './../../../services/user.service';
-import { CalendarService } from './../../../services/calendar.service';
+import { UserService } from '../../../services/user-service/user.service';
+import { CalendarService } from '../../../services/calendar-service/calendar.service';
 import {
   AvalibleSlotsWidget,
   SimpleWidget,

@@ -1,4 +1,4 @@
-import { LoginService } from './../../../services/login.service';
+import { LoginService } from '../../../services/login-service/login.service';
 import { takeUntil } from 'rxjs/operators';
 import { registerFormFields } from './register-data';
 import { Component, OnInit, OnDestroy } from '@angular/core';

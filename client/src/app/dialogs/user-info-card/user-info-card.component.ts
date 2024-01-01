@@ -1,12 +1,12 @@
 import { columnLabels } from './../../dashboard/pages/users/users-data';
-import { UserService } from './../../services/user.service';
-import { CalendarService } from './../../services/calendar.service';
+import { UserService } from '../../services/user-service/user.service';
+import { CalendarService } from '../../services/calendar-service/calendar.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { UserProfile, UserType } from 'src/interfaces/User';
-import { FilesService } from 'src/app/services/files.service';
+import { FilesService } from 'src/app/services/file-service/files.service';
 import { UserFile } from 'src/interfaces/File';
 
 @Component({
