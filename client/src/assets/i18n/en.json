@@ -100,5 +100,7 @@
   "INVALID_EMAIL_FORMAT": "Invalid email format.",
   "PASSWORDS_NOT_MATCH": "Passwords do not match.",
   "PASSWORD_TOO_WEAK": "Password is too weak.",
-  "MAX_FILES_REACHED": "Max files reached."
+  "MAX_FILES_REACHED": "Max files reached.",
+  "HOME_PAGE.WELCOME_TITLE": "Welcome to OneClickClinic",
+  "HOME_PAGE.WELCOME_DESCRIPTION": "Your trusted partner in healthcare."
 }
