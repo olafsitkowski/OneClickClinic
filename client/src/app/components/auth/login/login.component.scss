@@ -75,3 +75,7 @@
     color: var(--error-color);
   }
 }
+
+.error {
+  border: 1px solid var(--error-color);
+}

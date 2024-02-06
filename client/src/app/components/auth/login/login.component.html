@@ -12,13 +12,17 @@
           class="form-control"
           formControlName="email"
           (input)="onFormInput()"
+          [ngClass]="{
+            error:
+              loginForm.controls['email'].invalid &&
+              loginForm.controls['email'].touched
+          }"
         />
         <div
           *ngIf="
             loginForm.controls['email'].invalid &&
             loginForm.controls['email'].touched
           "
-          class="alert alert-danger"
         >
           <span *ngIf="loginForm.controls['email'].hasError('required')">{{
             'EMAIL.REQUIRED' | translate
@@ -37,13 +41,17 @@
           formControlName="password"
           (input)="onFormInput()"
           autocomplete="on"
+          [ngClass]="{
+            error:
+              loginForm.controls['password'].invalid &&
+              loginForm.controls['password'].touched
+          }"
         />
         <div
           *ngIf="
             loginForm.controls['password'].invalid &&
             loginForm.controls['password'].touched
           "
-          class="alert alert-danger"
         >
           <span *ngIf="loginForm.controls['password'].hasError('required')">{{
             'PASSWORD.REQUIRED' | translate
