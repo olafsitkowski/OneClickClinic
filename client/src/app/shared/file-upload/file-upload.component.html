@@ -1,0 +1,25 @@
+<div class="file-upload" [ngClass]="{ 'drag-over': isDragging }">
+  <input
+    type="file"
+    id="fileInput"
+    (change)="handleFileInput($event)"
+    style="display: none"
+  />
+  <div
+    class="form-group"
+    class="drop-area"
+    (dragover)="handleDragOver($event)"
+    (dragleave)="handleDragLeave($event)"
+    (drop)="handleDrop($event)"
+  >
+    <div class="hint">
+      <mat-icon>upload_file</mat-icon>
+      <span
+        ><b (click)="browseFiles()">{{
+          'FILE_UPLOAD.CHOOSE_A_FILE' | translate : { extension: extension }
+        }}</b>
+        {{ 'FILE_UPLOAD.DROP_IT_HERE' | translate }}</span
+      >
+    </div>
+  </div>
+</div>

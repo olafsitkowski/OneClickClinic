@@ -1,0 +1,139 @@
+@import './../../../../assets/scss/variables';
+
+:host {
+  .hide {
+    display: none;
+  }
+
+  .mat-elevation-z8,
+  .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: none;
+  }
+}
+
+.analytics-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.slots-graph {
+  width: 90%;
+  height: 40%;
+  border-radius: $spacing;
+  padding: $xlarge-spacing;
+  box-shadow: $box-shadow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h4 {
+    margin-right: auto;
+    padding: $xlarge-spacing;
+  }
+
+  canvas {
+    max-height: 80%;
+    padding-left: $xlarge-spacing;
+    padding-right: $xlarge-spacing;
+  }
+}
+
+.header-widgets {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  height: auto;
+  margin-top: $xxlarge-spacing;
+  margin-bottom: $xxlarge-spacing;
+}
+
+.stat-widget {
+  display: flex;
+  align-items: center;
+  min-width: 300px;
+  height: 100px;
+  border-radius: $spacing;
+  box-shadow: $box-shadow;
+  padding-left: $xlarge-spacing;
+
+  .icon {
+    height: 50px;
+    width: 50px;
+  }
+
+  mat-icon {
+    font-size: 50px;
+    color: #336cfb;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    padding-left: $xlarge-spacing;
+
+    :first-child {
+      font-weight: 600;
+    }
+
+    :last-child {
+      color: #336cfb;
+    }
+  }
+}
+
+.table-widget {
+  width: 90%;
+  height: 40%;
+  border-radius: $spacing;
+  box-shadow: $box-shadow;
+  padding: $xlarge-spacing;
+  margin-top: $large-spacing;
+
+  h4 {
+    margin-right: auto;
+    padding: $xlarge-spacing;
+  }
+}
+
+.table {
+  height: 80%;
+  overflow: hidden;
+}
+
+.table:hover {
+  overflow-y: scroll;
+}
+
+.mat-mdc-table .mdc-data-table__row {
+  border-color: lightgray;
+}
+
+.loading-screen {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.custom-spinner {
+  width: 5rem;
+  height: 5rem;
+}
+
+.empty-appointments {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}

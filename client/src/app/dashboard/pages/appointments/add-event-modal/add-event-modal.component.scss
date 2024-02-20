@@ -1,0 +1,48 @@
+@import '../../../../../assets/scss/variables';
+
+form {
+  width: 700px;
+  height: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+ng-container {
+  overflow: hidden;
+}
+
+.form-group {
+  max-width: 100%;
+  padding: $spacing 0;
+}
+
+.modal-body {
+  width: 700px;
+}
+
+.small-input {
+  width: 75px;
+}
+
+.medium-input {
+  width: 150px;
+}
+
+.large-input {
+  width: 300px;
+}
+
+.text-area {
+  width: 620px;
+  height: 200px;
+  max-height: 200px;
+}
+
+.mdc-dialog__actions {
+  button {
+    margin-left: $small-spacing;
+  }
+}

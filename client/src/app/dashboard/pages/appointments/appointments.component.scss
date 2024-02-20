@@ -1,0 +1,66 @@
+@import './../../../../assets/scss/variables';
+
+.appointments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0 50px 0;
+  height: fit-content;
+}
+
+.calendar-container {
+  background-color: white;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0 60px 0;
+  border-radius: 5px;
+  max-height: 90vh;
+  border-radius: $spacing;
+  box-shadow: 0px 12px 26px 0px rgba(16, 30, 115, 0.06);
+}
+
+.large-input {
+  width: 200px;
+}
+
+.calendar {
+  max-height: 80%;
+  width: 90%;
+  overflow: auto;
+}
+
+.header {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nagivation-buttons .mat-button-toggle {
+  background-color: var(--background-standard);
+}
+
+.calendar-header {
+  padding: $large-spacing 0;
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  mat-select {
+    padding-top: 20px;
+    padding-right: 10px;
+  }
+}
+
+.event-modal {
+  span {
+    color: var(--background-standard);
+  }
+}
+
+.span {
+  color: white;
+}

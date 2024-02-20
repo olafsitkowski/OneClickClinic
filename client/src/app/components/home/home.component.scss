@@ -1,0 +1,28 @@
+@import '../../../assets/scss/variables';
+
+.content {
+  height: 100vh;
+  width: 100%;
+}
+
+.home {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(./../../../assets/img/wave.svg);
+  background-size: cover;
+
+  .text {
+    display: flex;
+    color: #ffffff;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      font-size: 4rem;
+    }
+  }
+}

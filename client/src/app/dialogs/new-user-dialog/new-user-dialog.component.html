@@ -1,0 +1,154 @@
+<div class="modal-body">
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>{{ 'FIRST_NAME' | translate }}*</label>
+      <input
+        type="text"
+        class="form-control large-input"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-group">
+      <label>{{ 'LAST_NAME' | translate }}*</label>
+      <input
+        type="text"
+        class="form-control large-input"
+        formControlName="surname"
+      />
+    </div>
+    <div class="form-group">
+      <label>{{ 'EMAIL' | translate }}*</label>
+      <input
+        type="email"
+        class="form-control large-input"
+        formControlName="contactEmail"
+      />
+    </div>
+    <div class="form-group">
+      <label>{{ 'PHONE_NUMBER' | translate }}*</label>
+      <input
+        type="text"
+        class="form-control large-input"
+        formControlName="phoneNumber"
+      />
+    </div>
+    <ng-container *ngIf="currentUserType === userType.PATIENT">
+      <div class="form-group">
+        <label>{{ 'PESEL' | translate }}*</label>
+        <input
+          type="text"
+          class="form-control large-input"
+          formControlName="pesel"
+        />
+      </div>
+      <div class="form-group gender-select">
+        <label for="gender">{{ 'GENDER' | translate }}* </label>
+        <div class="row">
+          <div class="col">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                formControlName="gender"
+              />
+              <label class="form-check-label" for="male">{{
+                'MALE' | translate
+              }}</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+                formControlName="gender"
+              />
+              <label class="form-check-label" for="female">{{
+                'FEMALE' | translate
+              }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'ADDRESS' | translate }}</label>
+        <textarea
+          type="text"
+          class="form-control text-area"
+          rows="3"
+          formControlName="address"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label>{{ 'TREATMENT' | translate }}</label>
+        <input
+          type="text"
+          class="form-control large-input"
+          formControlName="treatment"
+        />
+      </div>
+      <div class="form-group">
+        <label>{{ 'BLOOD_GROUP' | translate }}*</label>
+        <select
+          aria-label="0"
+          class="form-control large-input"
+          formControlName="bloodGroup"
+        >
+          <option *ngFor="let option of bloodGroups" value="{{ option }}">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <label>{{ 'FILES' | translate }}</label>
+      <app-file-upload (fileEmit)="getFile($event)"></app-file-upload>
+      <table class="table" *ngIf="userFiles.length">
+        <thead>
+          <tr class="column-spacing">
+            <th>{{ 'FILE_NAME' | translate }}</th>
+            <th>{{ 'ACTION' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let file of userFiles" class="file-row">
+            <td class="align-middle">{{ file.name }}</td>
+            <td class="align-middle">
+              <button
+                mat-icon-button
+                (click)="removeFile(file)"
+                class="delete-button"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+  </form>
+</div>
+
+<mat-dialog-actions align="end">
+  <div>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CLOSE' | translate }}
+    </button>
+  </div>
+  <div class="button">
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="userForm.invalid"
+      (click)="onSubmit()"
+    >
+      {{ 'CONFIRM' | translate }}
+    </button>
+  </div>
+  <div></div>
+</mat-dialog-actions>

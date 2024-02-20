@@ -1,0 +1,32 @@
+<div class="side-nav">
+  <div class="user-block">
+    <div class="user-info">
+      <span>{{ userInfo?.userName | titlecase }}</span>
+      <p>{{ userInfo?.email }}</p>
+    </div>
+  </div>
+  <div class="navigation">
+    <div *ngFor="let section of sectionsList" class="section-button">
+      <button
+        mat-button
+        (click)="changeRoute(section.route)"
+        [ngClass]="{ active: currentRoute === '/dashboard/' + section.route }"
+      >
+        <mat-icon>{{ section.icon }}</mat-icon
+        ><span>{{ section.label | translate }}</span>
+      </button>
+    </div>
+  </div>
+  <div class="footer">
+    <button class="btn btn-info custom-button">
+      <mat-icon>settings</mat-icon>{{ 'SETTINGS' | translate }}
+    </button>
+    <button
+      class="btn btn-danger custom-button"
+      routerLink="/home"
+      (click)="logOut()"
+    >
+      <mat-icon>logout</mat-icon>{{ 'LOGOUT' | translate }}
+    </button>
+  </div>
+</div>

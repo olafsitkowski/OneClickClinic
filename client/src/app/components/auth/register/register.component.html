@@ -1,0 +1,92 @@
+<app-nav-bar [disableNavigation]="true" position="absolute"></app-nav-bar>
+<div class="register-page">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="box">
+          <h2 class="text-center">{{ 'REGISTER_THE_ADMIN' | translate }}</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div>
+              <div *ngFor="let field of registerFormFields">
+                <div class="form-group">
+                  <label [for]="field.controlName">{{
+                    field.label | translate
+                  }}</label>
+                  <input
+                    [type]="field.type"
+                    class="form-control"
+                    [id]="field.controlName"
+                    [formControlName]="field.controlName"
+                    [autocomplete]="field.autocomplete"
+                    (input)="onFormInput(field.controlName)"
+                    [ngClass]="{
+                      error:
+                        registerForm.controls[field.controlName].invalid &&
+                        registerForm.controls[field.controlName].touched
+                    }"
+                    [tooltip]="
+                      field.controlName === 'password'
+                        ? ('PASSWORD.REQUIREMENTS' | translate)
+                        : ''
+                    "
+                    [delay]="500"
+                  />
+                  <div
+                    *ngIf="
+                      registerForm.controls[field.controlName]?.invalid &&
+                      registerForm.controls[field.controlName]?.touched
+                    "
+                    class="invalid-field"
+                  >
+                    <span
+                      *ngIf="
+                        registerForm.controls[field.controlName]?.hasError(
+                          'required'
+                        )
+                      "
+                      >{{ 'FIELD_REQUIRED' | translate }}</span
+                    >
+                    <span
+                      *ngIf="
+                        registerForm.controls[field.controlName]?.hasError(
+                          'email'
+                        )
+                      "
+                      >{{ 'INVALID_EMAIL_FORMAT' | translate }}</span
+                    >
+                    <span
+                      *ngIf="
+                        registerForm.controls[field.controlName]?.hasError(
+                          'passwordsDoNotMatch'
+                        ) && registerForm.controls['password'].value.length >= 8
+                      "
+                      >{{ 'PASSWORDS_NOT_MATCH' | translate }}</span
+                    >
+                    <span
+                      *ngIf="
+                        registerForm.controls[field.controlName]?.hasError(
+                          'pattern'
+                        )
+                      "
+                      >{{ 'PASSWORD_TOO_WEAK' | translate }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mt-3">
+              <button
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="registerForm.invalid"
+              >
+                {{ 'CONFIRM' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

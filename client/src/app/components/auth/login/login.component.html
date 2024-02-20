@@ -1,0 +1,79 @@
+<app-nav-bar [disableNavigation]="true" position="absolute"></app-nav-bar>
+<div class="login-page">
+  <div class="box">
+    <div class="title">
+      <span>{{ 'LOGIN' | translate }}</span>
+    </div>
+    <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>{{ 'EMAIL' | translate }}</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          (input)="onFormInput()"
+          [ngClass]="{
+            error:
+              loginForm.controls['email'].invalid &&
+              loginForm.controls['email'].touched
+          }"
+        />
+        <div
+          *ngIf="
+            loginForm.controls['email'].invalid &&
+            loginForm.controls['email'].touched
+          "
+        >
+          <span *ngIf="loginForm.controls['email'].hasError('required')">{{
+            'EMAIL.REQUIRED' | translate
+          }}</span>
+          <span *ngIf="loginForm.controls['email'].hasError('email')"
+            >I{{ 'EMAIL.INVALID' | translate }}</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{ 'PASSWORD' | translate }}</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          (input)="onFormInput()"
+          autocomplete="on"
+          [ngClass]="{
+            error:
+              loginForm.controls['password'].invalid &&
+              loginForm.controls['password'].touched
+          }"
+        />
+        <div
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+        >
+          <span *ngIf="loginForm.controls['password'].hasError('required')">{{
+            'PASSWORD.REQUIRED' | translate
+          }}</span>
+        </div>
+      </div>
+
+      <div class="credentials-error" *ngIf="!isUserExists">
+        <div>
+          <span>{{ 'WRONG_CREDENTIALS' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="button">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="loginForm.invalid"
+        >
+          {{ 'LOGIN' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="dialog-content">
+  <form [formGroup]="eventForm">
+    <div class="form-group">
+      <label for="employee-select">{{ 'DOCTOR' | translate }}</label>
+      <select
+        id="employee-select"
+        class="form-control large-input"
+        formControlName="employeeId"
+      >
+        <option value="" hidden selected>
+          {{ 'SELECT_THE_DOCTOR' | translate }}
+        </option>
+        <option *ngFor="let doctor of doctorsList" [value]="doctor.id">
+          {{ doctor.profile.name }} {{ doctor.profile.surname }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="reason-select">{{
+        'SELECT_ABSENCE_REASON' | translate
+      }}</label>
+      <select
+        id="reason-select"
+        class="form-control large-input"
+        formControlName="title"
+      >
+        <option *ngFor="let reason of absentReasons" [value]="reason">
+          {{ reason | translate }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group large-input">
+      <label id="start">{{ 'START_DATE' | translate }}</label>
+      <input
+        matInput
+        name="start"
+        class="form-control"
+        type="text"
+        formControlName="start"
+        mwlFlatpickr
+        minDate="today"
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        [placeholder]="'PICK_THE_DATE' | translate"
+      />
+    </div>
+    <div class="form-group large-input">
+      <label id="end">{{ 'END_DATE' | translate }}</label>
+      <input
+        matInput
+        name="end"
+        class="form-control"
+        formControlName="end"
+        type="text"
+        mwlFlatpickr
+        minDate="today"
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        [placeholder]="'PICK_THE_DATE' | translate"
+      />
+    </div>
+  </form>
+</div>
+
+<mat-dialog-actions align="end" class="fotter">
+  <div>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CLOSE' | translate }}
+    </button>
+  </div>
+  <div class="button">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="eventForm.invalid"
+      (click)="onSubmit()"
+    >
+      {{ 'CONFIRM' | translate }}
+    </button>
+  </div>
+</mat-dialog-actions>

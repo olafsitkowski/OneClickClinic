@@ -1,0 +1,109 @@
+<div class="dialog-content">
+  <form [formGroup]="eventForm">
+    <div class="form-group">
+      <label for="employeeSelect">{{ 'DOCTOR' | translate }}</label>
+      <select
+        id="employeeSelect"
+        class="form-control large-input"
+        formControlName="employeeId"
+        aria-label="Default select example"
+      >
+        <option value="" hidden selected>
+          {{ 'SELECT_THE_DOCTOR' | translate }}
+        </option>
+        <option *ngFor="let doctor of doctorsList" [value]="doctor.id">
+          {{ doctor.profile.name }} {{ doctor.profile.surname }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="patientSelect">{{ 'PATIENT' | translate }}</label>
+      <select
+        id="patientSelect"
+        class="form-control large-input"
+        formControlName="patientId"
+      >
+        <option value="" hidden selected>
+          {{ 'SELECT_THE_PATIENT' | translate }}
+        </option>
+        <option *ngFor="let patient of patientsList" [value]="patient.id">
+          {{ patient.profile.pesel }} - {{ patient.profile.name }}
+          {{ patient.profile.surname }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group large-input">
+      <label id="start">{{ 'START_DATE' | translate }}</label>
+      <input
+        matInput
+        name="start"
+        class="form-control"
+        type="text"
+        formControlName="start"
+        mwlFlatpickr
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        placeholder="Pick a date"
+      />
+    </div>
+    <div class="form-group large-input">
+      <label id="end">{{ 'END_DATE' | translate }}</label>
+      <input
+        matInput
+        name="end"
+        class="form-control"
+        formControlName="end"
+        type="text"
+        mwlFlatpickr
+        [altInput]="true"
+        [convertModelValue]="true"
+        [enableTime]="true"
+        dateFormat="Y-m-dTH:i"
+        altFormat="F j, Y H:i"
+        [placeholder]="'PICK_THE_DATE' | translate"
+      />
+    </div>
+    <div class="form-group">
+      <label for="eventTitle">{{ 'EVENT_TITLE' | translate }}</label>
+      <input
+        id="eventTitle"
+        type="text"
+        class="form-control large-input"
+        formControlName="title"
+        [placeholder]="'ADD_THE_TITLE' | translate"
+      />
+    </div>
+    <div class="form-group">
+      <label>{{ 'DESCRIPTION' | translate }}</label>
+      <textarea
+        type="text"
+        class="form-control text-area"
+        rows="3"
+        formControlName="description"
+        [placeholder]="'WRITE_A_MESSAGE' | translate"
+      ></textarea>
+    </div>
+  </form>
+</div>
+
+<mat-dialog-actions align="end" class="fotter">
+  <div>
+    <button class="btn btn-outline-info" (click)="closeDialog()">
+      {{ 'CLOSE' | translate }}
+    </button>
+  </div>
+  <div class="button">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="eventForm.invalid"
+      (click)="onSubmit()"
+    >
+      {{ 'CONFIRM' | translate }}
+    </button>
+  </div>
+</mat-dialog-actions>

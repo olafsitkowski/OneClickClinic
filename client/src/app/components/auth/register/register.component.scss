@@ -1,0 +1,42 @@
+@import './../../../../assets/scss/variables';
+
+.register-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-alternative);
+}
+
+.box {
+  background-color: var(--background-standard);
+  box-shadow: $box-shadow;
+  border-radius: 25px;
+  padding: 50px;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 500px;
+
+  input {
+    color: var(--text-color);
+  }
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.invalid-field {
+  display: block;
+  color: var(--error-color);
+}
+
+.error {
+  border: 1px solid var(--error-color);
+}

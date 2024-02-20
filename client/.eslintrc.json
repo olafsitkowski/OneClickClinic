@@ -1,0 +1,102 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "extraFileExtensions": [".html"]
+  },
+  "ignorePatterns": ["*.html", "*.scss", "*.spec.ts"],
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "eslint:recommended"
+  ],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "@typescript-eslint/no-inferrable-types": [0],
+    "@typescript-eslint/ban-types": "error",
+    "@typescript-eslint/no-empty-interface": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/no-unsafe-return": "error",
+    "@typescript-eslint/prefer-as-const": "error",
+    "no-array-constructor": "off",
+    "@typescript-eslint/no-array-constructor": "error",
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "no-implied-eval": "off",
+    "@typescript-eslint/no-implied-eval": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/typedef": "error",
+    "@typescript-eslint/unified-signatures": "error",
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+    "@typescript-eslint/sort-type-constituents": "error",
+    "@typescript-eslint/no-useless-empty-export": "error",
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
+    "@typescript-eslint/no-require-imports": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error",
+      {
+        "accessibility": "explicit"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "function",
+            "format": ["camelCase", "PascalCase"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/*.component.ts"],
+      "rules": {
+        "@typescript-eslint/explicit-member-accessibility": "off"
+      }
+    },
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "overrides": {
+              "constructors": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/*.spec.ts"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
+}

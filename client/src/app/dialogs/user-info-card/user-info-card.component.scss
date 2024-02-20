@@ -1,0 +1,84 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/theme';
+
+.mat-elevation-z8 {
+  box-shadow: none;
+  border-bottom: 1px solid rgb(209, 209, 209); // color to change
+}
+
+.user-info-card {
+  width: 700px;
+  height: 800px;
+  overflow-y: hidden;
+  padding: 0;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+  color: black;
+  margin-top: $xlarge-spacing;
+}
+
+.personal-info,
+.medical-info {
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: $xlarge-spacing;
+
+    h6 {
+      color: black;
+      margin: 0;
+      margin-right: $spacing;
+      font-weight: bold;
+    }
+
+    span {
+      font-size: 1rem;
+    }
+  }
+}
+
+.mdc-dialog__actions {
+  button {
+    margin-left: $small-spacing;
+  }
+}
+
+.documentation-container {
+  width: 100%;
+  max-height: 750px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: $xlarge-spacing;
+
+  .file {
+    width: 30%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing;
+    margin-bottom: $xlarge-spacing;
+    border: 1px solid lightgray; // TODO: change color
+    border-radius: 5%;
+    cursor: pointer;
+    word-break: break-all;
+    margin-right: $large-spacing;
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
+
+    img {
+      width: 4rem;
+      padding-bottom: $spacing;
+    }
+  }
+}

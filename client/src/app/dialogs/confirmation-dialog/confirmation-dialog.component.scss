@@ -1,0 +1,18 @@
+@import '../../../assets/scss/variables';
+
+.dialog {
+  padding: $spacing;
+}
+
+.content {
+  margin: $spacing;
+  span {
+    font-size: medium;
+  }
+}
+
+.mdc-dialog__actions {
+  button {
+    margin-left: $small-spacing;
+  }
+}

@@ -1,0 +1,153 @@
+<div class="appointments-container">
+  <div class="calendar-container">
+    <div class="header">
+      <div class="toogle-buttons btn-group">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [ngClass]="{ active: view === CalendarView.Month }"
+          (click)="setView(CalendarView.Month)"
+        >
+          {{ 'MONTH' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [ngClass]="{ active: view === CalendarView.Week }"
+          (click)="setView(CalendarView.Week)"
+        >
+          {{ 'WEEK' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [ngClass]="{ active: view === CalendarView.Day }"
+          (click)="setView(CalendarView.Day)"
+        >
+          {{ 'DAY' | translate }}
+        </button>
+      </div>
+
+      <div class="nagivation-buttons btn-group">
+        <button
+          type="button"
+          class="btn btn-primary"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          {{ 'PREVIOUS' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          mwlCalendarToday
+          [(viewDate)]="viewDate"
+        >
+          {{ 'TODAY' | translate }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()"
+        >
+          {{ 'NEXT' | translate }}
+        </button>
+      </div>
+
+      <div class="btn-group" dropdown>
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {{ 'ACTIONS' | translate }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li role="menuitem">
+            <span class="dropdown-item" (click)="openModal('blockCalendar')">{{
+              'BLOCK_CALEDNAR' | translate
+            }}</span>
+          </li>
+          <li role="menuitem">
+            <span class="dropdown-item" (click)="openModal('addEvent')">{{
+              'ADD_NEW_EVENT' | translate
+            }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="calendar-header">
+      <div>
+        <h2>{{ viewDate | calendarDate : view + 'ViewTitle' : 'en' }}</h2>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><mat-icon>badge</mat-icon></span
+            >
+          </div>
+          <select
+            id="employeeSelect"
+            class="form-control large-input"
+            [(ngModel)]="selectedEmployee"
+            (change)="getCalendarByUser(selectedEmployee?.id)"
+          >
+            <option [ngValue]="" selected>
+              {{ 'ALL_EMPLOYEES' | translate }}
+            </option>
+            <option *ngFor="let doctor of doctorsList" [ngValue]="doctor">
+              {{ doctor.profile.name }} {{ doctor.profile.surname }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div [ngSwitch]="view" class="calendar">
+      <mwl-calendar-month-view
+        *ngSwitchCase="CalendarView.Month"
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+      >
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="CalendarView.Week"
+        [dayStartHour]="7"
+        [dayEndHour]="20"
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="CalendarView.Day"
+        [dayStartHour]="7"
+        [dayEndHour]="20"
+        [hourDuration]="30"
+        [hourSegments]="2"
+        [locale]="locale"
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        (eventClicked)="handleEvent('Clicked', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+      >
+      </mwl-calendar-day-view>
+    </div>
+  </div>
+</div>
