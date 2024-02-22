@@ -6,7 +6,7 @@
 
 <h2>🚀 Demo</h2>
 
-[placeholder](placeholder)
+soon...
 
 <h2>Project Screenshots:</h2>
 
