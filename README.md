@@ -10,7 +10,10 @@
 
 <h2>Project Screenshots:</h2>
 
--
+![home-page](https://github.com/olafsitkowski/OneClickClinic/assets/55115742/9458773e-f446-481a-8708-9b4a090ccdc0)
+![analytics](https://github.com/olafsitkowski/OneClickClinic/assets/55115742/ffac9b04-cafe-46b4-8d09-5c8d62428f69)
+![appointments](https://github.com/olafsitkowski/OneClickClinic/assets/55115742/8989b21c-f63d-463f-8c9a-7431dc51c830)
+![patients](https://github.com/olafsitkowski/OneClickClinic/assets/55115742/a6e7e603-c107-4123-9df0-30d487291bd6)
 
   
   
