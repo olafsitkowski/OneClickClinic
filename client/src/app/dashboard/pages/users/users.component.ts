@@ -110,7 +110,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res) {
           this.userService
-            .deleteUser(user.id)
+            .deleteUser(user._id)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res) => {
               if (res) {
@@ -144,7 +144,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public editUser(user: User): void {
     const dialogRef = this.modal.open(NewUserDialogComponent, {
-      data: { userProfile: user.profile, isEditUser: true, userId: user.id },
+      data: { userProfile: user.profile, isEditUser: true, userId: user._id },
     });
     dialogRef
       .afterClosed()
@@ -152,7 +152,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       .subscribe((userForm: UserProfile) => {
         if (userForm) {
           this.userService
-            .patchUserProfile(userForm, user.id)
+            .patchUserProfile(userForm, user._id)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res) => {
               if (res) {
@@ -165,7 +165,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   public viewUserInfo(user: User): void {
     this.modal.open(UserInfoCardComponent, {
-      data: { userProfile: user.profile, userId: user.id },
+      data: { userProfile: user.profile, userId: user._id },
     });
   }
 
@@ -173,7 +173,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.calendarEvents.forEach((event) => {
       const user = this.usersList.find(
         (user) =>
-          user.id ===
+          user._id ===
           (this.userType === UserType.PATIENT
             ? event.patientId
             : event.employeeId)

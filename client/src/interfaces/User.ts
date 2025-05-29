@@ -1,7 +1,7 @@
 import { CustomCalendarEvent } from './CustomCalendarEvent';
 
 export interface User {
-  id: number;
+  _id: string;
   authentication: UserAuthentication;
   profile: UserProfile;
 }
@@ -15,7 +15,7 @@ export interface UserAuthentication {
 }
 
 export interface UserProfile {
-  id: number;
+  id: string;
   role: string;
   name: string;
   surname: string;

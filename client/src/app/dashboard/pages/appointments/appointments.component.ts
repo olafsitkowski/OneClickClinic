@@ -117,26 +117,24 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
+  public eventTimesChanged({ event, newStart, newEnd }: any): void {
     const editedEvent = {
       ...event,
       title: event.title.slice(0, event.title.indexOf('-')),
       start: newStart,
       end: newEnd,
     };
-    this.calendarService
-      .editCalendarEventById(Number(event.id), editedEvent)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((res) => {
-        if (res) {
-          this.getCalendarEvents();
-          this.refresh.next();
-        }
-      });
+    if (event._id) {
+      this.calendarService
+        .editCalendarEventById(event._id.toString(), editedEvent)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res) => {
+          if (res) {
+            this.getCalendarEvents();
+            this.refresh.next();
+          }
+        });
+    }
   }
 
   public handleEvent(action: string, event: CalendarEvent): void {
@@ -156,7 +154,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public deleteEvent(eventId: number): void {
+  public deleteEvent(eventId: string): void {
     const dialogRef = this.modal.open(ConfirmationDialogComponent, {
       data: {
         content: this.translate.instant('DELETE_EVENT.DIALOG'),
@@ -187,10 +185,10 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     this.activeDayIsOpen = false;
   }
 
-  public getCalendarByUser(userId: number | undefined): void {
+  public getCalendarByUser(userId: string | undefined): void {
     if (userId) {
       const filteredEvents = this.storedEvents
-        .filter((item) => Number(item.employeeId) === userId)
+        .filter((item) => item.employeeId === userId)
         .map((item) => {
           return { ...item, userId: userId };
         });
@@ -255,7 +253,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
             calendarEvent.end = new Date(calendarEvent.end);
           }
           const patient = this.patientsList.find(
-            (patient) => patient.id === Number(calendarEvent.patientId)
+            (patient) => patient._id === calendarEvent.patientId
           );
           if (patient) {
             calendarEvent.title = `${calendarEvent.title} - ${patient?.profile.name} ${patient?.profile.surname}`;
@@ -285,7 +283,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     const actions = [
       {
         label: '<i class="material-icons">delete</i>',
-        onClick: ({ event }: { event: { id: number } }): void => {
+        onClick: ({ event }: { event: { id: string } }): void => {
           this.deleteEvent(event.id);
         },
       },

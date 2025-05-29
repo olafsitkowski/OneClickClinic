@@ -1,7 +1,6 @@
 import { createUser, deleteUserById, getUserById, updateUserById } from './../models/userModel';
 import express from 'express';
 import { getUsers } from '../models/userModel';
-import { generateUniqueId } from '../services/idGeneratorService';
 
 export const getAllUsersController = async (req: express.Request, res: express.Response) => {
     try {
@@ -20,7 +19,7 @@ export const getAllUsersController = async (req: express.Request, res: express.R
 
 export const getUserByIdController = async (req: express.Request, res: express.Response) => {
     try {
-        const user = await getUserById(Number(req.params.id));
+        const user = await getUserById(req.params.id);
 
         if (!user) {
             return res.sendStatus(404);
@@ -54,9 +53,7 @@ export const addUserController = async (req: express.Request, res: express.Respo
     }
 
     try {
-        const uniqueId = await generateUniqueId();
-
-        const user = await createUser({ id: uniqueId, ...req.body });
+        const user = await createUser({ ...req.body });
 
         if (!user) {
             return res.sendStatus(404);

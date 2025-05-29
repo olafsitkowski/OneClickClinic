@@ -29,7 +29,6 @@ const ProfileData = new mongoose.Schema(
 
 const UserSchema = new mongoose.Schema(
     {
-        id: Number,
         authentication: AuthenticationData,
         profile: ProfileData,
         files: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
@@ -41,7 +40,7 @@ export const getUsers = () => UserModel.find();
 export const getUserByEmail = (email: string) => UserModel.findOne({ email });
 export const getUserByAuthenticationEmail = (email: string) => UserModel.findOne({ 'authentication.email': email }).select('+authentication.password +authentication.salt +userName');
 export const getUserBySessionToken = (sessionToken: string) => UserModel.findOne({ 'authentication.sessionToken': sessionToken });
-export const getUserById = (id: number) => UserModel.findOne({ id: id });
+export const getUserById = (id: string) => UserModel.findById(id);
 export const createUser = (values: Record<string, any>) => new UserModel(values).save().then((user) => user.toObject());
-export const deleteUserById = (id: string) => UserModel.findOneAndDelete({ id: id });
-export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findOneAndUpdate({ id: id }, values);
+export const deleteUserById = (id: string) => UserModel.findByIdAndDelete(id);
+export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate(id, values);

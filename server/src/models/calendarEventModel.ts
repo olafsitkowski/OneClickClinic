@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface CalendarEvent extends Document {
-    _id: number;
-    id: { type: Number };
+    _id: string;
+    id: { type: string };
     employeeId?: number;
     patientId?: number;
     start: Date;
@@ -30,9 +30,9 @@ export interface EventColor {
 }
 
 const calendarEventSchema: Schema = new Schema({
-    id: Number,
-    employeeId: Number,
-    patientId: Number,
+    id: String,
+    employeeId: String,
+    patientId: String,
     start: { type: Date, required: true },
     end: Date,
     title: { type: String, required: true },

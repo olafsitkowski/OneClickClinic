@@ -39,6 +39,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
       .getUsers()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: User[]) => {
+        console.log(res);
         res.forEach((user) =>
           user.profile?.role === UserType.PATIENT
             ? this.patientsList.push(user)
@@ -47,6 +48,9 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
             : null
         );
       });
+
+      console.log('patientsList', this.patientsList);
+      console.log('doctorsList', this.doctorsList);
   }
 
   public ngOnDestroy(): void {

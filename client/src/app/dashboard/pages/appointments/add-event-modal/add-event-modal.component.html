@@ -11,7 +11,7 @@
         <option value="" hidden selected>
           {{ 'SELECT_THE_DOCTOR' | translate }}
         </option>
-        <option *ngFor="let doctor of doctorsList" [value]="doctor.id">
+        <option *ngFor="let doctor of doctorsList" [value]="doctor._id">
           {{ doctor.profile.name }} {{ doctor.profile.surname }}
         </option>
       </select>
@@ -26,7 +26,7 @@
         <option value="" hidden selected>
           {{ 'SELECT_THE_PATIENT' | translate }}
         </option>
-        <option *ngFor="let patient of patientsList" [value]="patient.id">
+        <option *ngFor="let patient of patientsList" [value]="patient._id">
           {{ patient.profile.pesel }} - {{ patient.profile.name }}
           {{ patient.profile.surname }}
         </option>

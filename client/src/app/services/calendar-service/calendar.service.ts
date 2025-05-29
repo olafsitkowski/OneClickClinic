@@ -28,12 +28,12 @@ export class CalendarService {
     );
   }
 
-  public deleteCalendarEvent(id: number): Observable<unknown> {
+  public deleteCalendarEvent(id: string): Observable<unknown> {
     return this.http.delete(`${this.API_URL}/calendar-events/${id}`);
   }
 
   public getCalendarEventsByUserId(
-    id: number
+    id: string
   ): Observable<CustomCalendarEvent[]> {
     return this.http.get<CustomCalendarEvent[]>(
       `${this.API_URL}/calendar-events/user/${id}`
@@ -41,7 +41,7 @@ export class CalendarService {
   }
 
   public editCalendarEventById(
-    id: number,
+    id: string,
     event: CustomCalendarEvent
   ): Observable<CustomCalendarEvent> {
     return this.http.put<CustomCalendarEvent>(

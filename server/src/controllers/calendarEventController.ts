@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import CalendarEventModel, { CalendarEvent } from '../models/calendarEventModel';
-import { generateUniqueId } from '../services/idGeneratorService';
 
 export const getAllEvents = async (req: Request, res: Response) => {
     try {
@@ -12,9 +11,8 @@ export const getAllEvents = async (req: Request, res: Response) => {
 };
 
 export const getEventById = async (req: Request, res: Response) => {
-    const eventId = Number(req.params.id);
     try {
-        const event = await CalendarEventModel.findOne({ id: eventId });
+        const event = await CalendarEventModel.findById(req.params.id);
         if (event) {
             res.json(event);
         } else {
@@ -33,10 +31,7 @@ export const createEvent = async (req: Request, res: Response) => {
     }
 
     try {
-        const uniqueId = await generateUniqueId();
-
         const createdEvent = await CalendarEventModel.create({
-            id: uniqueId,
             title: eventData.title,
             start: eventData.start,
             end: eventData.end,
@@ -49,7 +44,7 @@ export const createEvent = async (req: Request, res: Response) => {
 
         res.status(201).json(createdEvent);
     } catch (err) {
-        console.error(err); // Log the error
+        console.error(err);
         res.status(500).json({ message: 'Server error' });
     }
 };
@@ -59,25 +54,24 @@ export const editEventById = async (req: Request, res: Response) => {
     const eventData: Partial<CalendarEvent> = req.body;
 
     try {
-        const event = await CalendarEventModel.findOne({ id: id });
+        const event = await CalendarEventModel.findById(id);
 
         if (!event) {
             return res.status(404).json({ message: 'Event not found' });
         }
 
-        const updatedEvent = await CalendarEventModel.updateOne({ id }, { $set: eventData });
+        const updatedEvent = await CalendarEventModel.findByIdAndUpdate(id, { $set: eventData }, { new: true });
 
         res.status(200).json(updatedEvent);
     } catch (err) {
-        console.error(err); // Log the error
+        console.error(err);
         res.status(500).json({ message: 'Server error' });
     }
 };
 
 export const deleteEvent = async (req: Request, res: Response) => {
-    const eventId = Number(req.params.id);
     try {
-        await CalendarEventModel.deleteOne({ id: eventId });
+        await CalendarEventModel.findByIdAndDelete(req.params.id);
         res.status(204).send({ message: 'Event deleted' });
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
@@ -85,7 +79,7 @@ export const deleteEvent = async (req: Request, res: Response) => {
 };
 
 export const getEventsByUserId = async (req: Request, res: Response) => {
-    const userId = Number(req.params.userId);
+    const userId = req.params.userId;
 
     try {
         let events: CalendarEvent[];

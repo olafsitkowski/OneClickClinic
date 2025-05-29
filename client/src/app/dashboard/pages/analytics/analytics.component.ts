@@ -83,12 +83,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       .subscribe((events) => {
         events = events.filter((event) => event.type === 'appointment');
         events.forEach((event) => {
-          this.getUserName(Number(event.employeeId))
+          this.getUserName(event.employeeId)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res) => {
               event.employeeId = res;
             });
-          this.getUserName(Number(event.patientId))
+          this.getUserName(event.patientId)
             .pipe(takeUntil(this.unsubscribe$))
             .subscribe((res) => {
               event.patientId = res;
@@ -102,7 +102,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       });
   }
 
-  private getUserName(id: number): Observable<string> {
+  private getUserName(id: string): Observable<string> {
     return this.userService.getUserById(id).pipe(
       map((user) => {
         return `${user.profile?.name} ${user.profile?.surname}`;

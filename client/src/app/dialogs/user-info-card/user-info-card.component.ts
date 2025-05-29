@@ -59,11 +59,9 @@ export class UserInfoCardComponent implements OnInit {
           events.forEach((event) => {
             this.userService
               .getUserById(
-                Number(
-                  this.userProfile?.role === UserType.PATIENT
-                    ? event.employeeId
-                    : event.patientId
-                )
+                this.userProfile?.role === UserType.PATIENT
+                  ? event.employeeId
+                  : event.patientId
               )
               .subscribe((user) => {
                 if (this.userProfile?.role === UserType.PATIENT) {

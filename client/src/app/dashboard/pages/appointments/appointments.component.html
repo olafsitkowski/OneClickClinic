@@ -98,7 +98,7 @@
             id="employeeSelect"
             class="form-control large-input"
             [(ngModel)]="selectedEmployee"
-            (change)="getCalendarByUser(selectedEmployee?.id)"
+            (change)="getCalendarByUser(selectedEmployee?._id)"
           >
             <option [ngValue]="" selected>
               {{ 'ALL_EMPLOYEES' | translate }}

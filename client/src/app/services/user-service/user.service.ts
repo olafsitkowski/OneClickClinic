@@ -15,7 +15,7 @@ export class UserService {
     return this.http.get<User[]>(`${this.API_URL}/user/`);
   }
 
-  public getUserById(userId: number): Observable<User> {
+  public getUserById(userId: string): Observable<User> {
     return this.http.get<User>(`${this.API_URL}/user/${userId}`);
   }
 
@@ -38,7 +38,7 @@ export class UserService {
 
   public patchUserProfile(
     userProfile: UserProfile,
-    userId: number
+    userId: string
   ): Observable<User> {
     const data = {
       profile: {
@@ -56,7 +56,7 @@ export class UserService {
     );
   }
 
-  public deleteUser(id: number): Observable<unknown> {
+  public deleteUser(id: string): Observable<unknown> {
     return this.http.delete(`${this.API_URL}/user/${id}`);
   }
 }
