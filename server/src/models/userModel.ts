@@ -11,16 +11,34 @@ const AuthenticationData = new mongoose.Schema(
     }
 );
 
+const UserSpecializationSchema = new mongoose.Schema(
+    {
+        name: { type: String, required: true },
+        description: { type: String, required: true },
+    }
+)
+
+const UserAdressSchema = new mongoose.Schema(
+    {
+        street: { type: String, required: true },
+        houseNumber: { type: String, required: true },
+        city: { type: String, required: true },
+        postalCode: { type: String, required: true },
+        country: { type: String, required: true }
+    }
+);
+
 const ProfileData = new mongoose.Schema(
     {
         role: { type: String, required: true },
         name: { type: String, required: true },
         surname: { type: String, required: true },
+        specialization: { type: UserSpecializationSchema },
+        address: { type: UserAdressSchema },
         contactEmail: { type: String },
         bloodGroup: { type: String },
         phoneNumber: { type: String },
         gender: { type: String },
-        address: { type: String },
         treatment: { type: String },
         pesel: { type: String },
         appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CustomCalendarEvent' }]

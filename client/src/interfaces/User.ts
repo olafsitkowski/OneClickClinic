@@ -19,6 +19,10 @@ export interface UserProfile {
   role: string;
   name: string;
   surname: string;
+  specialization?: {
+    name: string;
+    description: string;
+  };
   contactEmail: string;
   bloodGroup?: string;
   phoneNumber?: string;

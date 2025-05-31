@@ -102,5 +102,12 @@
   "PASSWORD_TOO_WEAK": "Password is too weak.",
   "MAX_FILES_REACHED": "Max files reached.",
   "HOME_PAGE.WELCOME_TITLE": "Welcome to OneClickClinic",
-  "HOME_PAGE.WELCOME_DESCRIPTION": "Your trusted partner in healthcare."
+  "HOME_PAGE.WELCOME_DESCRIPTION": "Your trusted partner in healthcare.",
+  "SPECIALIZATION": "Specialization",
+  "STREET": "Street",
+  "HOUSE_NUMBER": "House number",
+  "CITY": "City",
+  "POSTAL_CODE": "Postal code",
+  "COUNTRY": "Country"
+
 }

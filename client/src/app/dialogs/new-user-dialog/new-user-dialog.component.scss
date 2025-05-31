@@ -18,6 +18,17 @@ ng-container {
   padding: $spacing 0;
 }
 
+.address-form {
+  max-width: 545px;
+  display: flex;
+  flex-wrap: wrap;
+
+  input {
+    margin-right: 8px;
+    margin-bottom: 4px;
+  }
+}
+
 .modal-body {
   width: 700px;
 }

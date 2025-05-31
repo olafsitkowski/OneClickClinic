@@ -31,6 +31,11 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
     '0+',
     '0-',
   ];
+  public specializationList: { name: string, description: string }[] = [
+    { name: 'Dermatolog', description: '' },
+    { name: 'Kardiolog', description: '' },
+    { name: 'Okulista', description: '' }
+  ]
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -44,7 +49,7 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private translate: TranslateService,
     private filesService: FilesService
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
     this.currentUserType = this.data?.userProfile?.role;
@@ -62,6 +67,7 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
         Validators.maxLength(9),
       ]),
       role: new FormControl(''),
+      specialization: new FormControl(''),
     });
     this.setValidators();
     if (this.data?.isEditUser) {
@@ -106,8 +112,22 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
   }
 
   public getDataToEditUser(): void {
-    this.userForm.patchValue(this.data?.userProfile);
+    const userProfile = this.data?.userProfile;
+    let specializationObj = null;
+    if (userProfile?.specialization) {
+      specializationObj = this.specializationList.find(
+        s => s.name === userProfile.specialization?.name
+      );
+    }
+    this.userForm.patchValue({
+      ...userProfile,
+      specialization: specializationObj
+    });
   }
+
+  public get addressGroup(): FormGroup {
+  return this.userForm.get('address') as FormGroup;
+}
 
   private setValidators(): void {
     this.userForm.setControl('role', new FormControl(this.currentUserType));
@@ -122,11 +142,17 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
         'pesel',
         new FormControl('', [Validators.required, Validators.minLength(11)])
       );
-      this.userForm.addControl('address', new FormControl(''));
       this.userForm.addControl(
         'gender',
         new FormControl('', [Validators.required])
       );
+      this.userForm.addControl('address', new FormGroup({
+        street: new FormControl('', Validators.required),
+        houseNumber: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
+        postalCode: new FormControl('', Validators.required),
+        country: new FormControl('', Validators.required),
+      }));
     }
   }
 
