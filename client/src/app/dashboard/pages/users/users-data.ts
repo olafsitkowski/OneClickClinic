@@ -14,7 +14,7 @@ export const employeeColumns = [
   'surname',
   'contactEmail',
   'phoneNumber',
-  'role',
+  'specialization',
   'actions',
 ];
 
@@ -40,6 +40,7 @@ export const columnLabels: { [key: string]: string } = {
   actions: 'ACTIONS',
   employeeId: 'DOCTOR',
   patientId: 'PATIENT',
+  specialization: 'SPECIALIZATION',
 };
 
 export const userFormFields: RegisterForm[] = [

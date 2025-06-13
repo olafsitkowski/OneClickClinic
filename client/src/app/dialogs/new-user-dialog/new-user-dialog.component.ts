@@ -67,7 +67,6 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
         Validators.maxLength(9),
       ]),
       role: new FormControl(''),
-      specialization: new FormControl(''),
     });
     this.setValidators();
     if (this.data?.isEditUser) {
@@ -153,6 +152,11 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
         postalCode: new FormControl('', Validators.required),
         country: new FormControl('', Validators.required),
       }));
+    } else if (this.currentUserType === UserType.DOCTOR) {
+      this.userForm.addControl(
+        'specialization',
+        new FormControl('', [Validators.required])
+      );
     }
   }
 

@@ -283,8 +283,8 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     const actions = [
       {
         label: '<i class="material-icons">delete</i>',
-        onClick: ({ event }: { event: { id: string } }): void => {
-          this.deleteEvent(event.id);
+        onClick: ({ event }: { event: { _id: string } }): void => {
+          this.deleteEvent(event._id);
         },
       },
     ];

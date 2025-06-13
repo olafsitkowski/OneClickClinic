@@ -149,7 +149,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       options: {
         aspectRatio: 1.5,
       },
-    });
+    }); 
     this.isDataLoaded = true;
   }
 

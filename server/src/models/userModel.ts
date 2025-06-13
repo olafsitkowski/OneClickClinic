@@ -33,7 +33,7 @@ const ProfileData = new mongoose.Schema(
         role: { type: String, required: true },
         name: { type: String, required: true },
         surname: { type: String, required: true },
-        specialization: { type: UserSpecializationSchema },
+        specialization: { type: UserSpecializationSchema, required: false, default: undefined },
         address: { type: UserAdressSchema },
         contactEmail: { type: String },
         bloodGroup: { type: String },

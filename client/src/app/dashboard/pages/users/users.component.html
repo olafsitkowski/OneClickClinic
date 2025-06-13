@@ -4,17 +4,9 @@
       <div>
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1"
-              ><mat-icon>search</mat-icon></span
-            >
+            <span class="input-group-text" id="basic-addon1"><mat-icon>search</mat-icon></span>
           </div>
-          <input
-            type="text"
-            class="form-control"
-            (keyup)="tableFilter($event)"
-            #input
-            id="searchInput"
-          />
+          <input type="text" class="form-control" (keyup)="tableFilter($event)" #input id="searchInput" />
         </div>
       </div>
 
@@ -27,13 +19,15 @@
     <mat-divider></mat-divider>
     <div class="table">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container
-          matColumnDef="{{ column }}"
-          *ngFor="let column of columns"
-        >
+        <ng-container matColumnDef="{{ column }}" *ngFor="let column of columns">
           <th mat-header-cell *matHeaderCellDef>{{ columnLabels[column] | translate }}</th>
           <td mat-cell *matCellDef="let user">
-            {{ user.profile[column] }}
+            <ng-container *ngIf="user.profile[column] && user.profile[column].name !== undefined; else normalValue">
+              {{ user.profile[column].name }}
+            </ng-container>
+            <ng-template #normalValue>
+              {{ user.profile[column] }}
+            </ng-template>
             <ng-container *ngIf="column === 'actions'">
               <button mat-icon-button (click)="deleteUser(user)">
                 <mat-icon>delete</mat-icon>
@@ -49,13 +43,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr
-          mat-row
-          *matRowDef="let user; columns: columns; let i = dataIndex"
-          class="user-row"
-          [class.odd-row]="i % 2"
-          [class.even-row]="!(i % 2)"
-        ></tr>
+        <tr mat-row *matRowDef="let user; columns: columns; let i = dataIndex" class="user-row" [class.odd-row]="i % 2"
+          [class.even-row]="!(i % 2)"></tr>
       </table>
       <div *ngIf="dataSource.data.length === 0" class="table-empty">
         <span>{{ 'NO_USERS_FOUND.TABLE' | translate }}</span>
