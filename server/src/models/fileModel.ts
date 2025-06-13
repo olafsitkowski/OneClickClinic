@@ -5,7 +5,7 @@ const FileSchema = new Schema({
   path: String,
   size: Number,
   mimeType: String,
-  user: Number,
+  user: String,
   originalName: { type: String, required: true },
 });
 

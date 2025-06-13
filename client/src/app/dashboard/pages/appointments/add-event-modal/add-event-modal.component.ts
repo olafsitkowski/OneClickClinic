@@ -48,9 +48,6 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
             : null
         );
       });
-
-      console.log('patientsList', this.patientsList);
-      console.log('doctorsList', this.doctorsList);
   }
 
   public ngOnDestroy(): void {

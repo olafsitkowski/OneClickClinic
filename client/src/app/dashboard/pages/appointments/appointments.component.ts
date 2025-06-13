@@ -14,16 +14,14 @@ import {
 import {
   CalendarDateFormatter,
   CalendarEvent,
-  CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomDateFormatter } from '../../../../providers/custom-date-formatter.provider';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 import { Dropdown } from 'bootstrap';
-import { forkJoin } from 'rxjs';
 import { EventColor } from 'calendar-utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -74,12 +72,13 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
         event: CalendarEvent;
       }
     | undefined;
-  private unsubscribe$: Subject<void> = new Subject<void>();
+  public selectedDoctorSchedule: any = {};
+  private readonly unsubscribe$: Subject<void> = new Subject<void>();
   constructor(
-    private modal: MatDialog,
-    private calendarService: CalendarService,
-    private userService: UserService,
-    private translate: TranslateService
+    private readonly modal: MatDialog,
+    private readonly calendarService: CalendarService,
+    private readonly userService: UserService,
+    private readonly translate: TranslateService
   ) {}
 
   public ngOnInit(): void {
@@ -187,6 +186,8 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   public getCalendarByUser(userId: string | undefined): void {
     if (userId) {
+      const doctor = this.doctorsList.find((doc) => doc._id === userId);
+      this.selectedDoctorSchedule = doctor?.profile?.weeklySchedule || {};
       const filteredEvents = this.storedEvents
         .filter((item) => item.employeeId === userId)
         .map((item) => {
@@ -194,10 +195,65 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
         });
       this.events = filteredEvents;
     } else {
+      this.selectedDoctorSchedule = {};
       this.events = this.storedEvents;
     }
 
     this.refresh.next();
+  }
+
+  public isDoctorWorking(date: Date): boolean {
+    if (!this.selectedDoctorSchedule) return false;
+    const days = [
+      'sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+    ];
+    const dayName = days[date.getDay()];
+    const schedule = this.selectedDoctorSchedule[dayName];
+    return !!(schedule?.start && schedule?.end);
+  }
+
+  getDayStartHour(): number {
+    if (!this.selectedDoctorSchedule) return 7;
+    const days = [
+      'sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+    ];
+    const dayName = days[this.viewDate.getDay()];
+    const schedule = this.selectedDoctorSchedule[dayName];
+    if (schedule?.start) {
+      return parseInt(schedule.start.split(':')[0], 10);
+    }
+    return 7;
+  }
+
+  getDayEndHour(): number {
+    if (!this.selectedDoctorSchedule) return 20;
+    const days = [
+      'sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+    ];
+    const dayName = days[this.viewDate.getDay()];
+    const schedule = this.selectedDoctorSchedule[dayName];
+    if (schedule?.end) {
+      return parseInt(schedule.end.split(':')[0], 10);
+    }
+    return 20;
   }
 
   private blockCalendar(): void {

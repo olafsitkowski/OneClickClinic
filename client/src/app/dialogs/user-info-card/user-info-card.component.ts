@@ -22,10 +22,10 @@ export class UserInfoCardComponent implements OnInit {
   public userFiles: UserFile[] = [];
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { userProfile: UserProfile; userId: number },
-    private calendarService: CalendarService,
-    private userService: UserService,
-    private filesService: FilesService
+    public data: { userProfile: UserProfile; userId: string },
+    private readonly calendarService: CalendarService,
+    private readonly userService: UserService,
+    private readonly filesService: FilesService
   ) {
     this.userProfile = data.userProfile;
   }
@@ -54,7 +54,7 @@ export class UserInfoCardComponent implements OnInit {
 
     if (this.userProfile) {
       this.calendarService
-        .getCalendarEventsByUserId(this.userProfile.id)
+        .getCalendarEventsByUserId(this.data.userId)
         .subscribe((events) => {
           events.forEach((event) => {
             this.userService

@@ -10,13 +10,13 @@ export class FilesService {
   private readonly API_URL = 'http://localhost:8080';
   constructor(private http: HttpClient) {}
 
-  public uploadFile(file: File, userId: number): Observable<File> {
+  public uploadFile(file: File, userId: string): Observable<File> {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post<File>(`${this.API_URL}/files/${userId}`, formData);
   }
 
-  public getFilesByUserId(userId: number): Observable<File[]> {
+  public getFilesByUserId(userId: string): Observable<File[]> {
     return this.http.get<File[]>(`${this.API_URL}/files/user/${userId}`);
   }
 
