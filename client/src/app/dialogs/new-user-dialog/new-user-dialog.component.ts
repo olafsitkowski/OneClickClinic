@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user-service/user.service';
 import { FilesService } from '../../services/file-service/files.service';
 import { RegisterForm } from './../../../interfaces/RegisterForm';
 import { userFormFields } from './../../dashboard/pages/users/users-data';
@@ -32,11 +33,7 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
     '0+',
     '0-',
   ];
-  public specializationList: { name: string; description: string }[] = [
-    { name: 'Dermatolog', description: '' },
-    { name: 'Kardiolog', description: '' },
-    { name: 'Okulista', description: '' },
-  ];
+  public specializationList: { name: string; description: string }[] = [];
   public weekDays = [
     'monday',
     'tuesday',
@@ -58,10 +55,12 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<NewUserDialogComponent>,
     private readonly toastr: ToastrService,
     private readonly translate: TranslateService,
-    private readonly filesService: FilesService
+    private readonly filesService: FilesService,
+    private readonly userService: UserService
   ) {}
 
   public ngOnInit(): void {
+    this.getSpecializationList();
     this.currentUserType = this.data?.userProfile?.role;
 
     this.userForm = new FormGroup({
@@ -79,9 +78,6 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
       role: new FormControl(''),
     });
     this.setValidators();
-    if (this.data?.isEditUser) {
-      this.getDataToEditUser();
-    }
   }
 
   public ngOnDestroy(): void {
@@ -197,6 +193,15 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
         .uploadFile(userFile, this.data.userId)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe();
+    });
+  }
+
+  private getSpecializationList(): void {
+    this.userService.getSpecializationList().subscribe((specializations) => {
+      this.specializationList = specializations;
+      if (this.data?.isEditUser) {
+        this.getDataToEditUser();
+      }
     });
   }
 }

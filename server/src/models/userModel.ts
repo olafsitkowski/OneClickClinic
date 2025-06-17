@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 const AuthenticationData = new mongoose.Schema({
     email: { type: String, required: true },

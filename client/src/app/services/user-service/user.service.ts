@@ -59,4 +59,10 @@ export class UserService {
   public deleteUser(id: string): Observable<unknown> {
     return this.http.delete(`${this.API_URL}/user/${id}`);
   }
+
+  public getSpecializationList(): Observable<{ name: string; description: string }[]> {
+    return this.http.get<{ name: string; description: string }[]>(
+      `${this.API_URL}/specialization`
+    );
+  }
 }

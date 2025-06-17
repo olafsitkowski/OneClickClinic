@@ -11,6 +11,7 @@ import authenticationRoutes from './routes/authenticationRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
 import userRoutes from './routes/userRoutes';
 import fileRoutes from './routes/fileRoutes';
+import specializationRoutes from './routes/specializationRoutes';
 import cors from 'cors';
 
 const app = express();
@@ -40,7 +41,7 @@ app.use(authenticationRoutes);
 app.use(userRoutes);
 app.use(analyticsRoutes);
 app.use(fileRoutes);
-
+app.use(specializationRoutes);
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on('error', (error: Error) => console.warn(error));

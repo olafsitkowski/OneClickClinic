@@ -16,16 +16,15 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   public doctorsList: User[] = [];
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
-  private unsubscribe$: Subject<void> = new Subject<void>();
+  private readonly unsubscribe$: Subject<void> = new Subject<void>();
   public userFilterControl = new FormControl('');
   public filteredUsers$!: Observable<User[]>;
   public doctorFilterControl = new FormControl('');
   public filteredDoctors$!: Observable<User[]>;
 
   constructor(
-    private userService: UserService,
-    private dialogRef: MatDialogRef<AddEventModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: 
+    private readonly userService: UserService,
+    private readonly dialogRef: MatDialogRef<AddEventModalComponent>
   ) {}
 
   public ngOnInit(): void {
