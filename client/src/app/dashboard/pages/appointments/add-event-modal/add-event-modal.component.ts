@@ -1,9 +1,9 @@
 import { User, UserType } from '../../../../../interfaces/User';
 import { UserService } from '../../../../services/user-service/user.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable, Subject, takeUntil, startWith, map } from 'rxjs';
 
 @Component({
   selector: 'app-add-event-modal',
@@ -17,9 +17,15 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   public selectedPatient: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
   private unsubscribe$: Subject<void> = new Subject<void>();
+  public userFilterControl = new FormControl('');
+  public filteredUsers$!: Observable<User[]>;
+  public doctorFilterControl = new FormControl('');
+  public filteredDoctors$!: Observable<User[]>;
+
   constructor(
     private userService: UserService,
-    private dialogRef: MatDialogRef<AddEventModalComponent>
+    private dialogRef: MatDialogRef<AddEventModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: 
   ) {}
 
   public ngOnInit(): void {
@@ -39,7 +45,6 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
       .getUsers()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: User[]) => {
-        console.log(res);
         res.forEach((user) =>
           user.profile?.role === UserType.PATIENT
             ? this.patientsList.push(user)
@@ -49,8 +54,33 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
         );
       });
 
-      console.log('patientsList', this.patientsList);
-      console.log('doctorsList', this.doctorsList);
+    this.filteredUsers$ = this.userFilterControl.valueChanges.pipe(
+      startWith(''),
+      map((value) =>
+        typeof value === 'string'
+          ? value
+          : value
+          ? this.displayUserFn(value)
+          : ''
+      ),
+      map((name) =>
+        name ? this._filterUsers(name) : this.patientsList.slice()
+      )
+    );
+
+    this.filteredDoctors$ = this.doctorFilterControl.valueChanges.pipe(
+      startWith(''),
+      map((value) =>
+        typeof value === 'string'
+          ? value
+          : value
+          ? this.displayDoctorFn(value)
+          : ''
+      ),
+      map((name) =>
+        name ? this._filterDoctors(name) : this.doctorsList.slice()
+      )
+    );
   }
 
   public ngOnDestroy(): void {
@@ -64,5 +94,41 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
 
   public closeDialog(): void {
     this.dialogRef.close();
+  }
+
+  private _filterUsers(value: string): User[] {
+    const filterValue = value.toLowerCase();
+    return this.patientsList.filter((patient) =>
+      `${patient.profile.pesel} ${patient.profile.name} ${patient.profile.surname}`
+        .toLowerCase()
+        .includes(filterValue)
+    );
+  }
+
+  private _filterDoctors(value: string): User[] {
+    const filterValue = value.toLowerCase();
+    return this.doctorsList.filter((doctor) =>
+      `${doctor.profile.name} ${doctor.profile.surname}`
+        .toLowerCase()
+        .includes(filterValue)
+    );
+  }
+
+  public displayUserFn(user?: User | undefined): string {
+    return user
+      ? `${user.profile.pesel} - ${user.profile.name} ${user.profile.surname}`
+      : '';
+  }
+
+  public displayDoctorFn(user?: User | undefined): string {
+    return user ? `${user.profile.name} ${user.profile.surname}` : '';
+  }
+
+  public onUserSelected(user: User): void {
+    this.eventForm.get('patientId')?.setValue(user._id);
+  }
+
+  public onDoctorSelected(user: User): void {
+    this.eventForm.get('employeeId')?.setValue(user._id);
   }
 }

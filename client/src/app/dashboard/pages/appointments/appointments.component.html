@@ -125,8 +125,6 @@
       </mwl-calendar-month-view>
       <mwl-calendar-week-view
         *ngSwitchCase="CalendarView.Week"
-        [dayStartHour]="7"
-        [dayEndHour]="20"
         [viewDate]="viewDate"
         [events]="events"
         [refresh]="refresh"
@@ -136,8 +134,8 @@
       </mwl-calendar-week-view>
       <mwl-calendar-day-view
         *ngSwitchCase="CalendarView.Day"
-        [dayStartHour]="7"
-        [dayEndHour]="20"
+        [dayStartHour]="getDayStartHour()"
+        [dayEndHour]="getDayEndHour()"
         [hourDuration]="30"
         [hourSegments]="2"
         [locale]="locale"

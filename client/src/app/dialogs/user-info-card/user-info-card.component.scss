@@ -23,7 +23,6 @@ h3 {
 .personal-info,
 .medical-info {
   div {
-    display: flex;
     justify-content: space-between;
     align-items: baseline;
     padding: $xlarge-spacing;
@@ -81,4 +80,9 @@ h3 {
       padding-bottom: $spacing;
     }
   }
+}
+
+.personal-info-tab {
+  overflow-y: scroll;
+  max-height: 600px;
 }

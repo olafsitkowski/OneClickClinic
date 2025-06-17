@@ -108,6 +108,13 @@
   "HOUSE_NUMBER": "House number",
   "CITY": "City",
   "POSTAL_CODE": "Postal code",
-  "COUNTRY": "Country"
-
+  "COUNTRY": "Country",
+  "MONDAY": "Monday",
+  "TUESDAY": "Tuesday",
+  "WEDNESDAY": "Wednesday",
+  "THURSDAY": "Thursday",
+  "FRIDAY": "Friday",
+  "SATURDAY": "Saturday",
+  "SUNDAY": "Sunday",
+  "WEEKLY_SCHEDULE": "Weekly Schedule"
 }

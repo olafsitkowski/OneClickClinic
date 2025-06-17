@@ -23,6 +23,23 @@
           {{ spec.name }}
         </option>
       </select>
+      <div>
+        <label>{{ 'WEEKLY_SCHEDULE' | translate }}</label>
+
+        <div *ngFor="let day of weekDays" [formGroup]="weeklyScheduleGroup">
+          <div [formGroupName]="day" class="row align-items-center schedule">
+            <label class="schedule-label">{{
+              day.toUpperCase() | translate
+              }}</label>
+            <div class="schedule-picker">
+              <input type="time" class="form-control" formControlName="start" placeholder="Start" />
+            </div>
+            <div class="schedule-picker">
+              <input type="time" class="form-control" formControlName="end" placeholder="End" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <ng-container *ngIf="currentUserType === userType.PATIENT">
       <div class="form-group">

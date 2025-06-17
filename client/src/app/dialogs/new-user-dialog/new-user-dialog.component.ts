@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
+import { endRequiredIfStartValidator } from 'src/app/validators/schedule.validator';
 
 @Component({
   selector: 'app-new-user-dialog',
@@ -31,25 +32,34 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
     '0+',
     '0-',
   ];
-  public specializationList: { name: string, description: string }[] = [
+  public specializationList: { name: string; description: string }[] = [
     { name: 'Dermatolog', description: '' },
     { name: 'Kardiolog', description: '' },
-    { name: 'Okulista', description: '' }
-  ]
-  private unsubscribe$ = new Subject<void>();
+    { name: 'Okulista', description: '' },
+  ];
+  public weekDays = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',
+  ];
+  private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
       userProfile: UserProfile;
       isEditUser: boolean;
-      userId: number;
+      userId: string;
     },
     public dialogRef: MatDialogRef<NewUserDialogComponent>,
-    private toastr: ToastrService,
-    private translate: TranslateService,
-    private filesService: FilesService
-  ) { }
+    private readonly toastr: ToastrService,
+    private readonly translate: TranslateService,
+    private readonly filesService: FilesService
+  ) {}
 
   public ngOnInit(): void {
     this.currentUserType = this.data?.userProfile?.role;
@@ -115,18 +125,22 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
     let specializationObj = null;
     if (userProfile?.specialization) {
       specializationObj = this.specializationList.find(
-        s => s.name === userProfile.specialization?.name
+        (s) => s.name === userProfile.specialization?.name
       );
     }
     this.userForm.patchValue({
       ...userProfile,
-      specialization: specializationObj
+      specialization: specializationObj,
     });
   }
 
   public get addressGroup(): FormGroup {
-  return this.userForm.get('address') as FormGroup;
-}
+    return this.userForm.get('address') as FormGroup;
+  }
+
+  public get weeklyScheduleGroup(): FormGroup {
+    return this.userForm.get('weeklySchedule') as FormGroup;
+  }
 
   private setValidators(): void {
     this.userForm.setControl('role', new FormControl(this.currentUserType));
@@ -145,17 +159,34 @@ export class NewUserDialogComponent implements OnInit, OnDestroy {
         'gender',
         new FormControl('', [Validators.required])
       );
-      this.userForm.addControl('address', new FormGroup({
-        street: new FormControl('', Validators.required),
-        houseNumber: new FormControl('', Validators.required),
-        city: new FormControl('', Validators.required),
-        postalCode: new FormControl('', Validators.required),
-        country: new FormControl('', Validators.required),
-      }));
+      this.userForm.addControl(
+        'address',
+        new FormGroup({
+          street: new FormControl('', Validators.required),
+          houseNumber: new FormControl('', Validators.required),
+          city: new FormControl('', Validators.required),
+          postalCode: new FormControl('', Validators.required),
+          country: new FormControl('', Validators.required),
+        })
+      );
     } else if (this.currentUserType === UserType.DOCTOR) {
       this.userForm.addControl(
         'specialization',
         new FormControl('', [Validators.required])
+      );
+      const weeklyScheduleGroup: { [key: string]: FormGroup } = {};
+      this.weekDays.forEach((day) => {
+        weeklyScheduleGroup[day] = new FormGroup(
+          {
+            start: new FormControl(''),
+            end: new FormControl(''),
+          },
+          [endRequiredIfStartValidator]
+        );
+      });
+      this.userForm.addControl(
+        'weeklySchedule',
+        new FormGroup(weeklyScheduleGroup)
       );
     }
   }

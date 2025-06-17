@@ -14,8 +14,26 @@ export interface UserAuthentication {
   userName: string;
 }
 
+interface WeeklySchedule {
+  monday?: { start: string; end: string };
+  tuesday?: { start: string; end: string };
+  wednesday?: { start: string; end: string };
+  thursday?: { start: string; end: string };
+  friday?: { start: string; end: string };
+  saturday?: { start: string; end: string };
+  sunday?: { start: string; end: string };
+}
+
+interface UserAddress {
+  street: string;
+  houseNumber: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+
 export interface UserProfile {
-  id: string;
+  _id: string;
   role: string;
   name: string;
   surname: string;
@@ -27,10 +45,11 @@ export interface UserProfile {
   bloodGroup?: string;
   phoneNumber?: string;
   gender?: string;
-  address?: string;
+  address?: UserAddress;
   treatment?: string;
   pesel?: string;
   appointments?: CustomCalendarEvent[];
+  weeklySchedule?: WeeklySchedule;
 }
 
 export enum UserType {

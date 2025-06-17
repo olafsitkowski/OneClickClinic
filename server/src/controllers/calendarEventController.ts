@@ -85,7 +85,12 @@ export const getEventsByUserId = async (req: Request, res: Response) => {
         let events: CalendarEvent[];
 
         if (userId) {
-            events = await CalendarEventModel.find({ employeeId: userId });
+            events = await CalendarEventModel.find({
+                $or: [
+                    { employeeId: userId },
+                    { patientId: userId }
+                ]
+            });
         } else {
             events = await CalendarEventModel.find();
         }
