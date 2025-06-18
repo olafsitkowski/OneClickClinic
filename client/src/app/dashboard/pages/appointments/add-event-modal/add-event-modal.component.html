@@ -43,6 +43,7 @@
         <mat-option
           *ngFor="let patient of filteredUsers$ | async"
           [value]="patient"
+          [(ngModel)]="selectedPatient"
         >
           {{ patient.profile.pesel }} - {{ patient.profile.name }}
           {{ patient.profile.surname }}

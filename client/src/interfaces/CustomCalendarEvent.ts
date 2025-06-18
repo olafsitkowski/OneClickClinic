@@ -1,5 +1,5 @@
 export interface CustomCalendarEvent {
-  id?: string;
+  _id?: string;
   employeeId: string;
   patientId: string;
   start: Date;

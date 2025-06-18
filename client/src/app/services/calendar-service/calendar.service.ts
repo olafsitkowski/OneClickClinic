@@ -41,11 +41,10 @@ export class CalendarService {
   }
 
   public editCalendarEventById(
-    id: string,
     event: CustomCalendarEvent
   ): Observable<CustomCalendarEvent> {
     return this.http.put<CustomCalendarEvent>(
-      `${this.API_URL}/calendar-events/${id}`,
+      `${this.API_URL}/calendar-events/${event._id}`,
       event
     );
   }

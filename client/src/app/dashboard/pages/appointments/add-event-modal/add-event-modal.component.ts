@@ -3,6 +3,8 @@ import { UserService } from '../../../../services/user-service/user.service';
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CalendarEvent } from 'angular-calendar';
+import { set } from 'date-fns';
 import { Observable, Subject, takeUntil, startWith, map } from 'rxjs';
 
 @Component({
@@ -15,6 +17,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   public patientsList: User[] = [];
   public doctorsList: User[] = [];
   public selectedPatient: User | undefined;
+  public selectedDoctor: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
   private readonly unsubscribe$: Subject<void> = new Subject<void>();
   public userFilterControl = new FormControl('');
@@ -24,11 +27,24 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly userService: UserService,
-    private readonly dialogRef: MatDialogRef<AddEventModalComponent>
+    private readonly dialogRef: MatDialogRef<AddEventModalComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    private readonly data: {
+      editData:
+        | (CalendarEvent & {
+            patientId: string;
+            employeeId: string;
+            description: string;
+            type: string;
+            _id: string;
+          })
+        | undefined;
+    }
   ) {}
 
   public ngOnInit(): void {
     this.eventForm = new FormGroup({
+      _id: new FormControl(''),
       type: new FormControl('appointment'),
       title: new FormControl('', Validators.required),
       start: new FormControl('', Validators.required),
@@ -80,6 +96,9 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
         name ? this._filterDoctors(name) : this.doctorsList.slice()
       )
     );
+    setTimeout(() => {
+      this.updateFormOnEdit();
+    });
   }
 
   public ngOnDestroy(): void {
@@ -129,5 +148,29 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
 
   public onDoctorSelected(user: User): void {
     this.eventForm.get('employeeId')?.setValue(user._id);
+  }
+
+  private updateFormOnEdit(): void {
+    if (this.data.editData) {
+      this.eventForm.patchValue({
+        _id: this.data.editData._id,
+        type: this.data.editData.type,
+        title: this.data.editData.title,
+        start: this.data.editData.start,
+        end: this.data.editData.end,
+        patientId: this.data.editData.patientId,
+        employeeId: this.data.editData.employeeId,
+        description: this.data.editData.description,
+        draggable: this.data.editData.draggable,
+        resizable: this.data.editData.resizable,
+      });
+    }
+    this.selectedPatient = this.patientsList.find(
+      (patient) => patient._id === this.data.editData?.patientId
+    );
+
+    this.selectedDoctor = this.doctorsList.find(
+      (doctor) => doctor._id === this.data.editData?.employeeId
+    );
   }
 }

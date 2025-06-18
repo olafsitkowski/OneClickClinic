@@ -134,7 +134,7 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
     };
     if (event._id) {
       this.calendarService
-        .editCalendarEventById(event._id.toString(), editedEvent)
+        .editCalendarEventById(editedEvent)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((res) => {
           if (res) {
@@ -148,7 +148,6 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
   public handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.openModal('editEvent', this.modalData.event);
-    console.warn('Event clicked', this.modalData);
   }
 
   public openModal(modal: string, data?: CalendarEvent): void {
@@ -285,6 +284,15 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((result: CustomCalendarEvent) => {
         if (result) {
+          if (editData) {
+            this.calendarService
+              .editCalendarEventById(result)
+              .pipe(takeUntil(this.unsubscribe$))
+              .subscribe(() => {
+                this.getCalendarEvents();
+              });
+            return;
+          }
           this.calendarService
             .postCalendarEvent(result)
             .pipe(takeUntil(this.unsubscribe$))
@@ -311,7 +319,9 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
             (patient) => patient._id === calendarEvent.patientId
           );
           if (patient) {
-            calendarEvent.title = `${calendarEvent.title} - ${patient?.profile.name} ${patient?.profile.surname}`;
+            if (!calendarEvent.title) {
+              calendarEvent.title = `${calendarEvent.title} - ${patient?.profile.name} ${patient?.profile.surname}`;
+            }
             calendarEvent.color = colors['blue'];
           } else {
             calendarEvent.color = colors['red'];
