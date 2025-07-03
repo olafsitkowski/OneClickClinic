@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken';
 
 export const register = async (req: express.Request, res: express.Response) => {
     try {
-        const { email, password, userName } = req.body;
+        const { email, password, userName, role } = req.body;
 
-        if (!email || !password || !userName) {
+        if (!email || !password || !userName || !role) {
             return res.sendStatus(400);
         }
 
@@ -23,7 +23,8 @@ export const register = async (req: express.Request, res: express.Response) => {
                 email,
                 salt,
                 password: authentication(salt, password),
-                userName
+                userName,
+                role
             }
         });
 

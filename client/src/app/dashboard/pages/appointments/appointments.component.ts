@@ -199,7 +199,9 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
 
   public getCalendarByUser(userId: string | undefined): void {
     if (userId) {
-      const doctor = this.doctorsList.find((doc) => doc._id === userId);
+      const doctor = this.doctorsList.find(
+        (doc) => (doc._id ?? doc.authentication._id) === userId
+      );
       this.selectedDoctorSchedule = doctor?.profile?.weeklySchedule || {};
       const filteredEvents = this.storedEvents
         .filter((item) => item.employeeId === userId)
@@ -249,6 +251,16 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       return parseInt(schedule.end.split(':')[0], 10);
     }
     return 20;
+  }
+
+  public getLanguage(): string {
+    return localStorage.getItem('lang') ?? 'en';
+  }
+
+  public hasRole(): boolean {
+    return (
+      JSON.parse(localStorage.getItem('userInfo') ?? '{}').role === 'admin'
+    );
   }
 
   private blockCalendar(): void {
@@ -340,7 +352,16 @@ export class AppointmentsComponent implements OnInit, OnDestroy {
       .subscribe(([employees, patients]) => {
         this.doctorsList = employees;
         this.patientsList = patients;
-        this.getCalendarEvents();
+        if (
+          JSON.parse(localStorage.getItem('userInfo') ?? '{}').role === 'doctor'
+        ) {
+          this.getCalendarEvents();
+          this.getCalendarByUser(
+            JSON.parse(localStorage.getItem('userInfo') ?? '{}')._id
+          );
+        } else {
+          this.getCalendarEvents();
+        }
       });
   }
 

@@ -22,6 +22,8 @@ export interface CalendarEvent extends Document {
     createdAt?: Date;
     updatedAt?: Date;
     description?: string;
+    diagnosis?: string;
+    recommendations?: string;
 }
 
 export interface EventColor {
@@ -53,6 +55,8 @@ const calendarEventSchema: Schema = new Schema({
     actions: Schema.Types.Mixed,
     type: String,
     description: String,
+    diagnosis: String,
+    recommendations: String
 });
 
 export default mongoose.model<CalendarEvent>('CalendarEvent', calendarEventSchema);

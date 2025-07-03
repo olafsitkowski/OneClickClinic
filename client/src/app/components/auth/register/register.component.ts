@@ -20,8 +20,11 @@ import { Subject } from 'rxjs';
 export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm: FormGroup = new FormGroup({});
   public registerFormFields: RegisterForm[] = registerFormFields;
-  private unsubscribe$: Subject<void> = new Subject<void>();
-  constructor(private router: Router, private loginService: LoginService) {}
+  private readonly unsubscribe$: Subject<void> = new Subject<void>();
+  constructor(
+    private readonly router: Router,
+    private readonly loginService: LoginService
+  ) {}
 
   public ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -49,10 +52,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
+    const formValue = { ...this.registerForm.value, role: this.registerForm.get('role')?.value };
     this.registerForm.removeControl('confirmPassword');
 
     this.loginService
-      .registerUser(this.registerForm.value)
+      .registerUser(formValue)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res) => {
         if (res) {

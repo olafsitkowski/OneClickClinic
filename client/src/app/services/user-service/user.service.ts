@@ -9,7 +9,7 @@ import { User, UserProfile, UserType } from '../../../interfaces/User';
 export class UserService {
   private readonly API_URL = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.API_URL}/user/`);
@@ -60,9 +60,16 @@ export class UserService {
     return this.http.delete(`${this.API_URL}/user/${id}`);
   }
 
-  public getSpecializationList(): Observable<{ name: string; description: string }[]> {
+  public getSpecializationList(): Observable<
+    { name: string; description: string }[]
+  > {
     return this.http.get<{ name: string; description: string }[]>(
       `${this.API_URL}/specialization`
     );
+  }
+
+  public getUserRole(): 'doctor' | 'admin' | 'patient' | null {
+    const user = JSON.parse(localStorage.getItem('userInfo') ?? '{}');
+    return user?.role ?? null;
   }
 }

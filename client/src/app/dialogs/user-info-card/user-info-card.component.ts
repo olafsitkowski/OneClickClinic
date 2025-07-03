@@ -2,12 +2,13 @@ import { columnLabels } from './../../dashboard/pages/users/users-data';
 import { UserService } from '../../services/user-service/user.service';
 import { CalendarService } from '../../services/calendar-service/calendar.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { CustomCalendarEvent } from 'src/interfaces/CustomCalendarEvent';
 import { UserProfile, UserType } from 'src/interfaces/User';
 import { FilesService } from 'src/app/services/file-service/files.service';
 import { UserFile } from 'src/interfaces/File';
+import { AppointmentDetailsDialogComponent } from '../appointment-details-dialog/appointment-details-dialog.component';
 
 @Component({
   selector: 'app-user-info-card',
@@ -20,12 +21,16 @@ export class UserInfoCardComponent implements OnInit {
   public dataSource = new MatTableDataSource<CustomCalendarEvent>();
   public columnLabels = columnLabels;
   public userFiles: UserFile[] = [];
+  public expandedAppointment: any | null = null;
+  public columnsToDisplayWithExpand: string[] = [];
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { userProfile: UserProfile; userId: string },
     private readonly calendarService: CalendarService,
     private readonly userService: UserService,
-    private readonly filesService: FilesService
+    private readonly filesService: FilesService,
+    private readonly dialogService: MatDialog
   ) {
     this.userProfile = data.userProfile;
   }
@@ -45,12 +50,21 @@ export class UserInfoCardComponent implements OnInit {
     });
   }
 
+  public viewAppointmentDetails(data: CustomCalendarEvent): void {
+    this.dialogService.open(AppointmentDetailsDialogComponent, {
+      data,
+      width: '500px',
+      autoFocus: false,
+    });
+  }
+
   private setData(): void {
     if (this.userProfile?.role === UserType.PATIENT) {
       this.appointmentsColumns = ['title', 'start', 'end', 'employeeId'];
     } else {
       this.appointmentsColumns = ['title', 'start', 'end', 'patientId'];
     }
+    this.columnsToDisplayWithExpand = [...this.appointmentsColumns, 'expand'];
 
     if (this.userProfile) {
       this.calendarService
@@ -71,7 +85,14 @@ export class UserInfoCardComponent implements OnInit {
                 }
               });
           });
+          events.sort(
+            (a, b) => new Date(b.start).getTime() - new Date(a.start).getTime()
+          );
           this.dataSource = new MatTableDataSource(events);
+          this.columnsToDisplayWithExpand = [
+            ...this.appointmentsColumns,
+            'expand',
+          ];
         });
     }
   }

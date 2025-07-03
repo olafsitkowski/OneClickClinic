@@ -4,9 +4,17 @@
       <div>
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1"><mat-icon>search</mat-icon></span>
+            <span class="input-group-text" id="basic-addon1"
+              ><mat-icon>search</mat-icon></span
+            >
           </div>
-          <input type="text" class="form-control" (keyup)="tableFilter($event)" #input id="searchInput" />
+          <input
+            type="text"
+            class="form-control"
+            (keyup)="tableFilter($event)"
+            #input
+            id="searchInput"
+          />
         </div>
       </div>
 
@@ -19,10 +27,20 @@
     <mat-divider></mat-divider>
     <div class="table">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="{{ column }}" *ngFor="let column of columns">
-          <th mat-header-cell *matHeaderCellDef>{{ columnLabels[column] | translate }}</th>
+        <ng-container
+          matColumnDef="{{ column }}"
+          *ngFor="let column of columns"
+        >
+          <th mat-header-cell *matHeaderCellDef>
+            {{ columnLabels[column] | translate }}
+          </th>
           <td mat-cell *matCellDef="let user">
-            <ng-container *ngIf="user.profile[column] && user.profile[column].name !== undefined; else normalValue">
+            <ng-container
+              *ngIf="
+                user.profile[column] && user.profile[column].name !== undefined;
+                else normalValue
+              "
+            >
               {{ user.profile[column].name }}
             </ng-container>
             <ng-template #normalValue>
@@ -35,16 +53,32 @@
               <button mat-icon-button (click)="editUser(user)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button (click)="viewUserInfo(user)" *ngIf="this.userType === UserTypeEnum.PATIENT">
+              <button
+                mat-icon-button
+                (click)="viewUserInfo(user)"
+                *ngIf="this.userType === UserTypeEnum.PATIENT"
+              >
                 <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                (click)="createUser(user)"
+                *ngIf="this.userType === UserTypeEnum.DOCTOR"
+              >
+                <mat-icon>key</mat-icon>
               </button>
             </ng-container>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
-        <tr mat-row *matRowDef="let user; columns: columns; let i = dataIndex" class="user-row" [class.odd-row]="i % 2"
-          [class.even-row]="!(i % 2)"></tr>
+        <tr
+          mat-row
+          *matRowDef="let user; columns: columns; let i = dataIndex"
+          class="user-row"
+          [class.odd-row]="i % 2"
+          [class.even-row]="!(i % 2)"
+        ></tr>
       </table>
       <div *ngIf="dataSource.data.length === 0" class="table-empty">
         <span>{{ 'NO_USERS_FOUND.TABLE' | translate }}</span>

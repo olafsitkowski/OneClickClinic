@@ -5,14 +5,18 @@ import { getAvailableDoctors, getReservedSlots } from '../services/slotService';
 const generateNext10Days = (): string[] => {
     const dates: string[] = [];
     let i = 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     while (dates.length < 10) {
-        const date = new Date();
+        const date = new Date(today.getTime());
         date.setDate(date.getDate() + i);
-        if (date.getDay() !== 0 && date.getDay() !== 6) {
+        const day = date.getUTCDay();
+        if (day !== 0 && day !== 6) {
             dates.push(date.toISOString().split('T')[0]);
         }
         i++;
+        if (i > 30) break;
     }
 
     return dates;

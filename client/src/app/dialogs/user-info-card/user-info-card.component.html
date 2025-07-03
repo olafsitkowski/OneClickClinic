@@ -1,7 +1,10 @@
 <div class="user-info-card" mat-dialog-content>
   <div class="card-content">
     <tabset [justified]="true">
-      <tab heading="{{ 'PERSONAL_INFO' | translate }}" class="personal-info-tab">
+      <tab
+        heading="{{ 'PERSONAL_INFO' | translate }}"
+        class="personal-info-tab"
+      >
         <div class="personal-info">
           <h3>{{ 'PERSONAL_INFO' | translate }}</h3>
           <div>
@@ -14,7 +17,10 @@
           </div>
           <div>
             <h6>{{ 'ADDRESS' | translate }}</h6>
-            <div *ngIf="userProfile?.address; else noAddress" class="address-info">
+            <div
+              *ngIf="userProfile?.address; else noAddress"
+              class="address-info"
+            >
               <div>
                 <strong>{{ 'STREET' | translate }}:</strong>
                 <span>{{ userProfile?.address?.street }}</span>
@@ -70,7 +76,7 @@
           </div>
         </div>
       </tab>
-      <tab heading="{{ 'ACTIVE_APPOINTMENTS' | translate }}">
+      <tab heading="{{ 'APPOINTMENTS_HISTORY' | translate }}">
         <div class="user-appointments">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container
@@ -106,6 +112,7 @@
               class="user-row"
               [class.odd-row]="i % 2"
               [class.even-row]="!(i % 2)"
+              (click)="viewAppointmentDetails(user)"
             ></tr>
           </table>
         </div>

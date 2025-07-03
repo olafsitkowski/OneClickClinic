@@ -6,7 +6,7 @@ const AuthenticationData = new mongoose.Schema({
     sessionToken: { type: String, select: false },
     salt: { type: String, select: false },
     userName: { type: String, required: true },
-    fileIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
+    role: { type: String, required: true, enum: ['admin', 'doctor', 'nurse', 'patient'] }
 });
 
 const UserSpecializationSchema = new mongoose.Schema({

@@ -7,11 +7,13 @@ export interface User {
 }
 
 export interface UserAuthentication {
+  _id: string;
   email: string;
   password: string;
   sessionToken?: string;
   salt?: string;
   userName: string;
+  role: 'admin' | 'doctor' | 'nurse' | 'patient';
 }
 
 interface WeeklySchedule {

@@ -10,7 +10,8 @@
       <button
         mat-button
         (click)="changeRoute(section.route)"
-        [ngClass]="{ active: currentRoute === '/dashboard/' + section.route }"
+        [ngClass]="{ active: checkActive === section.route }"
+        *ngIf="hasRole(section.route)"
       >
         <mat-icon>{{ section.icon }}</mat-icon
         ><span>{{ section.label | translate }}</span>

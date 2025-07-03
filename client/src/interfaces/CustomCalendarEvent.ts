@@ -17,6 +17,9 @@ export interface CustomCalendarEvent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions?: any;
   type?: string;
+  description?: string;
+  diagnosis?: string;
+  recommendations?: string;
 }
 
 export interface EventColor {

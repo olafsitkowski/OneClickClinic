@@ -116,5 +116,11 @@
   "FRIDAY": "Friday",
   "SATURDAY": "Saturday",
   "SUNDAY": "Sunday",
-  "WEEKLY_SCHEDULE": "Weekly Schedule"
+  "WEEKLY_SCHEDULE": "Weekly Schedule",
+  "DIAGNOSIS": "Diagnosis",
+  "COMPLAINTS": "Complaints",
+  "RECOMMENDATIONS": "Recommendations",
+  "APPOINTMENTS_HISTORY": "Appointments History",
+  "USER_LOGIN": "Login",
+  "APPOINTMENT_DETAILS": "Appointment Details"
 }

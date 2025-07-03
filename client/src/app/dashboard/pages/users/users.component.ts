@@ -1,3 +1,4 @@
+import { UserAuthCreatorComponent } from './../../../dialogs/user-auth-creator/user-auth-creator.component';
 import { ConfirmationDialogComponent } from './../../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -167,6 +168,23 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.modal.open(UserInfoCardComponent, {
       data: { userProfile: user.profile, userId: user._id },
     });
+  }
+
+  public createUser(user: User) {
+    const dialogRef = this.modal.open(UserAuthCreatorComponent, {
+      data: {
+        user: user,
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res) => {
+        if (res) {
+          this.loadData();
+        }
+      });
   }
 
   private mergeAppointments(): void {

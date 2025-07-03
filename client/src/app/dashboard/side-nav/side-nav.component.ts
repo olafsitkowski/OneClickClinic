@@ -1,12 +1,13 @@
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { UserAuthentication } from 'src/interfaces/User';
 
 export interface Sections {
   route: string;
   icon: string;
   label: string;
+  roles: string[];
 }
 
 @Component({
@@ -22,31 +23,35 @@ export class SideNavComponent implements OnInit, OnDestroy {
       route: 'analytics',
       icon: 'dashboard',
       label: 'ANALYTICS',
+      roles: ['admin'],
     },
     {
       route: 'appointments',
       icon: 'event',
       label: 'APPOINTMENTS',
+      roles: ['admin', 'doctor'],
     },
     {
       route: 'patients',
       icon: 'person',
       label: 'PATIENTS',
+      roles: ['admin'],
     },
     {
       route: 'employees',
       icon: 'badge',
       label: 'EMPLOYEES',
+      roles: ['admin'],
     },
   ];
-  private unsubscribe$: Subject<void> = new Subject<void>();
+  private readonly unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   public ngOnInit(): void {
-    this.currentRoute = '/dashboard/analytics';
-    this.setupRoutes();
     this.getUserInfo();
+    this.currentRoute = this.getFirstRoute();
+    this.changeRoute(this.currentRoute);
   }
 
   public ngOnDestroy(): void {
@@ -56,12 +61,30 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   public changeRoute(route: string): void {
     this.router.navigate([`/dashboard/${route}`]);
+    this.currentRoute = route;
   }
 
   public logOut(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('currentRoute');
     this.router.navigate(['/login']);
+  }
+
+  public hasRole(route: string): boolean {
+    if (!this.userInfo) {
+      return false;
+    }
+    const section = this.sectionsList.find(
+      (section) => section.route === route
+    );
+    if (!section) {
+      return false;
+    }
+    return section.roles.includes(this.userInfo.role);
+  }
+
+  public get checkActive(): string {
+    return this.currentRoute;
   }
 
   private getUserInfo(): void {
@@ -71,17 +94,11 @@ export class SideNavComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setupRoutes(): void {
-    this.router.events.pipe(takeUntil(this.unsubscribe$)).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-        localStorage.setItem('currentRoute', this.currentRoute);
-      }
-    });
+  private getFirstRoute(): string {
+    const filteredSections = this.sectionsList.filter((section) =>
+      section.roles.includes(this.userInfo?.role ?? '')
+    );
 
-    const storedRoute = localStorage.getItem('currentRoute');
-    if (storedRoute) {
-      this.currentRoute = storedRoute;
-    }
+    return filteredSections[0].route;
   }
 }

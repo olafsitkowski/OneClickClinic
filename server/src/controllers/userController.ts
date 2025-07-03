@@ -1,6 +1,7 @@
 import { createUser, deleteUserById, getUserById, updateUserById } from './../models/userModel';
 import express from 'express';
 import { getUsers } from '../models/userModel';
+import { random, authentication } from '../helpers';
 
 export const getAllUsersController = async (req: express.Request, res: express.Response) => {
     try {
@@ -74,6 +75,30 @@ export const updateUserByIdController = async (req: express.Request, res: expres
     try {
         const user = await updateUserById(req.params.id, req.body);
 
+        if (!user) {
+            return res.sendStatus(404);
+        }
+
+        return res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Server Error' });
+    }
+};
+
+export const updateUserAuth = async (req: express.Request, res: express.Response) => {
+    if (!req.body || Object.keys(req.body).length === 0) {
+        return res.status(400).json({ message: 'No data provided' });
+    }
+
+    try {
+        let updateData = req.body.authentication || req.body;
+        if (updateData.password) {
+            const salt = random();
+            updateData.salt = salt;
+            updateData.password = authentication(salt, updateData.password);
+        }
+        const user = await updateUserById(req.params.id, { authentication: updateData });
         if (!user) {
             return res.sendStatus(404);
         }

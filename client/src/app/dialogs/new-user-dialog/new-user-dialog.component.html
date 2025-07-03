@@ -50,12 +50,22 @@
           <div [formGroupName]="day" class="row align-items-center schedule">
             <label class="schedule-label">{{
               day.toUpperCase() | translate
-              }}</label>
+            }}</label>
             <div class="schedule-picker">
-              <input type="time" class="form-control" formControlName="start" placeholder="Start" />
+              <input
+                type="time"
+                class="form-control"
+                formControlName="start"
+                placeholder="Start"
+              />
             </div>
             <div class="schedule-picker">
-              <input type="time" class="form-control" formControlName="end" placeholder="End" />
+              <input
+                type="time"
+                class="form-control"
+                formControlName="end"
+                placeholder="End"
+              />
             </div>
           </div>
         </div>
@@ -142,14 +152,6 @@
         </div>
       </div>
       <div class="form-group">
-        <label>{{ 'TREATMENT' | translate }}</label>
-        <input
-          type="text"
-          class="form-control large-input"
-          formControlName="treatment"
-        />
-      </div>
-      <div class="form-group">
         <label>{{ 'BLOOD_GROUP' | translate }}*</label>
         <select
           aria-label="0"
@@ -160,6 +162,14 @@
             {{ option }}
           </option>
         </select>
+      </div>
+      <div class="form-group">
+        <label>{{ 'TREATMENT' | translate }}</label>
+        <input
+          type="text"
+          class="form-control text-area"
+          formControlName="treatment"
+        />
       </div>
       <label>{{ 'FILES' | translate }}</label>
       <app-file-upload (fileEmit)="getFile($event)"></app-file-upload>

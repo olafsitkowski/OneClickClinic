@@ -2,27 +2,41 @@
   <form [formGroup]="eventForm">
     <div class="form-group">
       <label for="employeeSelect">{{ 'DOCTOR' | translate }}</label>
-      <input
-        class="form-control large-input"
-        type="text"
-        placeholder="{{ 'SELECT_THE_DOCTOR' | translate }}"
-        [formControl]="doctorFilterControl"
-        [matAutocomplete]="autoDoctor"
-        id="employeeSelect"
-        autocomplete="off"
-      />
-      <mat-autocomplete
-        #autoDoctor="matAutocomplete"
-        (optionSelected)="onDoctorSelected($event.option.value)"
-        [displayWith]="displayDoctorFn"
-      >
-        <mat-option
-          *ngFor="let doctor of filteredDoctors$ | async"
-          [value]="doctor"
+      <div *ngIf="role === 'admin'; else employeReadOnly">
+        <input
+          class="form-control large-input"
+          type="text"
+          placeholder="{{ 'SELECT_THE_DOCTOR' | translate }}"
+          [formControl]="doctorFilterControl"
+          [matAutocomplete]="autoDoctor"
+          id="employeeSelect"
+          autocomplete="off"
+        />
+        <mat-autocomplete
+          #autoDoctor="matAutocomplete"
+          (optionSelected)="onDoctorSelected($event.option.value)"
+          [displayWith]="displayDoctorFn"
         >
-          {{ doctor.profile.name }} {{ doctor.profile.surname }}
-        </mat-option>
-      </mat-autocomplete>
+          <mat-option
+            *ngFor="let doctor of filteredDoctors$ | async"
+            [value]="doctor"
+          >
+            {{ doctor.profile.name }} {{ doctor.profile.surname }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <ng-template #employeReadOnly>
+        <input
+          class="form-control large-input"
+          type="text"
+          [value]="
+            selectedDoctor?.profile?.name +
+            ' ' +
+            selectedDoctor?.profile?.surname
+          "
+          disabled="true"
+        />
+      </ng-template>
     </div>
     <div class="form-group">
       <label for="patientSelect">{{ 'PATIENT' | translate }}</label>
@@ -96,12 +110,32 @@
       />
     </div>
     <div class="form-group">
-      <label>{{ 'DESCRIPTION' | translate }}</label>
+      <label>{{ 'COMPLAINTS' | translate }}</label>
       <textarea
         type="text"
         class="form-control text-area"
         rows="3"
         formControlName="description"
+        [placeholder]="'WRITE_A_MESSAGE' | translate"
+      ></textarea>
+    </div>
+    <div class="form-group" *ngIf="role === 'doctor'">
+      <label>{{ 'DIAGNOSIS' | translate }}</label>
+      <textarea
+        type="text"
+        class="form-control text-area"
+        rows="3"
+        formControlName="diagnosis"
+        [placeholder]="'WRITE_A_MESSAGE' | translate"
+      ></textarea>
+    </div>
+    <div class="form-group" *ngIf="role === 'doctor'">
+      <label>{{ 'RECOMMENDATIONS' | translate }}</label>
+      <textarea
+        type="text"
+        class="form-control text-area"
+        rows="3"
+        formControlName="recommendations"
         [placeholder]="'WRITE_A_MESSAGE' | translate"
       ></textarea>
     </div>

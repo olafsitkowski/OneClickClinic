@@ -116,5 +116,11 @@
   "FRIDAY": "Piątek",
   "SATURDAY": "Sobota",
   "SUNDAY": "Niedziela",
-  "WEEKLY_SCHEDULE": "Tygodniowy harmonogram"
+  "WEEKLY_SCHEDULE": "Tygodniowy harmonogram",
+  "DIAGNOSIS": "Diagnoza",
+  "COMPLAINTS": "Dolegliwości",
+  "RECOMMENDATIONS": "Zalecenia",
+  "APPOINTMENTS_HISTORY": "Historia wizyt",
+  "USER_LOGIN": "Login",
+  "APPOINTMENT_DETAILS": "Szczegóły wizyty"
 }

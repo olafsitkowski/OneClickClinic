@@ -20,10 +20,11 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   public selectedDoctor: User | undefined;
   public filteredOptions: Observable<User[]> | undefined;
   private readonly unsubscribe$: Subject<void> = new Subject<void>();
-  public userFilterControl = new FormControl('');
+  public userFilterControl = new FormControl<User | string>('');
   public filteredUsers$!: Observable<User[]>;
-  public doctorFilterControl = new FormControl('');
+  public doctorFilterControl = new FormControl<User | string>('');
   public filteredDoctors$!: Observable<User[]>;
+  public role: 'doctor' | 'admin' | 'patient' | null = null;
 
   constructor(
     private readonly userService: UserService,
@@ -37,6 +38,8 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
             description: string;
             type: string;
             _id: string;
+            diagnosis?: string;
+            recommendations?: string;
           })
         | undefined;
     }
@@ -52,7 +55,9 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
       patientId: new FormControl('', Validators.required),
       employeeId: new FormControl('', Validators.required),
       description: new FormControl(''),
-      draggable: new FormControl(true),
+      diagnosis: new FormControl(''),
+      recommendations: new FormControl(''),
+      draggable: new FormControl(false),
       resizable: new FormControl({ beforeStart: true, afterEnd: true }),
     });
 
@@ -67,6 +72,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
             ? this.doctorsList.push(user)
             : null
         );
+        this.updateFormOnEdit();
       });
 
     this.filteredUsers$ = this.userFilterControl.valueChanges.pipe(
@@ -96,9 +102,8 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
         name ? this._filterDoctors(name) : this.doctorsList.slice()
       )
     );
-    setTimeout(() => {
-      this.updateFormOnEdit();
-    });
+
+    this.role = this.userService.getUserRole();
   }
 
   public ngOnDestroy(): void {
@@ -163,14 +168,21 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
         description: this.data.editData.description,
         draggable: this.data.editData.draggable,
         resizable: this.data.editData.resizable,
+        diagnosis: this.data.editData.diagnosis,
+        recommendations: this.data.editData.recommendations,
       });
     }
     this.selectedPatient = this.patientsList.find(
       (patient) => patient._id === this.data.editData?.patientId
     );
-
     this.selectedDoctor = this.doctorsList.find(
       (doctor) => doctor._id === this.data.editData?.employeeId
     );
+    if (this.selectedPatient) {
+      this.userFilterControl.setValue(this.selectedPatient);
+    }
+    if (this.selectedDoctor) {
+      this.doctorFilterControl.setValue(this.selectedDoctor);
+    }
   }
 }

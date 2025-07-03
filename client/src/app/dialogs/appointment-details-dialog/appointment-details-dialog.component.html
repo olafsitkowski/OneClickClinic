@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ 'APPOINTMENT_DETAILS' | translate }}</h2>
+<div mat-dialog-content>
+  <div class="appointment-details-card">
+    <div class="header-row">
+      <div class="doctor-avatar">
+        <mat-icon>person</mat-icon>
+      </div>
+      <div class="doctor-info">
+        <div class="doctor-name">{{ data.employeeId || '-' }}</div>
+        <div class="visit-date">
+          <mat-icon>event</mat-icon>
+          {{ 'DATE' | translate }}: {{ data.start | date: 'yyyy-MM-dd HH:mm' }}
+        </div>
+      </div>
+    </div>
+    <div class="details-row">
+      <mat-icon class="details-icon">description</mat-icon>
+      <strong>{{ 'DESCRIPTION' | translate }}:</strong>
+      <span>{{ data.description || '-' }}</span>
+    </div>
+    <div class="details-row">
+      <mat-icon class="details-icon">medical_services</mat-icon>
+      <strong>{{ 'DIAGNOSIS' | translate }}:</strong>
+      <span>{{ data.diagnosis || '-' }}</span>
+    </div>
+    <div class="details-row">
+      <mat-icon class="details-icon">assignment_turned_in</mat-icon>
+      <strong>{{ 'RECOMMENDATIONS' | translate }}:</strong>
+      <span>{{ data.recommendations || '-' }}</span>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions style="justify-content: flex-end;">
+  <button mat-raised-button color="primary" (click)="close()">{{ 'CLOSE' | translate }}</button>
+</div>

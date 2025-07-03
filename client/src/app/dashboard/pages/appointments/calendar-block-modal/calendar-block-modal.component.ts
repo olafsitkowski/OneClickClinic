@@ -35,6 +35,7 @@ export class CalendarBlockModalComponent implements OnInit {
       start: new FormControl('', Validators.required),
       end: new FormControl('', Validators.required),
       employeeId: new FormControl('', Validators.required),
+      patientId: new FormControl(''),
     });
 
     this.userService

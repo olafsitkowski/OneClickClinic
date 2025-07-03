@@ -1,5 +1,5 @@
 import express from 'express';
-import { addUserController, deleteUserByIdController, getAllUsersController, getUserByIdController, updateUserByIdController } from '../controllers/userController';
+import { addUserController, deleteUserByIdController, getAllUsersController, getUserByIdController, updateUserAuth, updateUserByIdController } from '../controllers/userController';
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ const router = express.Router();
  * @swagger
  * /user:
  *   get:
- *     tags: 
+ *     tags:
  *       - User
  *     responses:
  *       200:
@@ -30,7 +30,7 @@ router.get('/user', getAllUsersController);
  * @swagger
  * /user/{id}:
  *   get:
- *     tags: 
+ *     tags:
  *       - User
  *     parameters:
  *       - in: path
@@ -55,7 +55,7 @@ router.get('/user/:id', getUserByIdController);
  * @swagger
  * /user/{id}:
  *   delete:
- *     tags: 
+ *     tags:
  *       - User
  *     parameters:
  *       - in: path
@@ -121,8 +121,7 @@ router.delete('/user/:id', deleteUserByIdController);
  *           contactEmail:
  *             type: string
  */
-router.post('/user', addUserController)
-
+router.post('/user', addUserController);
 
 /**
  * @swagger
@@ -153,5 +152,7 @@ router.post('/user', addUserController)
  *         description: Some error happened
  */
 router.put('/user/:id', updateUserByIdController);
+
+router.put(`/user/auth/:id`, updateUserAuth);
 
 export default router;

@@ -31,11 +31,14 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppointmentDetailsDialogComponent } from './dialogs/appointment-details-dialog/appointment-details-dialog.component';
+
 import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { UserAuthCreatorComponent } from './dialogs/user-auth-creator/user-auth-creator.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,6 +55,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     NewUserDialogComponent,
     FileUploadComponent,
     UserInfoCardComponent,
+    UserAuthCreatorComponent,
+    AppointmentDetailsDialogComponent,
   ],
   imports: [
     BrowserModule,

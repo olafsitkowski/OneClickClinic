@@ -25,9 +25,14 @@ export const getEventById = async (req: Request, res: Response) => {
 
 export const createEvent = async (req: Request, res: Response) => {
     const eventData: CalendarEvent = req.body;
-
-    if (!eventData.title || !eventData.start || !eventData.end || !eventData.patientId || !eventData.employeeId || !eventData.type) {
-        return res.status(400).json({ message: 'Incomplete event data' });
+    if (eventData.type !== 'calendar-block') {
+        if (!eventData.title || !eventData.start || !eventData.end || !eventData.patientId || !eventData.employeeId || !eventData.type) {
+            return res.status(400).json({ message: 'Incomplete event data' });
+        } else {
+            if (eventData.start >= eventData.end) {
+                return res.status(400).json({ message: 'Start time must be before end time' });
+            }
+        }
     }
 
     try {
@@ -86,10 +91,7 @@ export const getEventsByUserId = async (req: Request, res: Response) => {
 
         if (userId) {
             events = await CalendarEventModel.find({
-                $or: [
-                    { employeeId: userId },
-                    { patientId: userId }
-                ]
+                $or: [{ employeeId: userId }, { patientId: userId }]
             });
         } else {
             events = await CalendarEventModel.find();

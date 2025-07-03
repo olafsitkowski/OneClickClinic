@@ -12,15 +12,23 @@ export async function getAvailableDoctors(date: string) {
     for (const doctor of allDoctors) {
         const appointments = await calendarEventModel
             .find({
-                start: {
-                    $gte: startOfDay,
-                    $lt: endOfDay
-                },
-                employeeId: doctor.id
+                employeeId: doctor.id,
+                start: { $lte: endOfDay },
+                $or: [
+                  { end: { $exists: false } },
+                  { end: { $gte: startOfDay } }
+                ]
             })
             .exec();
 
-        const occupiedSlots = appointments.map((a) => a.end ? Math.round((a.end.getTime() - a.start.getTime()) / (1000 * 60 * 30)) : 2);
+        const hasCalendarBlock = appointments.some(a => a.type === 'calendar-block' && a.start <= endOfDay && (a.end ?? a.start) >= startOfDay);
+        if (hasCalendarBlock) {
+            continue;
+        }
+
+        const occupiedSlots = appointments
+            .filter(a => a.type !== 'calendar-block')
+            .map((a) => a.end ? Math.round((a.end.getTime() - a.start.getTime()) / (1000 * 60 * 30)) : 2);
         const totalOccupiedSlots = occupiedSlots.reduce((a, b) => a + b, 0);
 
         const doctorAvailableSlots = Math.max(15 - totalOccupiedSlots, 0);
@@ -40,7 +48,11 @@ export async function getReservedSlots(date: string) {
             start: {
                 $gte: startOfDay,
                 $lt: endOfDay
-            }
+            },
+            $or: [
+                { type: { $exists: false } },
+                { type: { $ne: 'calendar-block' } }
+            ]
         })
         .exec();
 
